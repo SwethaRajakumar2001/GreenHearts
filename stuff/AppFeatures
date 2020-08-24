@@ -1,0 +1,29 @@
+### App Features ###
+
+Contestants
+1. Users can create contest rooms, and they'll be given room ID
+2. Users can also join existing contest room with ID
+3. Users can invite other members, by user name
+4. Users can add plants, keep a dp for every plant
+5. Question everyday abt watering... notify morning and night...beyond 12 cannot access the questionnaire
+6. Weekly questions, on Sunday, ask abt manure, weeding
+7. Points will be alloted, Leaderboards will always be only display
+8. Every Sunday, weekly leaderboard winner will be shown
+9. Stars will be awarded at milestones
+*10. Tips on their particular plant weekly
+11. Can leave contest anytime
+12. Delete a plant object when dead, send consolatory notification
+13. Contest creator can destroy contest anytime
+
+General users
+1. Set alarms for whatever,type action, select time, select repeat 
+2. Post pictures, text, likes
+*3. Can get general tips 
+*4. Your feed will contain posts of people you follow
+
+*Sponsor
+1. Create contest, where we will advertise them
+2. They provide rewards for top members of leaderboard at chosen interval
+3. Contest can be destroyed anytime
+ 
+
