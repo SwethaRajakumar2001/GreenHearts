@@ -3,6 +3,9 @@ package com.example.greenhearts;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -19,11 +22,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseDatabase mfirebasedatabse;
     private DatabaseReference messageRefernce;
     private FirebaseAuth.AuthStateListener listener;
-    private final int RC_SIGN_IN =1;
+    public static final int RC_SIGN_IN = 1;
     List<AuthUI.IdpConfig> providers;
 
     @Override
@@ -48,20 +50,7 @@ public class MainActivity extends AppCompatActivity {
         mfirebasedatabse = FirebaseDatabase.getInstance();
 
         init();
-//        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                FirebaseUser user = firebaseAuth.getCurrentUser();
-//                if(user!=null)
-//                {
-//
-//
-//                }else
-//                {
-//
-//                }
-//            }
-//        };
+
     }
 
     private void init() {
@@ -81,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivityForResult(
                             AuthUI.getInstance()
                                     .createSignInIntentBuilder()
+                                    .setIsSmartLockEnabled(false)
                                     .setAvailableProviders(providers)
                                     .build(),
                             RC_SIGN_IN);
@@ -88,7 +78,25 @@ public class MainActivity extends AppCompatActivity {
             }
         };
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.sign_out_menu:
+                AuthUI.getInstance().signOut(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
