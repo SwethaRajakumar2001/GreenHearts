@@ -25,6 +25,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
 
         TextView tvAuthor, tvMessage;
         ImageView ivPhoto;
+        TextView tvTime;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -32,6 +33,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
             tvAuthor=itemView.findViewById(R.id.tvAuthor);
             tvMessage=itemView.findViewById(R.id.tvMessage);
             ivPhoto=itemView.findViewById(R.id.ivPhoto);
+            tvTime=itemView.findViewById(R.id.tvTime);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -58,6 +60,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
     public void onBindViewHolder(@NonNull ChatMessageAdapter.ViewHolder viewHolder, int i) {
         viewHolder.itemView.setTag(messages.get(i));
         viewHolder.tvAuthor.setText(messages.get(i).getUsername());
+        viewHolder.tvTime.setText(messages.get(i).getTime_stamp());
         viewHolder.tvMessage.setVisibility(View.GONE);
         viewHolder.ivPhoto.setVisibility(View.GONE);
         if(messages.get(i).getText()!=null) {

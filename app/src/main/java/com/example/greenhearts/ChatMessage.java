@@ -6,12 +6,14 @@ public class ChatMessage {
     private String username;
     private String text;
     private String photo_url;
+    private String time_stamp;
 
-    public ChatMessage(String user_id, String username, String text, String photo_url) {
+    public ChatMessage(String user_id, String username, String text, String photo_url, String time_stamp) {
         this.user_id = user_id;
         this.username = username;
         this.text = text;
         this.photo_url = photo_url;
+        this.time_stamp = time_stamp;
     }
 
     public String getUser_id() {
@@ -45,4 +47,13 @@ public class ChatMessage {
     public void setPhoto_url(String photo_url) {
         this.photo_url = photo_url;
     }
+
+    public String getTime_stamp() {
+        return time_stamp;
+    }
+
+    public void setTime_stamp(String time_stamp) {
+        this.time_stamp = time_stamp;
+    }
+
 }
