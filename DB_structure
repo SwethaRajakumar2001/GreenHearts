@@ -2,54 +2,54 @@
 
 root:
   contest:
-    contest_id: <unique push_id>   AUTOINCREMENT
-    password: <pass>
-    contest_name: <name>
-    creator_username: <username>
-    participants:
-      user_id: <unique push_id>
-      score: <score>
-      rank: <rank>
-      nplants: <number>      
-    message:
-        m_id: <unique push_id>
-        email: <email>
-        username: <username>
-        message: <text>
-        image: <url>
-        nlikes: <num>
-        like:
-          user_id: <unique push_id>
-        timestamp: <time> date & time
+    contest_id: <unique push_id>   
+      password: <pass>
+      contest_name: <name>
+      creator_username: <username>
+      participants:
+        user_id: <unique push_id>
+          score: <score>
+          rank: <rank>
+          nplants: <number>      
+      message:
+          m_id: <unique push_id>
+            email: <email>
+            username: <username>
+            message: <text>
+            image: <url>
+            nlikes: <num>
+            like:
+              user_id: <unique push_id>
+            timestamp: <time> date & time
       
       
   user:
     user_id: <unique push_id>
-    username: <name>
-    plants:
-      plant_id: <num_id>  AUTOINCREMENT
-      plant_name: <name>
-      image: <url>
-      timestamp: <date>      
-    contests:
-      id: <contest_id>
-      name: <name>
-    post:
-      id: <unique push_id>    
+      username: <name>
+      plants:
+        plant_id: <num_id>  
+          plant_name: <name>
+          image: <url>
+          timestamp: <date>      
+      contests:
+        id: <contest_id>
+          name: <name>
+      post:
+        id: <unique push_id>    
   
   post:
     id: <unique post_id>
-    user_id: <unique push_id>
-    username: <name>
-    message: <text>
-    image: <url>
-    timestamp: <date & time>
-    nlikes: <num>
-    like:
       user_id: <unique push_id>
-    ncomment: <num>
-    comment:
-      id: <unique_push_id>
-      user_id: <unique>
-      username: <name>
-      content: <text>
+        username: <name>
+        message: <text>
+        image: <url>
+        timestamp: <date & time>
+        nlikes: <num>
+        like:
+          user_id: <unique push_id>
+        ncomment: <num>
+        comment:
+          id: <unique_push_id>
+            user_id: <unique>
+            username: <name>
+            content: <text>
