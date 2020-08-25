@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-    <uses-feature android:name="android.hardware.type.watch" />
+
 
     <application
         android:allowBackup="true"
@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity android:name=".CalenderView"></activity>
         <activity android:name=".AddPlants" />
         <activity android:name=".Myplants" />
@@ -20,34 +21,37 @@
         <uses-library
             android:name="com.google.android.wearable"
             android:required="true" />
+=======
+
+
+        <uses-library
+            android:name="com.google.android.wearable"
+            android:required="false" />
+
+
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="false" />
+>>>>>>> e2301f40ac3ff30cd089913c224a0764855f0f12
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
         -->
-        <meta-data
-            android:name="com.google.android.wearable.standalone"
-            android:value="true" />
 
         <activity
-            android:name=".PostActivity"
-            android:label="@string/title_activity_post">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:name=".PostActivity">
         </activity>
+
         <activity
-            android:name=".CommentActivity"
-            android:label="@string/title_activity_comment">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:name=".CommentActivity" >
         </activity>
-        <activity android:name=".ChatRoom" />
-        <activity android:name=".MainActivity">
+
+        <activity android:name=".ChatRoom" >
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

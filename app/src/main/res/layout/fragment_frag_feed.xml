@@ -8,11 +8,11 @@
     tools:context=".FragFeed">
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:id="@+id/btnfeedpost"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/button_bg"
         android:gravity="center_horizontal|center_vertical"
@@ -20,7 +20,7 @@
         android:shadowRadius="10"
         android:text="POST"
         android:textColor="@color/colorLight"
-        android:textSize="50sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
