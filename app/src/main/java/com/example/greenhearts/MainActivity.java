@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
+import androidx.fragment.app.FragmentManager;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,6 +22,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
@@ -27,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener listener;
     public static final int RC_SIGN_IN = 1;
     List<AuthUI.IdpConfig> providers;
+    ImageView navprofile;
+    ImageView navfeed;
+    ImageView navcontests;
+    ImageView navquest;
 
     @Override
     protected void onStart() {
@@ -50,6 +58,43 @@ public class MainActivity extends AppCompatActivity {
         mfirebasedatabse = FirebaseDatabase.getInstance();
 
         init();
+
+        navquest= findViewById(R.id.navquest);
+        navquest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            Toast.makeText(MainActivity.this,"clicked",Toast.LENGTH_SHORT).show();
+            }
+        });
+        /*navfeed= findViewById(R.id.navfeed);
+        navfeed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager manager= getSupportFragmentManager();
+                manager.beginTransaction()
+                        .show(manager.findFragmentById(R.id.thefeedfrag))
+                        .commit();
+
+
+//  .addToBackStack(null) if it should return to prev state when <-
+            }
+        });
+        navprofile= findViewById(R.id.navprofile);
+        navprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        navcontests= findViewById(R.id.navcontests);
+        navcontests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+         */
 
     }
 

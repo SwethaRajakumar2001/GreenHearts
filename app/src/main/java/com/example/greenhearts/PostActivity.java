@@ -12,7 +12,7 @@ public class PostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layoutpost);
+        //setContentView(R.layout.layoutpost);
 
 
 
