@@ -30,12 +30,13 @@
                 android:layout_height="wrap_content"
                 android:text="UserName"
                 android:textStyle="bold"
-                android:textSize="18sp"></TextView>>
+                android:textSize="20sp"></TextView>>
             <RatingBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:numStars="5"
                 android:rating="2"
+                android:layout_marginTop="10dp"
                 style="?android:ratingBarStyleSmall"></RatingBar>
         </LinearLayout>
     </LinearLayout>
@@ -49,11 +50,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-<!--        <ImageView-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            ></ImageView>-->
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:src="@drawable/tree"
+            ></ImageView>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,22 +65,34 @@
         android:textSize="16sp"
         android:textStyle="italic"></TextView>
     </LinearLayout>
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Tree"
-        android:layout_margin="10dp"
-        android:textSize="16sp"
-        android:textStyle="italic"></TextView>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Remove Treee"
-        android:layout_margin="10dp"
-        android:textSize="16sp"
-        android:textStyle="italic"></TextView>
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:src="@drawable/pickimg"
+            ></ImageView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Trees"
+            android:layout_margin="10dp"
+            android:textSize="16sp"
+            android:textStyle="italic"></TextView>
+    </LinearLayout>
+
 
 </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your Post"
+        android:layout_margin="10dp"
+        android:textSize="18sp"
+        android:textStyle="bold"></TextView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/yourpost"
         android:layout_width="match_parent"
