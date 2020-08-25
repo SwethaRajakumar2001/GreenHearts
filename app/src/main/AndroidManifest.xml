@@ -13,7 +13,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".JoinRoomActivity"></activity>
+        <activity android:name=".CreateRoomActivity" />
 
+        <uses-library
+            android:name="com.google.android.wearable"
+            android:required="true" />
+        <!--
+               Set to true if your app is Standalone, that is, it does not require the handheld
+               app to run.
+        -->
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="true" />
 
         <activity
             android:name=".PostActivity"/>
@@ -21,11 +33,6 @@
         <activity
             android:name=".CommentActivity"/>
         <activity android:name=".ChatRoom" />
-        <activity android:name=".create"></activity>
-        <activity android:name=".Join" />
-        <activity android:name=".Questionnaire" />
-        <activity android:name=".ContestRooms" />
-        <activity android:name=".ChatRoom"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
