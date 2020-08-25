@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "599471930614",
+    "firebase_url": "https://greenhearts-79362.firebaseio.com",
+    "project_id": "greenhearts-79362",
+    "storage_bucket": "greenhearts-79362.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599471930614:android:d3938ba8db4d2a36b8c0d7",
+        "android_client_info": {
+          "package_name": "com.example.greenhearts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "599471930614-20df3smq6c8gp7dj9realcqusi8f3egq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.greenhearts",
+            "certificate_hash": "d6d5784d7d083155f6c309690fb5a33bf8b414a9"
+          }
+        },
+        {
+          "client_id": "599471930614-av2u8p3ikj8ouq1kqsc07l39n0vpo5s6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.greenhearts",
+            "certificate_hash": "6b422874c942610e39472e8ce98af7652f2ea5bd"
+          }
+        },
+        {
+          "client_id": "599471930614-qk39d9b0kjocg04bjjn0ibgbcc624nok.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1ZjtWhiK5zPjSZDkBpWFQbnW0AAtop9Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "599471930614-qk39d9b0kjocg04bjjn0ibgbcc624nok.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
