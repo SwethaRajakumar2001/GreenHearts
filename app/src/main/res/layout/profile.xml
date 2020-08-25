@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-
+        android:layout_marginTop="10dp"
         android:id = "@+id/first">
         <ImageView
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_weight="1"
             android:id="@+id/profileimg"
-            android:paddingTop="20dp"
+            android:layout_margin="10dp"
             android:src = "@drawable/ic_baseline_account_circle_24">
         </ImageView>
         <LinearLayout
@@ -38,20 +39,6 @@
                 style="?android:ratingBarStyleSmall"></RatingBar>
         </LinearLayout>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/third"
-        android:paddingTop="10dp"
-        android:id="@+id/second"
-        android:paddingLeft="15dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="#Generalfeed"></TextView>
-
-    </LinearLayout>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -71,18 +58,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="My trees"
-        android:padding="10dp"></TextView>
+        android:layout_margin="10dp"
+        android:textSize="16sp"
+        android:textStyle="italic"></TextView>
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Tree"
-        android:padding="10dp"></TextView>
+        android:layout_margin="10dp"
+        android:textSize="16sp"
+        android:textStyle="italic"></TextView>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Remove Treee"
-        android:padding="10dp"></TextView>
+        android:layout_margin="10dp"
+        android:textSize="16sp"
+        android:textStyle="italic"></TextView>
 
 </LinearLayout>
-</RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/yourpost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"/>
+</LinearLayout>
