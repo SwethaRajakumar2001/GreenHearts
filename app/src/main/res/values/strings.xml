@@ -9,4 +9,5 @@
     -->
     <string name="hello_world">Hello Square World!</string>
     <string name="title_activity_post">PostActivity</string>
+    <string name="title_activity_ind_contest_room">IndContestRoom</string>
 </resources>
