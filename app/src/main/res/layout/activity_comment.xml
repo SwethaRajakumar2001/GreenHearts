@@ -12,7 +12,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
+        android:background="@drawable/commbg"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:orientation="horizontal"
+        android:background="@color/colorLightGreen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -31,8 +32,9 @@
             android:id="@+id/editTextTextMultiLine2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
+            android:background="@color/colorLight"
             android:ems="10"
             android:gravity="start"
             android:hint="type your comment here..."
@@ -40,12 +42,13 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:clickable="true"
-            android:src="@drawable/greenarrow" />
+            android:src="@drawable/sendbutton" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

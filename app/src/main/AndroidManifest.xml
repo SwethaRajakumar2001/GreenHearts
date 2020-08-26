@@ -13,15 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
+
         <activity android:name=".CalenderView"></activity>
         <activity android:name=".AddPlants" />
         <activity android:name=".Myplants" />
-
-        <uses-library
-            android:name="com.google.android.wearable"
-            android:required="true" />
-=======
 
 
         <uses-library
@@ -32,7 +27,7 @@
         <meta-data
             android:name="com.google.android.wearable.standalone"
             android:value="false" />
->>>>>>> e2301f40ac3ff30cd089913c224a0764855f0f12
+
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
