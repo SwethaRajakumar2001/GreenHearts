@@ -16,7 +16,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
 import java.time.LocalDateTime;
@@ -35,18 +38,19 @@ import java.util.HashMap;
 
 public class PostActivity extends AppCompatActivity {
 
-EditText etposttext;
-ImageView ivpostpic;
-ImageView ivpostsend;
-private static final int IMAGE_REQUEST =2;
-private Uri imageuri;
-private String url;
-private String pic_ID="";
-private String current_User_Id;
-private String current_username;
-DatabaseReference dbref;
-android.text.format.DateFormat df;
-FirebaseAuth mAuth= FirebaseAuth.getInstance();
+    EditText etposttext;
+    ImageView ivpostpic;
+    ImageView ivpostsend;
+    ImageView postleafpic;
+    private static final int IMAGE_REQUEST = 2;
+    private Uri imageuri;
+    private String url;
+    private String pic_ID = "";
+    private String current_User_Id;
+    private String current_username;
+    DatabaseReference dbref;
+    android.text.format.DateFormat df;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
 
     @Override
@@ -55,11 +59,11 @@ FirebaseAuth mAuth= FirebaseAuth.getInstance();
         setContentView(R.layout.activity_post);
 
         df = new android.text.format.DateFormat();
-        dbref=FirebaseDatabase.getInstance().getReference();
+        dbref = FirebaseDatabase.getInstance().getReference();
 
-        pic_ID="";
-        current_User_Id= mAuth.getCurrentUser().getUid();
-        current_username="abcd";
+        url = "";
+        current_User_Id = mAuth.getCurrentUser().getUid();
+        current_username = "abcd";
         /*
         dbref.child("user").child(current_User_Id).child("username").addValueEventListener(new ValueEventListener() {
             @Override
@@ -74,8 +78,9 @@ FirebaseAuth mAuth= FirebaseAuth.getInstance();
         })
 
          */
-        etposttext= findViewById(R.id.etposttext);
-        ivpostpic= findViewById(R.id.ivpostpic);
+        etposttext = findViewById(R.id.etposttext);
+        postleafpic = findViewById(R.id.ivpostleafpic);
+        ivpostpic = findViewById(R.id.ivpostpic);
         ivpostpic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,41 +88,42 @@ FirebaseAuth mAuth= FirebaseAuth.getInstance();
             }
         });
 
-        ivpostsend= findViewById(R.id.ivpostsend);
+        ivpostsend = findViewById(R.id.ivpostsend);
         ivpostsend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(etposttext.getText().toString().isEmpty())
-                    if (pic_ID.isEmpty())
+                if (etposttext.getText().toString().isEmpty())
+                    if (url.isEmpty())
                         Toast.makeText(PostActivity.this, "Empty Post", Toast.LENGTH_SHORT).show();
                     else {
-                        HashMap<String, Object> map= new HashMap<>();
-                        map.put("user_id",current_User_Id);
-                        map.put("username",current_username );
-                        map.put("message","");
-                        map.put("image",url);
-                        map.put("timestamp",df.format("dd MMM yyyy", new java.util.Date()));
-                        map.put("nlikes",0);
-                        map.put("ncomment",0);
+                        HashMap<String, Object> map = new HashMap<>();
+                        map.put("user_id", current_User_Id);
+                        map.put("username", current_username);
+                        map.put("message", "");
+                        map.put("image", url);
+                        map.put("timestamp", df.format("dd MMM yyyy", new java.util.Date()));
+                        map.put("nlikes", 0);
+                        map.put("ncomment", 0);
                         String tempkey = dbref.child("post").push().getKey();
                         dbref.child("post").child(tempkey).updateChildren(map);
                         dbref.child("user").child(current_User_Id).child("post").child(tempkey).setValue(0);
+                        PostActivity.this.finish();
                     }
-                    else
-                {
-                    HashMap<String, Object> map= new HashMap<>();
-                    map.put("user_id",current_User_Id);
-                    map.put("username",current_username );
-                    map.put("message",etposttext.getText().toString());
-                    map.put("image",url);
-                    map.put("timestamp",df.format("dd MMM yyyy", new java.util.Date()));
-                    map.put("nlikes",0);
-                    map.put("ncomment",0);
+                else {
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("user_id", current_User_Id);
+                    map.put("username", current_username);
+                    map.put("message", etposttext.getText().toString());
+                    map.put("image", url);
+                    map.put("timestamp", df.format("dd MMM yyyy", new java.util.Date()));
+                    map.put("nlikes", 0);
+                    map.put("ncomment", 0);
                     String tempkey = dbref.child("post").push().getKey();
                     dbref.child("post").child(tempkey).updateChildren(map);
                     dbref.child("user").child(current_User_Id).child("post").child(tempkey).setValue(0);
+                    PostActivity.this.finish();
                 }
-                PostActivity.this.finish();
+
             }
         });
 
@@ -126,39 +132,61 @@ FirebaseAuth mAuth= FirebaseAuth.getInstance();
         //setAmbientEnabled();
     }
 
-    private void openImage()
-    {
-        Intent intent= new Intent();
+    private void openImage() {
+
+
+        Intent intent = new Intent();
         intent.setType("image/");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent,IMAGE_REQUEST);
+        startActivityForResult(intent, IMAGE_REQUEST);
+
+
     }
 
 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode== IMAGE_REQUEST && resultCode==RESULT_OK)
-        {
-            imageuri= data.getData();
+        if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK) {
+            imageuri = data.getData();
             UploadImage();
         }
     }
 
 
     private void UploadImage() {
-         if(imageuri!=null)
-         {
-             pic_ID=System.currentTimeMillis()+"."+getFileExtension(imageuri);
-             final StorageReference fileRef= FirebaseStorage.getInstance().getReference().child("uploads")
-                     .child(pic_ID);
-             fileRef.putFile(imageuri);
-         }
+        if (imageuri != null) {
+            //pic_ID = System.currentTimeMillis() + "." + getFileExtension(imageuri);
+  ///////////////////
+  //this right here is the magic
+            pic_ID= imageuri.getLastPathSegment();
+            final StorageReference fileRef = FirebaseStorage.getInstance().getReference().child("uploads")
+                    .child(pic_ID);
+            StorageTask uploadtask= fileRef.putFile(imageuri);
+            uploadtask.continueWithTask(new Continuation() {
+                @Override
+                public Object then(@NonNull Task task) throws Exception {
+                    if(!task.isSuccessful())
+                        throw task.getException();
+                    return fileRef.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    url= task.getResult().toString();
+//TADAAAA!!! URL!!!
+                }
+            });
+
+        }
+    }
+/*
+        private String getFileExtension (Uri uri){
+            ContentResolver cresolve = getContentResolver();
+            MimeTypeMap mmap = MimeTypeMap.getSingleton();
+            return mmap.getExtensionFromMimeType(cresolve.getType(uri));
+
+        }
+
+ */
     }
 
-    private String getFileExtension(Uri uri) {
-        ContentResolver cresolve= getContentResolver();
-        MimeTypeMap mmap= MimeTypeMap.getSingleton();
-        return mmap.getExtensionFromMimeType(cresolve.getType(uri));
-
-    }
-}
