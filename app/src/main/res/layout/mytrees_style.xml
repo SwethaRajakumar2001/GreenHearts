@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:text="TreeName"
+            android:text="Points"
             android:textSize="18sp"
             android:id="@+id/treepoint"
             android:textStyle="bold"
