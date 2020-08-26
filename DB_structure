@@ -13,12 +13,12 @@ root:
          <unique push_id>
             user_id: <user_id>
             username: <username>
-            message: <text>
-            image: <url>
+            text: <text>
+            photoUrl: <url>
             nlikes: <num>
             like:
               <user_id> : <0>
-            timestamp: <time> date & time
+            time_stamp: <time> date & time
       
       
   user:
