@@ -2,54 +2,60 @@
 
 root:
   contest:
-    contest_id: <unique push_id>   
-      password: <pass>
+    <unique push_id>   
+      contest_id: <id> (got from user contests -- look below)
       contest_name: <name>
       creator_username: <username>
       participants:
-        user_id: <unique push_id>
+        <unique push_id>
+          image_url: <profile pic>
+          email: <email>
+          username: <name>
           score: <score>
           rank: <rank>
           nplants: <number>      
       message:
-          m_id: <unique push_id>
+          <unique push_id>
             email: <email>
             username: <username>
             message: <text>
             image: <url>
             nlikes: <num>
             like:
-              user_id: <unique push_id>
+              <unique push_id>
+                user_id: <unique push_id>
             timestamp: <time> date & time
       
       
   user:
-    user_id: <unique push_id>
+    <unique push_id>
       username: <name>
       plants:
-        plant_id: <num_id>  
+        <unique push_id>  
           plant_name: <name>
           image: <url>
           timestamp: <date>      
       contests:
-        id: <contest_id>
+        <unique push_id>  (actually used as contest id in contests)
           name: <name>
       post:
-        id: <unique push_id>    
+        <unique push_id>
+          post_id: <post id> (from below push id in post)
   
   post:
-    id: <unique post_id>
-      user_id: <unique push_id>
+    <unique post_id>
+        user_id: <user_id>
         username: <name>
         message: <text>
         image: <url>
         timestamp: <date & time>
         nlikes: <num>
         like:
-          user_id: <unique push_id>
+          <unique push_id>
+            user_id: <user who liked his id>
         ncomment: <num>
         comment:
-          id: <unique_push_id>
-            user_id: <unique>
+          <unique_push_id>
+            user_id: <user id who commented>
             username: <name>
             content: <text>
