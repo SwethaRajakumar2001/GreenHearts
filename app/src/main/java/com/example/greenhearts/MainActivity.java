@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.fragment.app.FragmentManager;
@@ -30,11 +31,13 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference messageRefernce;
     private FirebaseAuth.AuthStateListener listener;
     public static final int RC_SIGN_IN = 1;
+    final int topostrequestcode = 4;
     List<AuthUI.IdpConfig> providers;
     ImageView navprofile;
     ImageView navfeed;
     ImageView navcontests;
     ImageView navquest;
+    Button btnfeedpost;
 
     @Override
     protected void onStart() {
@@ -58,6 +61,15 @@ public class MainActivity extends AppCompatActivity {
         mfirebasedatabse = FirebaseDatabase.getInstance();
 
         init();
+        btnfeedpost= findViewById(R.id.btnfeedpost);
+        btnfeedpost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(MainActivity.this, com.example.greenhearts.PostActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
         navquest= findViewById(R.id.navquest);
         navquest.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
          */
 
+
     }
 
     private void init() {
@@ -109,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = mFirebaseAuth.getCurrentUser();
                 if(user!=null)
                 {
-                    Toast.makeText(MainActivity.this, "Your are sign in", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Your are signed in", Toast.LENGTH_SHORT).show();
                 }else
                 {
                     startActivityForResult(

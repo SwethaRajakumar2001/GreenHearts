@@ -42,10 +42,18 @@
                 android:visibility="visible" />
 
             <TextView
+                android:id="@+id/tvpostdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:text="dd mmm yyyy" />
+
+            <TextView
                 android:id="@+id/tvusername"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginRight="30dp"
                 android:text="UserName"
                 android:textColor="@color/colorAccent"
@@ -59,10 +67,11 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/ivheart"
+                    android:id="@+id/ivpostlike"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_weight="1"
+                    android:clickable="true"
                     app:srcCompat="@drawable/greenheart" />
 
                 <TextView
