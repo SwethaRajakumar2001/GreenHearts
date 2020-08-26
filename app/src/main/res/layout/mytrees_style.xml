@@ -18,6 +18,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
     <ImageView
+        android:id="@+id/treeimg"
         android:layout_width="0dp"
         android:layout_height="110dp"
         android:src="@drawable/tree"
@@ -36,7 +37,7 @@
         android:layout_marginBottom="5dp"
         android:text="TreeName"
         android:textSize="18sp"
-        android:id="@+id/treename"
+        android:id="@+id/treenam"
         android:textStyle="bold"
         />
         <TextView
@@ -45,7 +46,7 @@
             android:layout_marginBottom="5dp"
             android:text="Points"
             android:textSize="18sp"
-            android:id="@+id/treepoint"
+            android:id="@+id/treedate"
             android:textStyle="bold"
             />
         <Button

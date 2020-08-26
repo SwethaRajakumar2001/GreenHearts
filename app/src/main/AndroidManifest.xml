@@ -3,7 +3,8 @@
     package="com.example.greenhearts">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
 
     <application
@@ -13,27 +14,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
-=======
 
->>>>>>> 43cdc5d0694f88c18dad744edf8f1be20b1408c0
-        <activity android:name=".CalenderView"></activity>
+        <activity android:name=".CalenderActivity"></activity>
         <activity android:name=".AddPlants" />
         <activity android:name=".Myplants" />
-
-
-        <uses-library
-            android:name="com.google.android.wearable"
-            android:required="false" />
 
 
         <meta-data
             android:name="com.google.android.wearable.standalone"
             android:value="false" />
-<<<<<<< HEAD
-=======
 
->>>>>>> 43cdc5d0694f88c18dad744edf8f1be20b1408c0
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.

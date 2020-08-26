@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context=".ProfileFragment"
+    android:id="@+id/profile">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,6 +63,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/seetrees"
         android:text="My trees"
         android:layout_margin="10dp"
         android:textSize="16sp"
@@ -78,6 +82,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/addtrees"
             android:text="Add Trees"
             android:layout_margin="10dp"
             android:textSize="16sp"

@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-import androidx.fragment.app.FragmentManager;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,7 +22,6 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
@@ -62,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         init();
         btnfeedpost= findViewById(R.id.btnfeedpost);
+        navprofile = findViewById(R.id.navprofile);
         btnfeedpost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,7 +69,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+        navprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this,AddPlants.class);
+                startActivity(i);
+            }
+        });
         navquest= findViewById(R.id.navquest);
         navquest.setOnClickListener(new View.OnClickListener() {
             @Override
