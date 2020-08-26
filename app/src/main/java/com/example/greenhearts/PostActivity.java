@@ -61,7 +61,7 @@ public class PostActivity extends AppCompatActivity {
         df = new android.text.format.DateFormat();
         dbref = FirebaseDatabase.getInstance().getReference();
 
-        pic_ID = "";
+        url = "";
         current_User_Id = mAuth.getCurrentUser().getUid();
         current_username = "abcd";
         /*
@@ -78,7 +78,6 @@ public class PostActivity extends AppCompatActivity {
         })
 
          */
-
         etposttext = findViewById(R.id.etposttext);
         postleafpic = findViewById(R.id.ivpostleafpic);
         ivpostpic = findViewById(R.id.ivpostpic);
@@ -94,35 +93,37 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (etposttext.getText().toString().isEmpty())
-                    if (pic_ID.isEmpty())
+                    if (url.isEmpty())
                         Toast.makeText(PostActivity.this, "Empty Post", Toast.LENGTH_SHORT).show();
                     else {
                         HashMap<String, Object> map = new HashMap<>();
                         map.put("user_id", current_User_Id);
                         map.put("username", current_username);
                         map.put("message", "");
-                        map.put("image", pic_ID.toString());
+                        map.put("image", url);
                         map.put("timestamp", df.format("dd MMM yyyy", new java.util.Date()));
                         map.put("nlikes", 0);
                         map.put("ncomment", 0);
                         String tempkey = dbref.child("post").push().getKey();
                         dbref.child("post").child(tempkey).updateChildren(map);
                         dbref.child("user").child(current_User_Id).child("post").child(tempkey).setValue(0);
+                        PostActivity.this.finish();
                     }
                 else {
                     HashMap<String, Object> map = new HashMap<>();
                     map.put("user_id", current_User_Id);
                     map.put("username", current_username);
                     map.put("message", etposttext.getText().toString());
-                    map.put("image", pic_ID);
+                    map.put("image", url);
                     map.put("timestamp", df.format("dd MMM yyyy", new java.util.Date()));
                     map.put("nlikes", 0);
                     map.put("ncomment", 0);
                     String tempkey = dbref.child("post").push().getKey();
                     dbref.child("post").child(tempkey).updateChildren(map);
                     dbref.child("user").child(current_User_Id).child("post").child(tempkey).setValue(0);
+                    PostActivity.this.finish();
                 }
-                PostActivity.this.finish();
+
             }
         });
 
@@ -155,29 +156,37 @@ public class PostActivity extends AppCompatActivity {
     private void UploadImage() {
         if (imageuri != null) {
             //pic_ID = System.currentTimeMillis() + "." + getFileExtension(imageuri);
+  ///////////////////
+  //this right here is the magic
             pic_ID= imageuri.getLastPathSegment();
-            StorageReference fileRef = FirebaseStorage.getInstance().getReference().child("uploads")
-                    .child(imageuri.getLastPathSegment());
-
-/////THIS IS THE THINGGGGGGG            ////////
-            fileRef.putFile(imageuri).addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
-
-                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                     url = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-                     //USE IT WHEREVER
-                 }
-
-             });
-
+            final StorageReference fileRef = FirebaseStorage.getInstance().getReference().child("uploads")
+                    .child(pic_ID);
+            StorageTask uploadtask= fileRef.putFile(imageuri);
+            uploadtask.continueWithTask(new Continuation() {
+                @Override
+                public Object then(@NonNull Task task) throws Exception {
+                    if(!task.isSuccessful())
+                        throw task.getException();
+                    return fileRef.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    url= task.getResult().toString();
+//TADAAAA!!! URL!!!
+                }
+            });
 
         }
     }
-
+/*
         private String getFileExtension (Uri uri){
             ContentResolver cresolve = getContentResolver();
             MimeTypeMap mmap = MimeTypeMap.getSingleton();
             return mmap.getExtensionFromMimeType(cresolve.getType(uri));
 
         }
+
+ */
     }
 
