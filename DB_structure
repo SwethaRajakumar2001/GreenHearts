@@ -26,14 +26,13 @@ root:
       username: <name>
       nplants: <num>
       plants:
-        <plant_id>      
-     contests:
+        <plant_id> : <value 0>     
+      contests:
         <contest_id>  
           name: <name>
-     post:
+      post:
         <post_id> : <value 0>
-     plant:
-        <plant_id> : <value>
+     
   
   plant:
     <curruser_id>
