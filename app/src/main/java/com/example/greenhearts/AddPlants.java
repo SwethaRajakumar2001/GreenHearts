@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.InputFilter;
@@ -31,11 +32,17 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AddPlants extends AppCompatActivity {
@@ -59,14 +66,18 @@ public class AddPlants extends AppCompatActivity {
     DatabaseReference db;
     android.text.format.DateFormat df;
     FirebaseAuth mAuth= FirebaseAuth.getInstance();
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        String date_n = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(new Date());
         df = new android.text.format.DateFormat();
         url = "";
         setContentView(R.layout.activity_add_plants);
-     //   thedate = (TextView)findViewById(R.id.date);
+        thedate = (TextView)findViewById(R.id.date);
+        thedate.setText(date_n);
+       // Toast.makeText(AddPlants.this,(df.format("dd MMM yyyy", new java.util.Date())).getClass().getSimpleName(),Toast.LENGTH_LONG).show();
     //    btngocalendar = (ImageView)findViewById(R.id.cal);
         ename = (EditText)findViewById(R.id.etreeename);
         img = (ImageView)findViewById(R.id.addtree);
@@ -79,8 +90,8 @@ public class AddPlants extends AppCompatActivity {
         cnodes = FirebaseDatabase.getInstance().getReference().child("user");
        // current_username ="random";
         db = FirebaseDatabase.getInstance().getReference();
-//        final List<Plants> plantList = new ArrayList<>();
-//        madapter = new PlantAdapter(AddPlants.this,R.layout.mytrees_style,plantList);
+        final List<Plants> plantList = new ArrayList<>();
+  //     madapter = new PlantAdapter(AddPlants.this,R.layout.mytrees_style,plantList);
 //        gallery.setAdapter(madapter);
 //        Intent incoming = getIntent();
 //        String date = incoming.getStringExtra("date");
@@ -134,6 +145,7 @@ public class AddPlants extends AppCompatActivity {
                     }
                 else
                 {
+
                     count++;
                     HashMap<String, Object> map= new HashMap<>();
                     Toast.makeText(AddPlants.this,ename.getText().toString(),Toast.LENGTH_LONG).show();
