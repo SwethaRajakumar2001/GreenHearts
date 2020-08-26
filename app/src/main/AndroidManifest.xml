@@ -2,13 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.greenhearts">
 
-<<<<<<< HEAD
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-=======
 
->>>>>>> f6c50c2b6d401b0717026e14a0aa989f3fa68a0c
 
 
     <application
@@ -19,7 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-<<<<<<< HEAD
         <activity android:name=".CalenderActivity"></activity>
         <activity android:name=".AddPlants" />
         <activity android:name=".Myplants" />
@@ -34,12 +30,9 @@
                app to run.
         -->
 
-=======
-        <activity android:name=".CalenderView"></activity>
-        <activity android:name=".AddPlants" />
-        <activity android:name=".Myplants" />
 
->>>>>>> f6c50c2b6d401b0717026e14a0aa989f3fa68a0c
+
+
         <activity
             android:name=".PostActivity">
         </activity>

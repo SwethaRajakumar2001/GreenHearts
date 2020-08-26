@@ -26,15 +26,21 @@ root:
       username: <name>
       nplants: <num>
       plants:
-        <plant_id>  
-          plant_name: <name>
-          image: <url>
-          timestamp: <date>      
+        <plant_id>      
      contests:
         <contest_id>  
           name: <name>
      post:
         <post_id> : <value 0>
+     plant:
+        <plant_id> : <value>
+  
+  plant:
+    <curruser_id>
+      plantname:
+      date:
+      image:
+      
             
   post:
     <post_id>
