@@ -2,50 +2,42 @@
 
 root:
   contest:
-    <unique push_id>   
-      contest_id: <id> (got from user contests -- look below)
+    <contest_id>  
       contest_name: <name>
       creator_username: <username>
       participants:
-        <unique push_id>
-          image_url: <profile pic>
-          email: <email>
-          username: <name>
+        <user_id>
           score: <score>
-          rank: <rank>
-          nplants: <number>      
+          rank: <rank>      
       message:
-          <unique push_id>
-            email: <email>
+         <unique push_id>
+            user_id: <user_id>
             username: <username>
             message: <text>
             image: <url>
             nlikes: <num>
             like:
-              <unique push_id>
-                user_id: <unique push_id>
+              <user_id> : <0>
             timestamp: <time> date & time
       
       
   user:
-    <unique push_id>
+    <user_id>
       username: <name>
       nplants: <num>
       plants:
-        <unique push_id>  
+        <plant_id>  
           plant_name: <name>
           image: <url>
           timestamp: <date>      
-      contests:
-        <unique push_id>  (actually used as contest id in contests)
+     contests:
+        <contest_id>  
           name: <name>
-          id: <id>
-      post:
-        <unique push_id>
-          post_id: <post id> (from below push id in post)
-  
+     post:
+        <post_id> : <value 0>
+            
   post:
-    <unique post_id>
+    <post_id>
         user_id: <user_id>
         username: <name>
         message: <text>
@@ -53,8 +45,7 @@ root:
         timestamp: <date & time>
         nlikes: <num>
         like:
-          <unique push_id>
-            user_id: <user who liked his id>
+          <user_id> : <0>
         ncomment: <num>
         comment:
           <unique_push_id>
