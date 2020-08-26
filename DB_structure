@@ -30,6 +30,7 @@ root:
   user:
     <unique push_id>
       username: <name>
+      nplants: <num>
       plants:
         <unique push_id>  
           plant_name: <name>
@@ -38,6 +39,7 @@ root:
       contests:
         <unique push_id>  (actually used as contest id in contests)
           name: <name>
+          id: <id>
       post:
         <unique push_id>
           post_id: <post id> (from below push id in post)
