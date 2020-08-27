@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.firebase.ui.auth.AuthUI;
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView navcontests;
     ImageView navquest;
     Button btnfeedpost;
+    FragmentManager fragmentManager;
+    Fragment fragFeed;
 
     @Override
     protected void onStart() {
@@ -78,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this,"clicked",Toast.LENGTH_SHORT).show();
             }
         });
+        fragmentManager= this.getSupportFragmentManager();
+        fragFeed= fragmentManager.findFragmentById(R.id.thefeedfrag);
         /*navfeed= findViewById(R.id.navfeed);
         navfeed.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = mFirebaseAuth.getCurrentUser();
                 if(user!=null)
                 {
-                    Toast.makeText(MainActivity.this, "Your are signed in", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MainActivity.this, "Your are signed in", Toast.LENGTH_SHORT).show();
                 }else
                 {
                     startActivityForResult(
@@ -162,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
         {
             if(resultCode==RESULT_OK)
             {
-                Toast.makeText(this, "Sign!!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Signed in!!", Toast.LENGTH_SHORT).show();
             }else
             if(resultCode==RESULT_CANCELED)
             {
@@ -172,4 +178,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 }
