@@ -16,9 +16,14 @@ import java.util.ArrayList;
 public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.ViewHolder> {
 
     private ArrayList<ChatMessage> messages;
+    ItemClicked activity;
 
+    public interface ItemClicked {
+        void onItemClicked(int index);
+    }
     public ChatMessageAdapter(Context context, ArrayList<ChatMessage> list) {
         messages=list;
+        activity=(ItemClicked) context;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -26,6 +31,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         TextView tvAuthor, tvMessage;
         ImageView ivPhoto;
         TextView tvTime;
+        TextView tvNlikes;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -34,11 +40,12 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
             tvMessage=itemView.findViewById(R.id.tvMessage);
             ivPhoto=itemView.findViewById(R.id.ivPhoto);
             tvTime=itemView.findViewById(R.id.tvTime);
+            tvNlikes=itemView.findViewById(R.id.tvNlikes);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    activity.onItemClicked(messages.indexOf((ChatMessage)view.getTag()));
                 }
             });
 
@@ -61,6 +68,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         viewHolder.itemView.setTag(messages.get(i));
         viewHolder.tvAuthor.setText(messages.get(i).getUsername());
         viewHolder.tvTime.setText(messages.get(i).getTime_stamp());
+        viewHolder.tvNlikes.setText("likes: " + messages.get(i).getNlikes());
         viewHolder.tvMessage.setVisibility(View.GONE);
         viewHolder.ivPhoto.setVisibility(View.GONE);
         if(messages.get(i).getText()!=null) {

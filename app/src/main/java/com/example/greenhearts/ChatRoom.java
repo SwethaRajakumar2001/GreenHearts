@@ -3,8 +3,9 @@ package com.example.greenhearts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,24 +18,39 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
-public class ChatRoom extends AppCompatActivity {
+public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.ItemClicked {
 
     ImageView btnPickImg, btnSend;
     EditText etMessage;
+
     FirebaseDatabase db;
     DatabaseReference dbref;
+    ChildEventListener listen;
+
     private static final int CODE_IMAGE=1;
     String finalUrl=null;
     String contest_id;
+    int nlikes;
+    boolean liked=false;
+
+    ArrayList<ChatMessage> chatList;
+    RecyclerView recyclerView;
+    RecyclerView.Adapter myAdapter;
+    RecyclerView.LayoutManager myLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +59,15 @@ public class ChatRoom extends AppCompatActivity {
 
         db=FirebaseDatabase.getInstance();
         dbref=db.getReference().child("contest");
+
+        recyclerView=findViewById(R.id.messageList);
+        recyclerView.setHasFixedSize(true);
+        myLayoutManager=new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(myLayoutManager);
+
+        chatList=new ArrayList<>();
+        myAdapter=new ChatMessageAdapter(this, chatList);
+        recyclerView.setAdapter(myAdapter);
 
         btnPickImg=findViewById(R.id.btnPickImg);
         etMessage=findViewById(R.id.etMessage);
@@ -68,7 +93,7 @@ public class ChatRoom extends AppCompatActivity {
                     String user_id= FirebaseAuth.getInstance().getCurrentUser().getUid();
                     String username=FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
                     String time_stamp=getCurrentTimeStamp();
-                    ChatMessage chat=new ChatMessage(user_id, username, text, finalUrl, "0", time_stamp);
+                    ChatMessage chat=new ChatMessage(user_id, username, text, finalUrl, 0, time_stamp);
                     dbref.child(contest_id).child("message").push().setValue(chat);
                     finalUrl=null;
                     etMessage.setText("");
@@ -76,6 +101,28 @@ public class ChatRoom extends AppCompatActivity {
             }
         });
 
+        listen=new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                ChatMessage chatMessage=snapshot.getValue(ChatMessage.class);
+                String push_id=snapshot.getKey();
+                chatMessage.setPush_id(push_id);
+                chatList.add(chatMessage);
+                myAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+            }
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        };
     }
 
     public static String getCurrentTimeStamp(){
@@ -116,4 +163,30 @@ public class ChatRoom extends AppCompatActivity {
             }
         }
     }
+
+    @Override
+    public void onItemClicked(int index) {
+        String push_id=chatList.get(index).getPush_id();
+        String user_id=chatList.get(index).getUser_id();
+        String current_user=FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference ref=dbref.child(contest_id).child("message").child(push_id).child("like").child(current_user);
+        ref.setValue(0);
+
+        ref=dbref.child(contest_id).child("message").child(push_id).child("like");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                nlikes = (int) snapshot.getChildrenCount();
+                liked=true;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        
+    }
+
 }
