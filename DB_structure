@@ -12,40 +12,40 @@ root:
       message:
          <unique push_id>
             user_id: <user_id>
-            username: <username>
-            message: <text>
-            image: <url>
+            user_name: <username>
+            text: <text>
+            photoUrl: <url>
             nlikes: <num>
             like:
               <user_id> : <0>
-            timestamp: <time> date & time
+            time_stamp: <time> date & time
       
       
   user:
     <user_id>
-      username: <name>
-      nplants: <num>
+      user_name: <name>
+      no_plant: <num>
       plants:
-        <plant_id>      
-     contests:
+        <plant_id> : <value 0>     
+      contests:
         <contest_id>  
           name: <name>
-     post:
+      post:
         <post_id> : <value 0>
-     plant:
-        <plant_id> : <value>
+     
   
   plant:
     <curruser_id>
-      plantname:
-      date:
-      image:
+      id:
+      name:
+      photoUrl:
+      text:
       
             
   post:
     <post_id>
         user_id: <user_id>
-        username: <name>
+        user_name: <name>
         message: <text>
         image: <url>
         timestamp: <date & time>
@@ -56,5 +56,5 @@ root:
         comment:
           <unique_push_id>
             user_id: <user id who commented>
-            username: <name>
+            user_name: <name>
             content: <text>

@@ -2,18 +2,29 @@ package com.example.greenhearts;
 
 public class ChatMessage {
 
+    private String push_id;
     private String user_id;
     private String username;
     private String text;
     private String photo_url;
+    private int nlikes;
     private String time_stamp;
 
-    public ChatMessage(String user_id, String username, String text, String photo_url, String time_stamp) {
+    public ChatMessage(String user_id, String username, String text, String photo_url, int nlikes, String time_stamp) {
         this.user_id = user_id;
         this.username = username;
         this.text = text;
         this.photo_url = photo_url;
+        this.nlikes=nlikes;
         this.time_stamp = time_stamp;
+    }
+
+    public String getPush_id() {
+        return push_id;
+    }
+
+    public void setPush_id(String push_id) {
+        this.push_id = push_id;
     }
 
     public String getUser_id() {
@@ -38,6 +49,14 @@ public class ChatMessage {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public int getNlikes() {
+        return nlikes;
+    }
+
+    public void setNlikes(int nlikes) {
+        this.nlikes = nlikes;
     }
 
     public String getPhoto_url() {
