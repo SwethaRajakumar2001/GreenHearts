@@ -3,8 +3,9 @@
     package="com.example.greenhearts">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
 
 
     <application
@@ -15,19 +16,33 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".TheSecondAct"></activity>
-        <activity android:name=".CalenderActivity" />
+        <activity android:name=".CalenderActivity"></activity>
         <activity android:name=".AddPlants" />
         <activity android:name=".Myplants" />
-        <activity android:name=".PostActivity" />
-        <activity android:name=".CommentActivity" />
-        <activity android:name=".ChatRoom" />
-        <activity android:name=".CreateRoomActivity" />
-        <activity android:name=".IndContestRoom" />
-        <activity android:name=".JoinRoomActivity" />
+
+
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="false" />
+
+        <!--
+               Set to true if your app is Standalone, that is, it does not require the handheld
+               app to run.
+        -->
 
 
 
+
+        <activity
+            android:name=".PostActivity">
+        </activity>
+
+        <activity
+            android:name=".CommentActivity" >
+        </activity>
+
+        <activity android:name=".ChatRoom" >
+        </activity>
 
         <activity
             android:name=".MainActivity"

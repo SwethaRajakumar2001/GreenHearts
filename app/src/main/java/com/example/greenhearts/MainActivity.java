@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView navcontests;
     ImageView navquest;
     Button btnfeedpost;
+    TextView addtree;
+    TextView mytree;
 
     @Override
     protected void onStart() {
@@ -61,6 +64,22 @@ public class MainActivity extends AppCompatActivity {
         init();
         btnfeedpost= findViewById(R.id.btnfeedpost);
         navprofile = findViewById(R.id.navprofile);
+//        addtree = findViewById(R.id.addtrees);
+//        mytree = findViewById(R.id.seetrees);
+//        addtree.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent= new Intent(MainActivity.this, com.example.greenhearts.AddPlants.class);
+//               startActivity(intent);
+//            }
+//        });
+//        mytree.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent= new Intent(MainActivity.this, com.example.greenhearts.Myplants.class);
+//                startActivity(intent);
+//            }
+//        });
         btnfeedpost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,13 +88,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        navprofile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this,AddPlants.class);
-                startActivity(i);
-            }
-        });
+
+//        navprofile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//               Fragment selectedfrag = new ProfileFragment();
+//               getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedfrag).commit();
+//            }
+//        });
         navquest= findViewById(R.id.navquest);
         navquest.setOnClickListener(new View.OnClickListener() {
             @Override

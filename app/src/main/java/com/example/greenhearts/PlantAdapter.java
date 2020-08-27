@@ -37,9 +37,10 @@ public class PlantAdapter extends ArrayAdapter<Plants> {
         boolean name = plant.getName()!=null;
         if(isphoto && name)
         {
+
             Glide.with(photoImageView.getContext())
-                    .load(plant.getPhotoUrl())
-                    .into(photoImageView);
+                .load(plant.getPhotoUrl())
+                .into(photoImageView);
             nameTextView.setText(plant.getName());
             dateTextView.setText(plant.getText());
         }
