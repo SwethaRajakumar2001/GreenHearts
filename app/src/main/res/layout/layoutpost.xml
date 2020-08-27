@@ -22,13 +22,14 @@
 
 
             <ImageView
-                android:id="@+id/ivpic"
+                android:id="@+id/ivfeedpostpic"
                 android:layout_width="wrap_content"
                 android:layout_height="400dp"
                 android:layout_margin="20dp"
                 android:layout_weight="1"
                 android:visibility="visible"
                 app:srcCompat="@drawable/redleafpng" />
+
 
             <TextView
                 android:id="@+id/tvpost"
@@ -50,7 +51,7 @@
                 android:text="dd mmm yyyy" />
 
             <TextView
-                android:id="@+id/tvusername"
+                android:id="@+id/tvpostusername"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginLeft="20dp"
@@ -71,11 +72,11 @@
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_weight="1"
-                    android:clickable="true"
+                    android:clickable="false"
                     app:srcCompat="@drawable/greenheart" />
 
                 <TextView
-                    android:id="@+id/tvlikes"
+                    android:id="@+id/tvpostnumlikes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

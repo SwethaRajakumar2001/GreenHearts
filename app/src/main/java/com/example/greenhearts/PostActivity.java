@@ -38,16 +38,18 @@ import java.util.HashMap;
 
 public class PostActivity extends AppCompatActivity {
 
+    TextView tvchecker;
     EditText etposttext;
     ImageView ivpostpic;
     ImageView ivpostsend;
     ImageView postleafpic;
     private static final int IMAGE_REQUEST = 2;
     private Uri imageuri;
-    private String url;
+    private String url= "";
     private String pic_ID = "";
     private String current_User_Id;
     private String current_username;
+    private boolean isgettingimage = false;
     DatabaseReference dbref;
     android.text.format.DateFormat df;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -58,10 +60,9 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
+        tvchecker= findViewById(R.id.tvchecker);
         df = new android.text.format.DateFormat();
         dbref = FirebaseDatabase.getInstance().getReference();
-
-        url = "";
         current_User_Id = mAuth.getCurrentUser().getUid();
         current_username = "abcd";
         /*
@@ -84,6 +85,7 @@ public class PostActivity extends AppCompatActivity {
         ivpostpic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                isgettingimage=true;
                 openImage();
             }
         });
@@ -92,7 +94,12 @@ public class PostActivity extends AppCompatActivity {
         ivpostsend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (etposttext.getText().toString().isEmpty())
+                if(isgettingimage==true)
+                {
+                    Toast.makeText(PostActivity.this, "Uploading img...Rehit send", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if (etposttext.getText().toString().isEmpty())
                     if (url.isEmpty())
                         Toast.makeText(PostActivity.this, "Empty Post", Toast.LENGTH_SHORT).show();
                     else {
@@ -107,7 +114,18 @@ public class PostActivity extends AppCompatActivity {
                         String tempkey = dbref.child("post").push().getKey();
                         dbref.child("post").child(tempkey).updateChildren(map);
                         dbref.child("user").child(current_User_Id).child("post").child(tempkey).setValue(0);
-                        PostActivity.this.finish();
+                        dbref.child("post").child(tempkey).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                tvchecker.setText(snapshot.getValue(PostStructure.class).getTimestamp());
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(PostActivity.this, "cant get it",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        //PostActivity.this.finish();
                     }
                 else {
                     HashMap<String, Object> map = new HashMap<>();
@@ -121,7 +139,7 @@ public class PostActivity extends AppCompatActivity {
                     String tempkey = dbref.child("post").push().getKey();
                     dbref.child("post").child(tempkey).updateChildren(map);
                     dbref.child("user").child(current_User_Id).child("post").child(tempkey).setValue(0);
-                    PostActivity.this.finish();
+                    //PostActivity.this.finish();
                 }
 
             }
@@ -133,14 +151,10 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void openImage() {
-
-
         Intent intent = new Intent();
         intent.setType("image/");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, IMAGE_REQUEST);
-
-
     }
 
 
@@ -173,6 +187,7 @@ public class PostActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) {
                     url= task.getResult().toString();
+                    isgettingimage=false;
 //TADAAAA!!! URL!!!
                 }
             });
