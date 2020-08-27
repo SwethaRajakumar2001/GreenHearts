@@ -21,9 +21,7 @@
         <activity android:name=".Myplants" />
 
 
-        <meta-data
-            android:name="com.google.android.wearable.standalone"
-            android:value="false" />
+        
 
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
