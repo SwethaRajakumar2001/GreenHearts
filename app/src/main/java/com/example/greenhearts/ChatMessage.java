@@ -6,13 +6,15 @@ public class ChatMessage {
     private String username;
     private String text;
     private String photo_url;
+    private String nlikes;
     private String time_stamp;
 
-    public ChatMessage(String user_id, String username, String text, String photo_url, String time_stamp) {
+    public ChatMessage(String user_id, String username, String text, String photo_url, String nlikes, String time_stamp) {
         this.user_id = user_id;
         this.username = username;
         this.text = text;
         this.photo_url = photo_url;
+        this.nlikes=nlikes;
         this.time_stamp = time_stamp;
     }
 
@@ -38,6 +40,14 @@ public class ChatMessage {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getNlikes() {
+        return nlikes;
+    }
+
+    public void setNlikes(String nlikes) {
+        this.nlikes = nlikes;
     }
 
     public String getPhoto_url() {

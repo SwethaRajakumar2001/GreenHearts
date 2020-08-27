@@ -2,54 +2,58 @@
 
 root:
   contest:
-    contest_id: <unique push_id>   
-      password: <pass>
+    <contest_id>  
       contest_name: <name>
       creator_username: <username>
       participants:
-        user_id: <unique push_id>
+        <user_id>
           score: <score>
-          rank: <rank>
-          nplants: <number>      
+          rank: <rank>      
       message:
-          m_id: <unique push_id>
-            email: <email>
+         <unique push_id>
+            user_id: <user_id>
             username: <username>
-            message: <text>
-            image: <url>
+            text: <text>
+            photoUrl: <url>
             nlikes: <num>
             like:
-              user_id: <unique push_id>
-            timestamp: <time> date & time
+              <user_id> : <0>
+            time_stamp: <time> date & time
       
       
   user:
-    user_id: <unique push_id>
+    <user_id>
       username: <name>
+      nplants: <num>
       plants:
-        plant_id: <num_id>  
-          plant_name: <name>
-          image: <url>
-          timestamp: <date>      
+        <plant_id> : <value 0>     
       contests:
-        id: <contest_id>
+        <contest_id>  
           name: <name>
       post:
-        id: <unique push_id>    
+        <post_id> : <value 0>
+     
   
+  plant:
+    <curruser_id>
+      plantname:
+      date:
+      image:
+      
+            
   post:
-    id: <unique post_id>
-      user_id: <unique push_id>
+    <post_id>
+        user_id: <user_id>
         username: <name>
         message: <text>
         image: <url>
         timestamp: <date & time>
         nlikes: <num>
         like:
-          user_id: <unique push_id>
+          <user_id> : <0>
         ncomment: <num>
         comment:
-          id: <unique_push_id>
-            user_id: <unique>
+          <unique_push_id>
+            user_id: <user id who commented>
             username: <name>
             content: <text>
