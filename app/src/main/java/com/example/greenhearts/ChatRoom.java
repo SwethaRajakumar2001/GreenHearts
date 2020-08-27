@@ -31,6 +31,7 @@ import com.google.firebase.storage.StorageTask;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.ItemClicked {
 
@@ -44,7 +45,7 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
     private static final int CODE_IMAGE=1;
     String finalUrl=null;
     String contest_id;
-    int nlikes;
+    int nlikes,score;
     boolean liked=false;
 
     ArrayList<ChatMessage> chatList;
@@ -185,8 +186,31 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
 
             }
         });
+        if(liked==true) {
+            //updating nlikes in db and arraylist
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("nlikes", nlikes);
+            ref=dbref.child(contest_id).child("message").child(push_id);
+            ref.updateChildren(map);
+            chatList.get(index).setNlikes(nlikes);
+            myAdapter.notifyDataSetChanged();
 
-        
+            //updating score for the user who got a like in db
+            ref=dbref.child(contest_id).child("participants").child(user_id).child("score");
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    score = (int)snapshot.getValue();
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+            ref.setValue(score+1);
+
+            liked=false;
+        }
+
     }
 
 }
