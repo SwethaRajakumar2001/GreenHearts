@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.content.Context;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 
 import androidx.annotation.NonNull;
@@ -45,6 +47,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Toast.makeText((Context) activity, "You liked it!", Toast.LENGTH_SHORT);
                     activity.onItemClicked(messages.indexOf((ChatMessage)view.getTag()));
                 }
             });
