@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:id="@+id/profile">
+    android:id="@+id/profile"
+    tools:context=".ProfileFragment">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
