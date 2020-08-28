@@ -48,6 +48,7 @@ public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPos
         thetestfeedrecycler.setHasFixedSize(true);
         thetestfeedrecycler.setLayoutManager(new LinearLayoutManager(FeedActivity.this));
         thetestfeedrecycler.setAdapter(adapter);
+        x= posts.size();
         String num= "adapter set " + Integer.toString(x);
         Toast.makeText(FeedActivity.this, num, Toast.LENGTH_SHORT).show();
 

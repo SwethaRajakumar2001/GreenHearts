@@ -20,6 +20,7 @@ public class ProfileFragment extends Fragment {
  public ProfileFragment() {
      // Required empty public constructor
  }
+ /*
     public static FragFeed newInstance(String param1, String param2) {
         FragFeed fragment = new FragFeed();
         Bundle args = new Bundle();
@@ -28,6 +29,8 @@ public class ProfileFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
+  */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
