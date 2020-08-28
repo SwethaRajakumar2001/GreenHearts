@@ -8,8 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -32,12 +31,8 @@ public class MainActivity extends AppCompatActivity {
     public static final int RC_SIGN_IN = 1;
     final int topostrequestcode = 4;
     List<AuthUI.IdpConfig> providers;
-    ImageView navprofile;
-    ImageView navfeed;
-    ImageView navcontests;
-    ImageView navquest;
-    TextView addtree;
-    TextView mytree;
+    ImageButton btnProfile, btnContest, btnFeed, btnQuestion;
+    Button btnDummy;
 
     @Override
     protected void onStart() {
@@ -57,72 +52,49 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_the_second);
         mfirebasedatabse = FirebaseDatabase.getInstance();
 
         init();
+        btnContest=findViewById(R.id.btnContest);
+        btnProfile=findViewById(R.id.btnProfile);
+        btnFeed= findViewById(R.id.btnFeed);
+        btnQuestion=findViewById(R.id.btnQuestion);
+        btnDummy=findViewById(R.id.btnDummy);
 
-        navprofile = findViewById(R.id.navprofile);
-//        addtree = findViewById(R.id.addtrees);
-//        mytree = findViewById(R.id.seetrees);
-//        addtree.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent= new Intent(MainActivity.this, com.example.greenhearts.AddPlants.class);
-//               startActivity(intent);
-//            }
-//        });
-//        mytree.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent= new Intent(MainActivity.this, com.example.greenhearts.Myplants.class);
-//                startActivity(intent);
-//            }
-//        });
-
-
-//        navprofile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//               Fragment selectedfrag = new ProfileFragment();
-//               getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedfrag).commit();
-//            }
-//        });
-        navquest= findViewById(R.id.navquest);
-        navquest.setOnClickListener(new View.OnClickListener() {
+        btnQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            Toast.makeText(MainActivity.this,"clicked",Toast.LENGTH_SHORT).show();
+
             }
         });
-        navfeed= findViewById(R.id.navfeed);
-        navfeed.setOnClickListener(new View.OnClickListener() {
+        btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        btnContest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        btnFeed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(MainActivity.this, com.example.greenhearts.FeedActivity.class);
                 startActivity(intent);
-            }
-        });
-
-/*
-//  .addToBackStack(null) if it should return to prev state when <-
-
-        navprofile= findViewById(R.id.navprofile);
-        navprofile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
             }
         });
-        navcontests= findViewById(R.id.navcontests);
-        navcontests.setOnClickListener(new View.OnClickListener() {
+        btnDummy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
         });
 
-         */
 
 
     }
@@ -139,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 if(user!=null)
                 {
                     Toast.makeText(MainActivity.this, "Your are signed in", Toast.LENGTH_SHORT).show();
+
                 }else
                 {
                     startActivityForResult(
