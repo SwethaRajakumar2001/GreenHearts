@@ -71,7 +71,8 @@ public class MainActivity extends AppCompatActivity {
         btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent= new Intent(MainActivity.this, com.example.greenhearts.ProfileFragment.class);
+                startActivity(intent);
             }
         });
         btnContest.setOnClickListener(new View.OnClickListener() {
