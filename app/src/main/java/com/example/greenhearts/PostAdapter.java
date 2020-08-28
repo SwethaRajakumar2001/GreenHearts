@@ -18,16 +18,21 @@ import java.util.ArrayList;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private ArrayList<PostStructure> feedposts;
+    private ArrayList<String> feedpostIDs;
     private FirebaseUser firebaseUser;
-    private boolean isfragment;
-    private Context activity;
+    private OnPostClicked activity;
 
 
-    public PostAdapter(Context context, ArrayList<PostStructure> data , boolean isfrag)
+    public PostAdapter(Context context, ArrayList<PostStructure> data , ArrayList<String> dataID)
     {
         this.feedposts=data;
-        activity= context;
-        isfragment=isfrag;
+        activity= (OnPostClicked) context;
+        feedpostIDs= dataID;
+    }
+
+    public interface OnPostClicked
+    {
+        public void PostClicked(int i);
     }
 
 
@@ -54,7 +59,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    activity.PostClicked(feedposts.indexOf(view.getTag()));
                 }
             });
         }
@@ -85,8 +90,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         }
         holder.tvpostdate.setText(feedposts.get(position).getTimestamp());
         holder.tvpostusername.setText(feedposts.get(position).getUsername());
-        holder.tvpostnumlikes.setText(feedposts.get(position).getNlikes());
-        holder.tvnumcomments.setText(feedposts.get(position).getNcomment());
+        holder.tvpostnumlikes.setText(Integer.toString(feedposts.get(position).getNlikes()));
+        holder.tvnumcomments.setText(Integer.toString(feedposts.get(position).getNcomment()));
     }
 
     @Override

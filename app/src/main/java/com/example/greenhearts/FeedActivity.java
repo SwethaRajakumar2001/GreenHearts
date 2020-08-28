@@ -1,33 +1,34 @@
 package com.example.greenhearts;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Handler;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class FragFeed extends Fragment  {
-    private RecyclerView recyclerView;
+public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPostClicked {
+
+    private RecyclerView thetestfeedrecycler;
     final ArrayList<PostStructure> posts= new ArrayList<PostStructure>();
+    private ArrayList<String> feedpostIDs= new ArrayList<String>();
     private PostAdapter adapter;
     private ChildEventListener mchildEventListener;
     private DatabaseReference postref;
@@ -36,36 +37,21 @@ public class FragFeed extends Fragment  {
 
 
 
-    public FragFeed() {
-        // Required empty public constructor
-    }
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view =inflater.inflate(R.layout.fragment_frag_feed, container, false);
-
-        //Toast.makeText(getContext(), num , Toast.LENGTH_LONG).show();
-
-        return view;
-        //return inflater.inflate(R.layout.fragment_frag_feed, container, false);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        adapter= new PostAdapter(this.getContext(),posts,true);
-        recyclerView= view.findViewById(R.id.posts);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        recyclerView.setAdapter(adapter);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_feed);
+        thetestfeedrecycler= (RecyclerView) findViewById(R.id.thetestfeedrecycler);
+        adapter= new PostAdapter(FeedActivity.this, posts ,feedpostIDs);
         readPosts();
+        thetestfeedrecycler= findViewById(R.id.thetestfeedrecycler);
+        thetestfeedrecycler.setHasFixedSize(true);
+        thetestfeedrecycler.setLayoutManager(new LinearLayoutManager(FeedActivity.this));
+        thetestfeedrecycler.setAdapter(adapter);
         String num= "adapter set " + Integer.toString(x);
-        Toast.makeText(getContext(), num, Toast.LENGTH_SHORT).show();
-    }
+        Toast.makeText(FeedActivity.this, num, Toast.LENGTH_SHORT).show();
 
+    }
     private void readPosts() {
         postref= FirebaseDatabase.getInstance().getReference().child("post");
         if(mchildEventListener==null)
@@ -77,6 +63,7 @@ public class FragFeed extends Fragment  {
                     //Toast.makeText(getContext(), "here!", Toast.LENGTH_SHORT).show();
                     PostStructure apost= snapshot.getValue(PostStructure.class);
                     posts.add(adapter.getItemCount(),apost);
+                    feedpostIDs.add(snapshot.getKey().toString());
                     x++;
                     adapter.notifyDataSetChanged();
                 }
@@ -105,7 +92,6 @@ public class FragFeed extends Fragment  {
         }
 
     }
-
     @Override
     public void onPause() {
         super.onPause();
@@ -113,5 +99,12 @@ public class FragFeed extends Fragment  {
             postref.removeEventListener(mchildEventListener);
             mchildEventListener = null;
         }
+    }
+
+    @Override
+    public void PostClicked(int i) {
+        Intent intent= new Intent(this, com.example.greenhearts.CommentActivity.class );
+        intent.putExtra("PostID", feedpostIDs.get(i));
+        startActivity(intent);
     }
 }
