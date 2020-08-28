@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,11 +29,13 @@ import java.util.ArrayList;
 public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPostClicked {
 
     private RecyclerView thetestfeedrecycler;
+    final int backtofeed=6;
     final ArrayList<PostStructure> posts= new ArrayList<PostStructure>();
     private ArrayList<String> feedpostIDs= new ArrayList<String>();
     private PostAdapter adapter;
     private ChildEventListener mchildEventListener;
     private DatabaseReference postref;
+    private FloatingActionButton btnfeedaddpost;
     int x=0;
     View view;
 
@@ -41,6 +45,15 @@ public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPos
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+        btnfeedaddpost= findViewById(R.id.btnfeedaddpost);
+
+        btnfeedaddpost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(view.getContext() ,com.example.greenhearts.PostActivity.class);
+                startActivityForResult(intent , backtofeed);
+            }
+        });
         thetestfeedrecycler= (RecyclerView) findViewById(R.id.thetestfeedrecycler);
         adapter= new PostAdapter(FeedActivity.this, posts ,feedpostIDs);
         readPosts();
@@ -48,11 +61,19 @@ public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPos
         thetestfeedrecycler.setHasFixedSize(true);
         thetestfeedrecycler.setLayoutManager(new LinearLayoutManager(FeedActivity.this));
         thetestfeedrecycler.setAdapter(adapter);
-        x= posts.size();
-        String num= "adapter set " + Integer.toString(x);
-        Toast.makeText(FeedActivity.this, num, Toast.LENGTH_SHORT).show();
+        Toast.makeText(FeedActivity.this, "Loading....", Toast.LENGTH_LONG).show();
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==backtofeed)
+        {
+            adapter.notifyDataSetChanged();
+        }
+    }
+
     private void readPosts() {
         postref= FirebaseDatabase.getInstance().getReference().child("post");
         if(mchildEventListener==null)
@@ -106,6 +127,6 @@ public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPos
     public void PostClicked(int i) {
         Intent intent= new Intent(this, com.example.greenhearts.CommentActivity.class );
         intent.putExtra("PostID", feedpostIDs.get(i));
-        startActivity(intent);
+        startActivityForResult(intent, backtofeed);
     }
 }
