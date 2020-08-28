@@ -84,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
         btnFeed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(MainActivity.this, com.example.greenhearts.FeedActivity.class);
-                startActivity(intent);
+                Intent i= new Intent(MainActivity.this, com.example.greenhearts.FeedActivity.class);
+                startActivity(i);
 
             }
         });

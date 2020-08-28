@@ -65,21 +65,7 @@ public class PostActivity extends AppCompatActivity {
         df = new android.text.format.DateFormat();
         dbref = FirebaseDatabase.getInstance().getReference();
         current_User_Id = mAuth.getCurrentUser().getUid();
-        current_username = "abcd";
-        /*
-        dbref.child("user").child(current_User_Id).child("username").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                current_username= snapshot.getValue(String.class);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        })
-
-         */
+        current_username = mAuth.getCurrentUser().getDisplayName();
         etposttext = findViewById(R.id.etposttext);
         postleafpic = findViewById(R.id.ivpostleafpic);
         ivpostpic = findViewById(R.id.ivpostpic);
@@ -115,11 +101,7 @@ public class PostActivity extends AppCompatActivity {
                         String tempkey = dbref.child("post").push().getKey();
                         dbref.child("post").child(tempkey).updateChildren(map);
                         dbref.child("user").child(current_User_Id).child("post").child(tempkey).setValue(0);
-                        Toast.makeText(PostActivity.this, "Posted!", Toast.LENGTH_SHORT).show();
-                        Glide.with(postleafpic.getContext())
-                                .load(url)
-                                .into(postleafpic);
-                        //PostActivity.this.finish();
+                        PostActivity.this.finish();
                     }
                 else {
                     HashMap<String, Object> map = new HashMap<>();
@@ -134,7 +116,7 @@ public class PostActivity extends AppCompatActivity {
                     dbref.child("post").child(tempkey).updateChildren(map);
                     dbref.child("user").child(current_User_Id).child("post").child(tempkey).setValue(0);
                     Toast.makeText(PostActivity.this, "Posted!", Toast.LENGTH_SHORT).show();
-                    //PostActivity.this.finish();
+                    PostActivity.this.finish();
                 }
 
             }

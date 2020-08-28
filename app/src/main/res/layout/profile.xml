@@ -33,6 +33,7 @@
                 android:layout_height="wrap_content"
                 android:text="UserName"
                 android:textStyle="bold"
+                android:id="@+id/user_name"
                 android:textSize="20sp"></TextView>>
             <RatingBar
                 android:layout_width="wrap_content"
@@ -46,18 +47,20 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     android:orientation="vertical"
     android:layout_below="@id/first"
     android:id="@+id/third"
-    android:paddingTop="20dp">
+    android:layout_margin="20dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp">
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="40dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/tree"
             ></ImageView>
     <TextView
@@ -66,17 +69,18 @@
         android:id="@+id/seetrees"
         android:text="My trees"
         android:layout_margin="10dp"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="italic"></TextView>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp">
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="40dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/pickimg"
             ></ImageView>
         <TextView
@@ -85,23 +89,32 @@
             android:id="@+id/addtrees"
             android:text="Add Trees"
             android:layout_margin="10dp"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="italic"></TextView>
     </LinearLayout>
 
 
 </LinearLayout>
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Your Post"
-        android:layout_margin="10dp"
-        android:textSize="18sp"
-        android:textStyle="bold"></TextView>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/yourpost"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"/>
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp">
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/greenheart"
+            ></ImageView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/upost"
+            android:text="Your Post"
+            android:layout_margin="10dp"
+            android:textSize="20sp"
+            android:textStyle="italic"></TextView>
+    </LinearLayout>
+
+
 </LinearLayout>

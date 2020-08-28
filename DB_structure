@@ -24,6 +24,7 @@ root:
   user:
     <user_id>
       user_name: <name>
+      profile_pic: <url>
       no_plant: <num>
       plants:
         <plant_id> : <value 0>     
