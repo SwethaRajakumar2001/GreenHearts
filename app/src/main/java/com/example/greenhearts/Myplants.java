@@ -90,7 +90,9 @@ public class Myplants extends AppCompatActivity {
             };
             plantshow.addChildEventListener(mChildEventListener);
         }
+
     }
+
     @Override
     protected void onPause() {
         super.onPause();
