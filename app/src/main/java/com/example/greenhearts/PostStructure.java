@@ -1,8 +1,8 @@
 package com.example.greenhearts;
 
 public class PostStructure {
-    private String image, message, timestamp, user_id, username;
-    private int nlikes, ncomment;
+    public String image, message, timestamp, user_id, username;
+    public int nlikes, ncomment;
 
     public PostStructure(){}
 

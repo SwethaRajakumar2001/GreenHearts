@@ -2,9 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.greenhearts">
 
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
 
 
@@ -16,15 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".FeedActivity" />
         <activity android:name=".CalenderActivity"></activity>
         <activity android:name=".AddPlants" />
         <activity android:name=".Myplants" />
-
-        <activity android:name=".TheSecondAct" />
-        <activity android:name=".JoinRoomActivity" />
-        <activity android:name=".IndContestRoom" />
-        <activity android:name=".CreateRoomActivity" />
-
 
         <activity
             android:name=".PostActivity">

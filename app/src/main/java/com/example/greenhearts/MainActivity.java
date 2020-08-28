@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     ImageView navfeed;
     ImageView navcontests;
     ImageView navquest;
-    Button btnfeedpost;
     TextView addtree;
     TextView mytree;
 
@@ -62,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         mfirebasedatabse = FirebaseDatabase.getInstance();
 
         init();
-        btnfeedpost= findViewById(R.id.btnfeedpost);
+
         navprofile = findViewById(R.id.navprofile);
 //        addtree = findViewById(R.id.addtrees);
 //        mytree = findViewById(R.id.seetrees);
@@ -80,14 +79,7 @@ public class MainActivity extends AppCompatActivity {
 //                startActivity(intent);
 //            }
 //        });
-        btnfeedpost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent= new Intent(MainActivity.this, com.example.greenhearts.PostActivity.class);
-                startActivity(intent);
 
-            }
-        });
 
 //        navprofile.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -103,19 +95,18 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this,"clicked",Toast.LENGTH_SHORT).show();
             }
         });
-        /*navfeed= findViewById(R.id.navfeed);
+        navfeed= findViewById(R.id.navfeed);
         navfeed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager manager= getSupportFragmentManager();
-                manager.beginTransaction()
-                        .show(manager.findFragmentById(R.id.thefeedfrag))
-                        .commit();
-
-
-//  .addToBackStack(null) if it should return to prev state when <-
+                Intent intent= new Intent(MainActivity.this, com.example.greenhearts.FeedActivity.class);
+                startActivity(intent);
             }
         });
+
+/*
+//  .addToBackStack(null) if it should return to prev state when <-
+
         navprofile= findViewById(R.id.navprofile);
         navprofile.setOnClickListener(new View.OnClickListener() {
             @Override

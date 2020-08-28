@@ -85,8 +85,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         }
         holder.tvpostdate.setText(feedposts.get(position).getTimestamp());
         holder.tvpostusername.setText(feedposts.get(position).getUsername());
-        holder.tvpostnumlikes.setText(feedposts.get(position).getNlikes());
-        holder.tvnumcomments.setText(feedposts.get(position).getNcomment());
+        holder.tvpostnumlikes.setText(Integer.toString(feedposts.get(position).getNlikes()));
+        holder.tvnumcomments.setText(Integer.toString(feedposts.get(position).getNcomment()));
     }
 
     @Override

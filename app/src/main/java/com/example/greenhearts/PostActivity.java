@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -114,17 +115,10 @@ public class PostActivity extends AppCompatActivity {
                         String tempkey = dbref.child("post").push().getKey();
                         dbref.child("post").child(tempkey).updateChildren(map);
                         dbref.child("user").child(current_User_Id).child("post").child(tempkey).setValue(0);
-                        dbref.child("post").child(tempkey).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                tvchecker.setText(snapshot.getValue(PostStructure.class).getTimestamp());
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(PostActivity.this, "cant get it",Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        Toast.makeText(PostActivity.this, "Posted!", Toast.LENGTH_SHORT).show();
+                        Glide.with(postleafpic.getContext())
+                                .load(url)
+                                .into(postleafpic);
                         //PostActivity.this.finish();
                     }
                 else {
@@ -139,6 +133,7 @@ public class PostActivity extends AppCompatActivity {
                     String tempkey = dbref.child("post").push().getKey();
                     dbref.child("post").child(tempkey).updateChildren(map);
                     dbref.child("user").child(current_User_Id).child("post").child(tempkey).setValue(0);
+                    Toast.makeText(PostActivity.this, "Posted!", Toast.LENGTH_SHORT).show();
                     //PostActivity.this.finish();
                 }
 
