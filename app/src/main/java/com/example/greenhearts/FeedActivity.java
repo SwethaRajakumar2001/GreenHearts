@@ -24,10 +24,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class FeedActivity extends AppCompatActivity {
+public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPostClicked {
 
     private RecyclerView thetestfeedrecycler;
     final ArrayList<PostStructure> posts= new ArrayList<PostStructure>();
+    private ArrayList<String> feedpostIDs= new ArrayList<String>();
     private PostAdapter adapter;
     private ChildEventListener mchildEventListener;
     private DatabaseReference postref;
@@ -40,22 +41,13 @@ public class FeedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
-        Log.d("Here feed 1", "here feed 1");
         thetestfeedrecycler= (RecyclerView) findViewById(R.id.thetestfeedrecycler);
-        Log.d("Here feed 2", "here feed 2!");
-        adapter= new PostAdapter(FeedActivity.this, posts ,false);
+        adapter= new PostAdapter(FeedActivity.this, posts ,feedpostIDs);
         readPosts();
         thetestfeedrecycler= findViewById(R.id.thetestfeedrecycler);
-
-
-
-        Log.d("Here feed 3", "here feed 3");
         thetestfeedrecycler.setHasFixedSize(true);
         thetestfeedrecycler.setLayoutManager(new LinearLayoutManager(FeedActivity.this));
-        Log.d("Here feed 3", "here feed 3 layout outside");
         thetestfeedrecycler.setAdapter(adapter);
-        Log.d("Here feed 4", "here feed 4");
-
         String num= "adapter set " + Integer.toString(x);
         Toast.makeText(FeedActivity.this, num, Toast.LENGTH_SHORT).show();
 
@@ -71,6 +63,7 @@ public class FeedActivity extends AppCompatActivity {
                     //Toast.makeText(getContext(), "here!", Toast.LENGTH_SHORT).show();
                     PostStructure apost= snapshot.getValue(PostStructure.class);
                     posts.add(adapter.getItemCount(),apost);
+                    feedpostIDs.add(snapshot.getKey().toString());
                     x++;
                     adapter.notifyDataSetChanged();
                 }
@@ -106,5 +99,12 @@ public class FeedActivity extends AppCompatActivity {
             postref.removeEventListener(mchildEventListener);
             mchildEventListener = null;
         }
+    }
+
+    @Override
+    public void PostClicked(int i) {
+        Intent intent= new Intent(this, com.example.greenhearts.CommentActivity.class );
+        intent.putExtra("PostID", feedpostIDs.get(i));
+        startActivity(intent);
     }
 }
