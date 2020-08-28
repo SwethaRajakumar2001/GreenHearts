@@ -24,9 +24,10 @@
             <ImageView
                 android:id="@+id/ivPic"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:layout_weight="1"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:background="@color/colorLight"
+                tools:srcCompat="@drawable/redleafpng" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -110,34 +111,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tv3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Level"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvLevel"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView"
-                        android:textColor="@color/colorDark"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <TextView
                         android:id="@+id/tv4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -149,7 +122,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvPlantsNum"
+                        android:id="@+id/tvNplants"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

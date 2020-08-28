@@ -74,7 +74,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         viewHolder.tvNlikes.setText("likes: " + messages.get(i).getNlikes());
         viewHolder.tvMessage.setVisibility(View.GONE);
         viewHolder.ivPhoto.setVisibility(View.GONE);
-        if(messages.get(i).getText()!=null) {
+        if(messages.get(i).getText()!=null && !messages.get(i).getText().isEmpty()) {
             viewHolder.tvMessage.setVisibility(View.VISIBLE);
             viewHolder.tvMessage.setText(messages.get(i).getText());
         }

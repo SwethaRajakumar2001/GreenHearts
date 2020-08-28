@@ -1,0 +1,64 @@
+package com.example.greenhearts;
+
+public class LeaderCard {
+    private String user_id;
+    private String user_name;
+    private int score;
+    private int rank;
+    private int no_plant;
+    private String profile_pic;
+
+    public LeaderCard(int score, int rank) {
+        this.score = score;
+        this.rank = rank;
+        profile_pic=null;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    public String getProfile_pic() {
+        return profile_pic;
+    }
+
+    public void setProfile_pic(String profile_pic) {
+        this.profile_pic = profile_pic;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public int getNo_plant() {
+        return no_plant;
+    }
+
+    public void setNo_plant(int no_plant) {
+        this.no_plant = no_plant;
+    }
+}
