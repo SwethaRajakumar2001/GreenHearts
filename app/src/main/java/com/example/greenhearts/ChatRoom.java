@@ -58,6 +58,8 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_room);
 
+        contest_id=getIntent().getStringExtra("contest_id");
+
         db=FirebaseDatabase.getInstance();
         dbref=db.getReference().child("contest");
 
