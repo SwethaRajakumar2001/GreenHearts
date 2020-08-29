@@ -6,7 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,6 +48,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         TextView tvpostusername;
         TextView tvpostnumlikes;
         TextView tvnumcomments;
+        ProgressBar progbar;
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
@@ -92,6 +95,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.tvpostusername.setText(feedposts.get(position).getUsername());
         holder.tvpostnumlikes.setText(Integer.toString(feedposts.get(position).getNlikes()));
         holder.tvnumcomments.setText(Integer.toString(feedposts.get(position).getNcomment()));
+
     }
 
     @Override
