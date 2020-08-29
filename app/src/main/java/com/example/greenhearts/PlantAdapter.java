@@ -5,7 +5,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,7 +30,7 @@ public class PlantAdapter extends ArrayAdapter<Plants> {
         ImageView photoImageView = (ImageView) convertView.findViewById(R.id.treeimg);
         TextView nameTextView = (TextView) convertView.findViewById(R.id.treenam);
         TextView dateTextView = (TextView) convertView.findViewById(R.id.treedate);
-        Button bu = (Button)convertView.findViewById(R.id.removetree);
+        //Button bu = (Button)convertView.findViewById(R.id.removetree);
         Plants plant = getItem(position);
         boolean isphoto = plant.getPhotoUrl()!=null;
         boolean name = plant.getName()!=null;
