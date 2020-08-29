@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ContestRoomListFragment">
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+tools:context=".ContestRoomsActivity">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:background="@android:color/white"
         android:orientation="horizontal">
 
 
@@ -21,6 +21,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:background="@color/colorAccent"
             android:text="Join Contest"
@@ -33,6 +35,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:background="@color/colorAccent"
             android:text="Create Contest"
@@ -42,8 +46,12 @@
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvContestRooms"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/rvContestRooms"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
 </LinearLayout>

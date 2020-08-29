@@ -42,6 +42,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.1.0'
     implementation 'androidx.navigation:navigation-ui:2.1.0'
 
+    //firebase ui database to put data into recycler view
+    implementation 'com.firebaseui:firebase-ui-database:6.2.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

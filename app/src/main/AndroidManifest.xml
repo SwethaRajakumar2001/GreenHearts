@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.greenhearts">
 
-
+<uses-permission android:name="android.permission.INTERNET"/>
 
 
     <application
@@ -18,6 +18,11 @@
         <activity android:name=".AddPlants" />
         <activity android:name=".Myplants" />
         <activity android:name=".ProfileFragment"/>
+
+        <activity android:name=".CreateRoomActivity"/>
+        <activity android:name=".JoinRoomActivity"/>
+        <activity android:name=".ContestRoomsActivity"/>
+
         <activity
             android:name=".PostActivity">
         </activity>

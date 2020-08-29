@@ -78,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
         btnContest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent i= new Intent(MainActivity.this, com.example.greenhearts.ContestRoomsActivity.class);
+                startActivity(i);
             }
         });
         btnFeed.setOnClickListener(new View.OnClickListener() {
