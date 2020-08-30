@@ -18,7 +18,7 @@ public class LeaderCardAdapter extends RecyclerView.Adapter<LeaderCardAdapter.Vi
 
     private ArrayList<LeaderCard> leaderList;
 
-    public void LeaderCardAdapter(Context context, ArrayList<LeaderCard> list) {
+    public LeaderCardAdapter(Context context, ArrayList<LeaderCard> list) {
         leaderList=list;
     }
 

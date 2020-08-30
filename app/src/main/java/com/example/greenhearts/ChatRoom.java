@@ -96,8 +96,16 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
                     String user_id= FirebaseAuth.getInstance().getCurrentUser().getUid();
                     String username=FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
                     String time_stamp=getCurrentTimeStamp();
-                    ChatMessage chat=new ChatMessage(user_id, username, text, finalUrl, 0, time_stamp);
-                    dbref.child(contest_id).child("message").push().setValue(chat);
+                    //ChatMessage chat=new ChatMessage(user_id, username, text, finalUrl, 0, time_stamp);
+                    HashMap<String, Object> map=new HashMap<>();
+                    //user_id, username, text, photo_url, nlikes, time_stamp
+                    map.put("user_id", user_id);
+                    map.put("username", username);
+                    map.put("text", text);
+                    map.put("photo_url", finalUrl);
+                    map.put("nlikes", 0);
+                    map.put("time_stamp", time_stamp);
+                    dbref.child(contest_id).child("message").push().setValue(map);
                     finalUrl=null;
                     etMessage.setText("");
                 }
@@ -126,6 +134,7 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
             public void onCancelled(@NonNull DatabaseError error) {
             }
         };
+        dbref.addChildEventListener(listen);
     }
 
     public static String getCurrentTimeStamp(){
