@@ -40,7 +40,7 @@ public class RoomDetailsAdapter extends RecyclerView.Adapter<RoomDetailsAdapter.
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             iv=itemView.findViewById(R.id.ivContestIcon);
-            tv=itemView.findViewById(R.id.tvContest);
+            tv=itemView.findViewById(R.id.tvContestName);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

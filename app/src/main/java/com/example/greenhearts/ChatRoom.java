@@ -39,7 +39,7 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
     EditText etMessage;
 
     FirebaseDatabase db;
-    DatabaseReference dbref;
+    DatabaseReference dbref,mref;
     ChildEventListener listen;
 
     private static final int CODE_IMAGE=1;
@@ -50,7 +50,7 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
 
     ArrayList<ChatMessage> chatList;
     RecyclerView recyclerView;
-    RecyclerView.Adapter myAdapter;
+    ChatMessageAdapter myAdapter;
     RecyclerView.LayoutManager myLayoutManager;
 
     @Override
@@ -62,6 +62,7 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
 
         db=FirebaseDatabase.getInstance();
         dbref=db.getReference().child("contest");
+        mref=dbref.child(contest_id).child("message");
 
         recyclerView=findViewById(R.id.messageList);
         recyclerView.setHasFixedSize(true);
@@ -111,30 +112,35 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
                 }
             }
         });
+        if(listen==null) {
+            listen = new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    ChatMessage chatMessage = snapshot.getValue(ChatMessage.class);
+                    String push_id = snapshot.getKey();
+                    chatMessage.setPush_id(push_id);
+                    chatList.add(chatMessage);
+                    myAdapter.notifyDataSetChanged();
+                }
 
-        listen=new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                ChatMessage chatMessage=snapshot.getValue(ChatMessage.class);
-                String push_id=snapshot.getKey();
-                chatMessage.setPush_id(push_id);
-                chatList.add(chatMessage);
-                myAdapter.notifyDataSetChanged();
-            }
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-            }
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-            }
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        };
-        dbref.addChildEventListener(listen);
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            };
+            mref.addChildEventListener(listen);
+        }
     }
 
     public static String getCurrentTimeStamp(){
@@ -211,7 +217,7 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    score = (int)snapshot.getValue();
+                    score = snapshot.getValue(Integer.class);
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
@@ -224,4 +230,12 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(listen!=null) {
+            mref.removeEventListener(listen);
+            listen=null;
+        }
+    }
 }

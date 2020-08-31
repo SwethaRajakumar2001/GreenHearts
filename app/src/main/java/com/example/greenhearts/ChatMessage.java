@@ -10,6 +10,9 @@ public class ChatMessage {
     private int nlikes;
     private String time_stamp;
 
+    public ChatMessage(){
+        photo_url=null;
+    }
     public ChatMessage(String user_id, String username, String text, String photo_url, int nlikes, String time_stamp) {
         this.user_id = user_id;
         this.username = username;
