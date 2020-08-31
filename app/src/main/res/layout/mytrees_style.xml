@@ -49,7 +49,7 @@
             android:textStyle="bold"
             />
         <Button
-            android:id="@+id/removetree"
+            android:onClick="Removetree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"

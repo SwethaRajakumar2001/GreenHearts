@@ -1,6 +1,6 @@
 package com.example.greenhearts;
 
-public class LeaderCard {
+public class LeaderCard implements Comparable<LeaderCard>{
     private String user_id;
     private String user_name;
     private int score;
@@ -61,4 +61,12 @@ public class LeaderCard {
     public void setNo_plant(int no_plant) {
         this.no_plant = no_plant;
     }
+
+    @Override
+    public int compareTo(LeaderCard card) {
+        int compare=card.getScore();
+        return (this.score < compare ? 1 :
+                (this.score == compare ? 0 : -1));
+    }
+
 }
