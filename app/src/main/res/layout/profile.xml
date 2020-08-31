@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:id="@+id/profile"
+    android:background="@drawable/postgreenbg"
     tools:context=".ProfileFragment">
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +15,9 @@
         android:id = "@+id/first">
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="80dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="5dp"
+            android:adjustViewBounds="true"
             android:layout_weight="1"
             android:id="@+id/profileimg"
             android:layout_margin="10dp"
@@ -22,10 +25,11 @@
         </ImageView>
         <LinearLayout
             android:layout_width="0dp"
+            android:layout_marginTop="5dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="2"
-            android:paddingTop="20dp"
+            android:layout_margin="10dp"
             >
 
             <TextView
@@ -41,7 +45,7 @@
                 android:numStars="5"
                 android:rating="2"
                 android:layout_marginTop="10dp"
-                style="?android:ratingBarStyleSmall"></RatingBar>
+                style="@style/Widget.AppCompat.RatingBar.Indicator"></RatingBar>
         </LinearLayout>
     </LinearLayout>
 <LinearLayout
@@ -69,6 +73,7 @@
         android:id="@+id/seetrees"
         android:text="My trees"
         android:layout_margin="10dp"
+        android:textColor="@color/colorDark"
         android:textSize="20sp"
         android:textStyle="italic"></TextView>
     </LinearLayout>
@@ -88,6 +93,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/addtrees"
             android:text="Add Trees"
+            android:textColor="@color/colorDark"
             android:layout_margin="10dp"
             android:textSize="20sp"
             android:textStyle="italic"></TextView>
@@ -110,11 +116,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/upost"
-            android:text="Your Post"
+            android:text="My Post"
             android:layout_margin="10dp"
+            android:textColor="@color/colorDark"
             android:textSize="20sp"
             android:textStyle="italic"></TextView>
     </LinearLayout>
 
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp">
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/reminder"
+            ></ImageView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/remind"
+            android:text="Set Reminder"
+            android:layout_margin="10dp"
+            android:textColor="@color/colorDark"
+            android:textSize="20sp"
+            android:textStyle="italic"></TextView>
+    </LinearLayout>
 </LinearLayout>
