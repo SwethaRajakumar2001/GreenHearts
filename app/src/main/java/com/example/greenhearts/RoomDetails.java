@@ -1,7 +1,7 @@
 package com.example.greenhearts;
 
 public class RoomDetails {
-    String name,imageurl;
+    String name,imageurl="";
     RoomDetails(){
 
     }

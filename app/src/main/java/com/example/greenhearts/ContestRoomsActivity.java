@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,32 +27,42 @@ public class ContestRoomsActivity extends AppCompatActivity implements RoomDetai
     Button btn_Create,btn_Join;
     RecyclerView rv;
     RoomDetailsAdapter a;
-    ArrayList<RoomDetails> details=new ArrayList<RoomDetails>();
-    ArrayList<String> contest_ids=new ArrayList<String>();
-    int reload=6;
+    ArrayList<RoomDetails> details;
+    ArrayList<String> contest_ids;
+    final int reload=6;
     ChildEventListener listener;
 
     DatabaseReference ref;
-    String user_id= FirebaseAuth.getInstance().getUid();
+    String user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contest_rooms);
+
+        details=new ArrayList<RoomDetails>();
+        contest_ids=new ArrayList<String>();
+        user_id= FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         btn_Create=findViewById(R.id.btn_Create);
         btn_Join=findViewById(R.id.btn_Join);
+
         a=new RoomDetailsAdapter(ContestRoomsActivity.this, details, contest_ids);
-        readDetails();
         ref= FirebaseDatabase.getInstance().getReference().child("user").child(user_id).child("contests");
+
         rv=(RecyclerView)findViewById(R.id.rvContestRooms);
+        rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(ContestRoomsActivity.this));
         rv.setAdapter(a);
+
+        readDetails();
 
         btn_Create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(ContestRoomsActivity.this, CreateRoomActivity.class);
-                startActivityForResult(i, reload);
+                startActivity(i);
+                //startActivityForResult(i, reload);
             }
         });
 
@@ -59,17 +70,22 @@ public class ContestRoomsActivity extends AppCompatActivity implements RoomDetai
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(ContestRoomsActivity.this, JoinRoomActivity.class);
-                startActivityForResult(i,reload);
+                startActivity(i);
+                //startActivityForResult(i,reload);
             }
         });
     }
 
     private void readDetails() {
+
         if(listener==null){
+
             listener=new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    Toast.makeText(ContestRoomsActivity.this, "we r here", Toast.LENGTH_SHORT).show();
                     RoomDetails room = snapshot.getValue(RoomDetails.class);
+
                     details.add(a.getItemCount(), room);
                     contest_ids.add(snapshot.getKey().toString());
                     a.notifyDataSetChanged();
@@ -99,16 +115,16 @@ public class ContestRoomsActivity extends AppCompatActivity implements RoomDetai
         }
     }
 
-    @Override
+ /*   @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==reload){
             a.notifyDataSetChanged();
         }
     }
-
+*/
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         if(listener!=null){
             ref.removeEventListener(listener);

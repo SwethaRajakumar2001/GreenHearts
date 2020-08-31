@@ -26,6 +26,7 @@ public class RoomDetailsAdapter extends RecyclerView.Adapter<RoomDetailsAdapter.
     public RoomDetailsAdapter(Context context, ArrayList<RoomDetails> details, ArrayList<String> contest_ids) {
         this.details=details;
         this.ids=contest_ids;
+        activity=(OnRoomClicked) context;
     }
 
     public interface  OnRoomClicked{
