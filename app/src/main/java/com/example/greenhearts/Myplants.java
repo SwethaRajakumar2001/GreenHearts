@@ -53,25 +53,8 @@ public class Myplants extends AppCompatActivity {
 
                 selectedpos = i;
                 itemSelected = true;
-              // madapter.remove(i);
             }
         });
-//        plantshow.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for(DataSnapshot ds : snapshot.getChildren())
-//                {
-//                    p = ds.getValue(Plants.class);
-//                    plantlist.add(p);
-//                }
-//                gallery.setAdapter(madapter);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
 
         current_User_Id = mAuth.getCurrentUser().getUid();
         mProgressBar.setVisibility(ProgressBar.INVISIBLE);
@@ -86,7 +69,6 @@ public class Myplants extends AppCompatActivity {
 
                        madapter.add(pl);
                         listkey.add((String)dataSnapshot.getKey());
-                       // Toast.makeText(Myplants.this,dataSnapshot.getKey(), Toast.LENGTH_LONG).show();
 
                     }
                 }
