@@ -63,6 +63,7 @@ TextView seetrees;
         addtrees = findViewById(R.id.addtrees);
         user_name = findViewById(R.id.user_name);
         image = findViewById(R.id.profileimg);
+        yourpost=findViewById(R.id.upost);
         url = "";
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
@@ -91,6 +92,13 @@ TextView seetrees;
             public void onClick(View view) {
                 Intent intent = new Intent(ProfileFragment.this,AddPlants.class);
                 startActivity(intent);
+            }
+        });
+        yourpost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ProfileFragment.this,Mypost.class);
+                startActivity(i);
             }
         });
         FirebaseDatabase.getInstance().getReference().child("user").child(current_User_Id).addListenerForSingleValueEvent(new ValueEventListener() {
