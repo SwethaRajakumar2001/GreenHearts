@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class QuestionnaireActivity extends AppCompatActivity {
@@ -27,6 +28,8 @@ public class QuestionnaireActivity extends AppCompatActivity {
     DatabaseReference ref,ref1;
     String user_id=FirebaseAuth.getInstance().getCurrentUser().getUid(),contest_id;
     Integer score=0,prev;
+    ArrayList<String> contest_ids=new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +60,40 @@ public class QuestionnaireActivity extends AppCompatActivity {
 
                     ref= FirebaseDatabase.getInstance().getReference();
 
+
+
+                    ref.child("user").child(user_id).child("contests").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for(DataSnapshot snap:snapshot.getChildren()){
+                                contest_ids.add(snap.getKey());
+                                System.out.println(snap.getKey());
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                    ref.child("contest").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for(int i=0;i<contest_ids.size();i++){
+                                prev= Integer.parseInt(snapshot.child(contest_ids.get(i)).child("participants").child(user_id).child("score").getValue().toString());
+                                ref.child("contest").child(contest_ids.get(i)).child("participants").child(user_id).child("score").setValue(prev+score);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
+/*
                     ref.child("user").child(user_id).child("contests").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull final DataSnapshot snapshot) {
@@ -83,7 +120,7 @@ public class QuestionnaireActivity extends AppCompatActivity {
                         public void onCancelled(@NonNull DatabaseError error) {
                             Toast.makeText(QuestionnaireActivity.this, "Gone", Toast.LENGTH_SHORT).show();
                         }
-                    });
+                    });*/
 
                    QuestionnaireActivity.this.finish();
                 }
