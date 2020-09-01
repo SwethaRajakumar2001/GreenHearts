@@ -28,7 +28,7 @@ public class ContestRoomsActivity extends AppCompatActivity implements RoomDetai
     RoomDetailsAdapter a;
     ArrayList<RoomDetails> details;
     ArrayList<String> contest_ids;
-    final int reload=6;
+    final int reload=1;
     ChildEventListener listener;
 
     DatabaseReference ref;
@@ -82,7 +82,6 @@ public class ContestRoomsActivity extends AppCompatActivity implements RoomDetai
             listener=new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                    Toast.makeText(ContestRoomsActivity.this, "we r here", Toast.LENGTH_SHORT).show();
                     RoomDetails room = snapshot.getValue(RoomDetails.class);
 
                     details.add(a.getItemCount(), room);

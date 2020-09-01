@@ -65,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
         btnQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent i= new Intent(MainActivity.this, com.example.greenhearts.QuestionnaireActivity.class);
+                startActivity(i);
             }
         });
         btnProfile.setOnClickListener(new View.OnClickListener() {
