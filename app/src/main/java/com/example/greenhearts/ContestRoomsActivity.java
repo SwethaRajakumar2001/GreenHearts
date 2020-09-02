@@ -113,14 +113,14 @@ public class ContestRoomsActivity extends AppCompatActivity implements RoomDetai
         }
     }
 
- /*   @Override
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==reload){
             a.notifyDataSetChanged();
         }
     }
-*/
+
     @Override
     public void onPause() {
         super.onPause();

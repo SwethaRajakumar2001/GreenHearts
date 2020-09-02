@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".QuestionnaireActivity">
+    tools:context=".QuestionnaireActivity"
+    android:background="@drawable/postgreenbg">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -16,6 +17,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.50"
         tools:layout_editor_absoluteX="0dp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="You are one click away from moving up in the LeaderBoard!"
+            android:textColor="#404040"
+            android:textSize="20sp" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv1"
@@ -48,7 +59,7 @@
                     android:layout_marginBottom="5dp"
                     android:gravity="center_horizontal"
                     android:text="Did you water Your Plants Today?"
-                    android:textColor="@color/colorDarkBrown"
+                    android:textColor="#00384A"
                     android:textSize="22sp" />
 
                 <RadioGroup
@@ -68,6 +79,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="Yes"
+                        android:textColor="#00384A"
                         android:textSize="18sp" />
 
                     <RadioButton
@@ -80,6 +92,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="No"
+                        android:textColor="#00384A"
                         android:textSize="18sp" />
                 </RadioGroup>
             </LinearLayout>
@@ -113,7 +126,7 @@
                     android:layout_marginBottom="5dp"
                     android:gravity="center_horizontal"
                     android:text="Did  you give them manure?"
-                    android:textColor="@color/colorDarkBrown"
+                    android:textColor="#00384A"
                     android:textSize="22sp" />
 
                 <RadioGroup
@@ -133,6 +146,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="Yes"
+                        android:textColor="#00384A"
                         android:textSize="18sp" />
 
                     <RadioButton
@@ -145,6 +159,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="No"
+                        android:textColor="#00384A"
                         android:textSize="18sp" />
                 </RadioGroup>
             </LinearLayout>
@@ -177,7 +192,7 @@
                     android:layout_marginBottom="5dp"
                     android:gravity="center_horizontal"
                     android:text="Did you remove the dead leaves from the garden?"
-                    android:textColor="@color/colorDarkBrown"
+                    android:textColor="#00384A"
                     android:textSize="22sp" />
 
                 <RadioGroup
@@ -197,6 +212,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="Yes"
+                        android:textColor="#00384A"
                         android:textSize="18sp" />
 
                     <RadioButton
@@ -209,6 +225,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="No"
+                        android:textColor="#00384A"
                         android:textSize="18sp" />
                 </RadioGroup>
             </LinearLayout>
