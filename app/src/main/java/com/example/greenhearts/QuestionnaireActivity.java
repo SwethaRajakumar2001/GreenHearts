@@ -18,7 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Objects;
 
 public class QuestionnaireActivity extends AppCompatActivity {
@@ -26,7 +28,7 @@ public class QuestionnaireActivity extends AppCompatActivity {
     Button btnQSubmit;
     RadioGroup rg1,rg2,rg3;
     DatabaseReference ref,ref1;
-    String user_id=FirebaseAuth.getInstance().getCurrentUser().getUid(),contest_id;
+    String user_id=FirebaseAuth.getInstance().getCurrentUser().getUid();
     Integer score=0,prev;
     ArrayList<String> contest_ids=new ArrayList<>();
 
@@ -39,27 +41,30 @@ public class QuestionnaireActivity extends AppCompatActivity {
         rg1=findViewById(R.id.rg1);
         rg2=findViewById(R.id.rg2);
         rg3=findViewById(R.id.rg3);
+        ref= FirebaseDatabase.getInstance().getReference();
+
 
         btnQSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Calendar c=Calendar.getInstance();
+                SimpleDateFormat simple=new SimpleDateFormat("dd-MM-yyyy");
+                final String date = simple.format(c.getTime());
+
+                score=0;
+
                 int selected1 = rg1.getCheckedRadioButtonId();
                 int selected2 = rg2.getCheckedRadioButtonId();
                 int selected3 = rg3.getCheckedRadioButtonId();
-                score=0;
-                Log.d("error", "start.....");
-                if (selected1 == -1 || selected2==-1 || selected3==-1) {
+
+
+                if(selected1 == -1 || selected2==-1 || selected3==-1){
                     Toast.makeText(QuestionnaireActivity.this, "Answer all the questions", Toast.LENGTH_SHORT).show();
                 }
-                else {
-                    Log.d("error", "start1");
-
+                else{
                     if(selected1==R.id.rbYes1) score++;
                     if(selected2==R.id.rbYes2) score++;
                     if(selected3==R.id.rbYes3) score++;
-
-                    ref= FirebaseDatabase.getInstance().getReference();
-
 
 
                     ref.child("user").child(user_id).child("contests").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -67,7 +72,6 @@ public class QuestionnaireActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             for(DataSnapshot snap:snapshot.getChildren()){
                                 contest_ids.add(snap.getKey());
-                                System.out.println(snap.getKey());
                             }
                         }
 
@@ -121,8 +125,9 @@ public class QuestionnaireActivity extends AppCompatActivity {
                             Toast.makeText(QuestionnaireActivity.this, "Gone", Toast.LENGTH_SHORT).show();
                         }
                     });*/
-
-                   QuestionnaireActivity.this.finish();
+                    Toast.makeText(QuestionnaireActivity.this, "Submission Successful!", Toast.LENGTH_SHORT).show();
+                    ref.child("user").child(user_id).child("last_response").setValue(date);
+                    QuestionnaireActivity.this.finish();
                 }
             }
         });
