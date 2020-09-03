@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.AlarmClock;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
@@ -53,6 +55,7 @@ TextView seetrees;
     private Uri filepath;
     ChildEventListener childEventListener;
     DatabaseReference db;
+    TextView remind;
     private static final int RC_PHOTO_PICKER =2;
     FirebaseAuth mAuth= FirebaseAuth.getInstance();
     @Override
@@ -64,6 +67,7 @@ TextView seetrees;
         user_name = findViewById(R.id.user_name);
         image = findViewById(R.id.profileimg);
         yourpost=findViewById(R.id.upost);
+        remind = findViewById(R.id.remind);
         url = "";
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
@@ -99,6 +103,19 @@ TextView seetrees;
             public void onClick(View view) {
                 Intent i = new Intent(ProfileFragment.this,Mypost.class);
                 startActivity(i);
+            }
+        });
+        remind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i2 = new Intent(AlarmClock.ACTION_SET_ALARM);
+                i2.putExtra(AlarmClock.EXTRA_HOUR,00);
+                i2.putExtra(AlarmClock.EXTRA_MINUTES,00);
+               // i2.putExtra(AlarmClock.EXTRA_MESSAGE,"Test");
+                if(i2.resolveActivity(getPackageManager())!=null)
+                startActivity(i2);
+                else
+                    Toast.makeText(ProfileFragment.this,"No app",Toast.LENGTH_LONG).show();
             }
         });
         FirebaseDatabase.getInstance().getReference().child("user").child(current_User_Id).addListenerForSingleValueEvent(new ValueEventListener() {
