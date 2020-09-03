@@ -1,6 +1,7 @@
 package com.example.greenhearts;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +31,9 @@ public class LeaderCardAdapter extends RecyclerView.Adapter<LeaderCardAdapter.Vi
             super(itemView);
 
             ivPic=itemView.findViewById(R.id.ivPic);
-            tvUsername=itemView.findViewById(R.id.tvUsername);
-            tvRank=itemView.findViewById(R.id.tvRank);
-            tvScore=itemView.findViewById(R.id.tvScore);
+            tvUsername=itemView.findViewById(R.id.tvUsername1);
+            tvRank=itemView.findViewById(R.id.tvUserRank);
+            tvScore=itemView.findViewById(R.id.tvUserScore);
             tvNplants=itemView.findViewById(R.id.tvNplants);
         }
     }
@@ -47,6 +48,7 @@ public class LeaderCardAdapter extends RecyclerView.Adapter<LeaderCardAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull LeaderCardAdapter.ViewHolder viewHolder, int i) {
         viewHolder.itemView.setTag(leaderList.get(i));
+        //Log.d("Adapter", leaderList.get(i).getUser_name());
         viewHolder.tvUsername.setText(leaderList.get(i).getUser_name());
         viewHolder.tvNplants.setText(Integer.toString(leaderList.get(i).getNo_plant()));
         viewHolder.tvScore.setText(Integer.toString(leaderList.get(i).getScore()));

@@ -39,7 +39,7 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
     EditText etMessage;
 
     FirebaseDatabase db;
-    DatabaseReference dbref;
+    DatabaseReference dbref,mref;
     ChildEventListener listen;
 
     private static final int CODE_IMAGE=1;
@@ -50,7 +50,7 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
 
     ArrayList<ChatMessage> chatList;
     RecyclerView recyclerView;
-    RecyclerView.Adapter myAdapter;
+    ChatMessageAdapter myAdapter;
     RecyclerView.LayoutManager myLayoutManager;
 
     @Override
@@ -62,6 +62,7 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
 
         db=FirebaseDatabase.getInstance();
         dbref=db.getReference().child("contest");
+        mref=dbref.child(contest_id).child("message");
 
         recyclerView=findViewById(R.id.messageList);
         recyclerView.setHasFixedSize(true);
@@ -111,30 +112,35 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
                 }
             }
         });
+        if(listen==null) {
+            listen = new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    ChatMessage chatMessage = snapshot.getValue(ChatMessage.class);
+                    String push_id = snapshot.getKey();
+                    chatMessage.setPush_id(push_id);
+                    chatList.add(chatMessage);
+                    myAdapter.notifyDataSetChanged();
+                }
 
-        listen=new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                ChatMessage chatMessage=snapshot.getValue(ChatMessage.class);
-                String push_id=snapshot.getKey();
-                chatMessage.setPush_id(push_id);
-                chatList.add(chatMessage);
-                myAdapter.notifyDataSetChanged();
-            }
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-            }
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-            }
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        };
-        dbref.addChildEventListener(listen);
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            };
+            mref.addChildEventListener(listen);
+        }
     }
 
     public static String getCurrentTimeStamp(){
@@ -177,9 +183,9 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
     }
 
     @Override
-    public void onItemClicked(int index) {
-        String push_id=chatList.get(index).getPush_id();
-        String user_id=chatList.get(index).getUser_id();
+    public void onItemClicked(final int index) {
+        final String push_id=chatList.get(index).getPush_id();
+        final String user_id=chatList.get(index).getUser_id();
         String current_user=FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference ref=dbref.child(contest_id).child("message").child(push_id).child("like").child(current_user);
         ref.setValue(0);
@@ -190,38 +196,41 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 nlikes = (int) snapshot.getChildrenCount();
                 liked=true;
+                //updating nlikes in db and arraylist
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("nlikes", nlikes);
+                DatabaseReference REF;
+                REF=dbref.child(contest_id).child("message").child(push_id);
+                REF.updateChildren(map);
+                chatList.get(index).setNlikes(nlikes);
+                myAdapter.notifyDataSetChanged();
+
+                //updating score for the user who got a like in db
+                REF=dbref.child(contest_id).child("participants").child(user_id).child("score");
+                REF.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                        score = snapshot1.getValue(Integer.class);
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+                REF.setValue(score+1);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
-        if(liked==true) {
-            //updating nlikes in db and arraylist
-            HashMap<String, Object> map = new HashMap<>();
-            map.put("nlikes", nlikes);
-            ref=dbref.child(contest_id).child("message").child(push_id);
-            ref.updateChildren(map);
-            chatList.get(index).setNlikes(nlikes);
-            myAdapter.notifyDataSetChanged();
-
-            //updating score for the user who got a like in db
-            ref=dbref.child(contest_id).child("participants").child(user_id).child("score");
-            ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    score = (int)snapshot.getValue();
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-            });
-            ref.setValue(score+1);
-
-            liked=false;
-        }
-
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(listen!=null) {
+            mref.removeEventListener(listen);
+            listen=null;
+        }
+    }
 }

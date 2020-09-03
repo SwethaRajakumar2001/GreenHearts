@@ -55,7 +55,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvScore"
+                android:id="@+id/tvUserScore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -90,7 +90,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvRank"
+                android:id="@+id/tvUserRank"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
