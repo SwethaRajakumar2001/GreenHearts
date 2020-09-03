@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                 userup = FirebaseDatabase.getInstance().getReference();
                 HashMap<String,Object> map=new HashMap<>();
-                map.put("user",firebaseUser.getDisplayName());
+                map.put("user_name",firebaseUser.getDisplayName());
                 userup.child("user").child(current_user).updateChildren(map);
                 Toast.makeText(this, "Sign!!", Toast.LENGTH_SHORT).show();
             }else
