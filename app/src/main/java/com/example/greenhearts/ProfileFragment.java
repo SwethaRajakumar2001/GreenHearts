@@ -8,6 +8,7 @@ import android.provider.AlarmClock;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +57,7 @@ TextView seetrees;
     ChildEventListener childEventListener;
     DatabaseReference db;
     TextView remind;
+    RatingBar ratingBar;
     private static final int RC_PHOTO_PICKER =2;
     FirebaseAuth mAuth= FirebaseAuth.getInstance();
     @Override
@@ -67,13 +69,14 @@ TextView seetrees;
         user_name = findViewById(R.id.user_name);
         image = findViewById(R.id.profileimg);
         yourpost=findViewById(R.id.upost);
+        ratingBar=findViewById(R.id.rating);
         remind = findViewById(R.id.remind);
         url = "";
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         current_User_Id = mAuth.getCurrentUser().getUid();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-      //  cnodes = FirebaseDatabase.getInstance().getReference().child("user");
+        cnodes = FirebaseDatabase.getInstance().getReference().child("user").child(current_User_Id);
         db = FirebaseDatabase.getInstance().getReference().child("user");
         image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +85,27 @@ TextView seetrees;
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent,"Complete action using"),RC_PHOTO_PICKER);
+            }
+        });
+        cnodes.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Integer n = snapshot.child("no_plant").getValue(Integer.class);
+                if(n>3 && n<=20)
+                {
+                    int k = n/4;
+                    ratingBar.setRating(k);
+                }else
+                    if(n<=3)
+                {
+                    ratingBar.setRating(0);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
         seetrees.setOnClickListener(new View.OnClickListener() {
@@ -154,6 +178,7 @@ TextView seetrees;
             upload();
 
         }
+
 
     }
     private void upload() {

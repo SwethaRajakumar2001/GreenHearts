@@ -2,6 +2,7 @@ package com.example.greenhearts;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -25,6 +26,7 @@ private PostAdapter madapter;
 ChildEventListener childEventListener;
 private ArrayList<String> feedid= new ArrayList<String>();
 private FirebaseAuth mauth;
+private int count =0;
 String currenet_user;
     final int backtofeed=6;
     final ArrayList<PostStructure> posts= new ArrayList<PostStructure>();
@@ -60,12 +62,13 @@ String currenet_user;
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                     //Toast.makeText(getContext(), "here!", Toast.LENGTH_SHORT).show();
                     PostStructure apost= snapshot.getValue(PostStructure.class);
-                    if(currenet_user.equals(apost.getUser_id()))
-                    {
-                        posts.add(madapter.getItemCount(),apost);
-                        feedid.add(snapshot.getKey().toString());
-                        madapter.notifyDataSetChanged();
-                    }
+                        if (currenet_user.equals(apost.getUser_id())) {
+                            posts.add(madapter.getItemCount(), apost);
+                            feedid.add(snapshot.getKey().toString());
+                            madapter.notifyDataSetChanged();
+                            count++;
+                        }
+
 
                 }
 
@@ -91,7 +94,6 @@ String currenet_user;
             };
             dbrf.addChildEventListener(childEventListener);
         }
-
     }
     @Override
     public void onPause() {

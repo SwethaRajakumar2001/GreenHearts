@@ -47,6 +47,7 @@ public class Myplants extends AppCompatActivity {
         listkey = new ArrayList<>();
         madapter = new PlantAdapter(Myplants.this,R.layout.mytrees_style,plantlist);
         gallery.setAdapter(madapter);
+       // Toast.makeText(Myplants.this,gallery.getAdapter().getCount(),Toast.LENGTH_LONG).show();
         gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

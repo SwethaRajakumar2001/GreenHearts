@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference messageRefernce;
     private FirebaseAuth.AuthStateListener listener;
     private DatabaseReference userup;
+    private int count =0;
     public static final int RC_SIGN_IN = 1;
     final int topostrequestcode = 4;
     List<AuthUI.IdpConfig> providers;
@@ -151,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
                     userup = FirebaseDatabase.getInstance().getReference();
                     HashMap<String,Object> map=new HashMap<>();
                     map.put("user_name",firebaseUser.getDisplayName());
+                   // map.put("no_plant",count);
                     userup.child("user").child(current_user).updateChildren(map);
                     Toast.makeText(MainActivity.this, "Your are signed in", Toast.LENGTH_SHORT).show();
 
@@ -198,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
                 userup = FirebaseDatabase.getInstance().getReference();
                 HashMap<String,Object> map=new HashMap<>();
                 map.put("user_name",firebaseUser.getDisplayName());
+                //map.put("no_plant",count);
                 userup.child("user").child(current_user).updateChildren(map);
                 Toast.makeText(this, "Sign!!", Toast.LENGTH_SHORT).show();
             }else
