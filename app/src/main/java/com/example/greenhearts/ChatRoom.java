@@ -183,9 +183,9 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
     }
 
     @Override
-    public void onItemClicked(int index) {
-        String push_id=chatList.get(index).getPush_id();
-        String user_id=chatList.get(index).getUser_id();
+    public void onItemClicked(final int index) {
+        final String push_id=chatList.get(index).getPush_id();
+        final String user_id=chatList.get(index).getUser_id();
         String current_user=FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference ref=dbref.child(contest_id).child("message").child(push_id).child("like").child(current_user);
         ref.setValue(0);
@@ -196,38 +196,33 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 nlikes = (int) snapshot.getChildrenCount();
                 liked=true;
+                //updating nlikes in db and arraylist
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("nlikes", nlikes);
+                DatabaseReference REF;
+                REF=dbref.child(contest_id).child("message").child(push_id);
+                REF.updateChildren(map);
+                chatList.get(index).setNlikes(nlikes);
+                myAdapter.notifyDataSetChanged();
+
+                //updating score for the user who got a like in db
+                REF=dbref.child(contest_id).child("participants").child(user_id).child("score");
+                REF.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                        score = snapshot1.getValue(Integer.class);
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+                REF.setValue(score+1);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
-        if(liked==true) {
-            //updating nlikes in db and arraylist
-            HashMap<String, Object> map = new HashMap<>();
-            map.put("nlikes", nlikes);
-            ref=dbref.child(contest_id).child("message").child(push_id);
-            ref.updateChildren(map);
-            chatList.get(index).setNlikes(nlikes);
-            myAdapter.notifyDataSetChanged();
-
-            //updating score for the user who got a like in db
-            ref=dbref.child(contest_id).child("participants").child(user_id).child("score");
-            ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    score = snapshot.getValue(Integer.class);
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-            });
-            ref.setValue(score+1);
-
-            liked=false;
-        }
-
     }
 
     @Override

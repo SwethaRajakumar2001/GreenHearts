@@ -24,6 +24,41 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+
+class Fewdetails {
+    private String user_name, profile_pic;
+    private int no_plant;
+
+    public Fewdetails() {
+
+    }
+
+    public Fewdetails(String user_name, String profile_pic, int no_plant) {
+        this.user_name = user_name;
+        this.profile_pic = profile_pic;
+        this.no_plant = no_plant;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+    public String getProfile_pic() {
+        return profile_pic;
+    }
+    public void setProfile_pic(String profile_pic) {
+        this.profile_pic = profile_pic;
+    }
+    public int getNo_plant() {
+        return no_plant;
+    }
+    public void setNo_plant(int no_plant) {
+        this.no_plant = no_plant;
+    }
+}
 
 public class IndContestRoom extends AppCompatActivity {
 
@@ -31,6 +66,7 @@ public class IndContestRoom extends AppCompatActivity {
     Button btnChat, btnLeave;
     String contest_id, current_user;
     String creator;
+    int no_contestants;
 
     ArrayList<LeaderCard> list;
     RecyclerView recyclerView;
@@ -42,6 +78,8 @@ public class IndContestRoom extends AppCompatActivity {
     FirebaseDatabase db;
     DatabaseReference dbref, user_ref;
     ValueEventListener listen;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,10 +179,11 @@ public class IndContestRoom extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot snap) {
                     list.clear();
+                    no_contestants=(int)snap.getChildrenCount();
                     Log.d("error", "on data chaanges");
                     Toast.makeText(IndContestRoom.this, "on data change", Toast.LENGTH_SHORT).show();
                     for (DataSnapshot snapshot : snap.getChildren()) {
-                        String user_id = snapshot.getKey().toString();
+                        final String user_id = snapshot.getKey().toString();
                         Log.d("error", user_id);
                         int rank=snapshot.child("rank").getValue(Integer.class);
                         int score=snapshot.child("score").getValue(Integer.class);
@@ -154,53 +193,29 @@ public class IndContestRoom extends AppCompatActivity {
 
                         card.setUser_id(user_id);
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("user").child(user_id);
-                        ref.child("user_name").addListenerForSingleValueEvent(new ValueEventListener() {
+                        ref.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot1) {
-                                card.setUser_name(snapshot1.getValue(String.class));
-                                Log.d("HERE!!",card.getUser_name());
+                                Fewdetails details=snapshot1.getValue(Fewdetails.class);
+                                card.setUser_name(details.getUser_name());
+                                card.setNo_plant(details.getNo_plant());
+                                card.setProfile_pic(details.getProfile_pic());
+                                list.add(card);
+                                if(list.size()==no_contestants) {
+                                    Log.d("SIZE", Integer.toString(list.size()));
+                                    Collections.sort(list);
+                                    updateRank();
+                                    myAdapter.notifyDataSetChanged();
+                                }
                             }
-
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(IndContestRoom.this, "username cancel", Toast.LENGTH_SHORT).show();
                             }
                         });
-                        ref.child("profile_pic").addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot1) {
-                                if(snapshot1.exists())
-                                    card.setProfile_pic(snapshot1.getValue(String.class));
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(IndContestRoom.this, "profile pic cancel", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        ref.child("no_plant").addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot1) {
-                                if(snapshot1.exists())
-                                    card.setNo_plant(snapshot1.getValue(Integer.class));
-                                else card.setNo_plant(0);
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(IndContestRoom.this, "noplant cancel", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-                        list.add(card);
                     }
-                    Collections.sort(list);
-                    updateRank();
-                    myAdapter.notifyDataSetChanged();
                     //myAdapter=new LeaderCardAdapter(IndContestRoom.this, list);
                     //recyclerView.setAdapter(myAdapter);
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     Toast.makeText(IndContestRoom.this, "leaderboard cancelled", Toast.LENGTH_SHORT).show();
@@ -208,6 +223,16 @@ public class IndContestRoom extends AppCompatActivity {
             };
             dbref.addValueEventListener(listen);
         }
+    }
+
+    public void funcProfilePic(final String user_id) {
+        DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("user").child(user_id);
+
+    }
+
+    public void funcPlant(String user_id) {
+        DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("user").child(user_id);
+
     }
 
     public void updateRank() {
