@@ -156,7 +156,7 @@ public class AddPlants extends AppCompatActivity {
                     db.child("plant").child(tempkey).setValue(p);
 
                     HashMap<String, Object> map2= new HashMap<>();
-                    map2.put("user_name",firebaseUser.getDisplayName());
+                   // map2.put("user_name",firebaseUser.getDisplayName());
                     map2.put("no_plant",count);
                     db.child("user").child(current_User_Id).updateChildren(map2);
                     db.child("user").child(current_User_Id).child("plant").child(tempkey).setValue(0);

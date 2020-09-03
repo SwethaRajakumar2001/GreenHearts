@@ -123,10 +123,13 @@ TextView seetrees;
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String profile_pic = snapshot.child("profile_pic").getValue(String.class);
                 String name = snapshot.child("user_name").getValue(String.class);
+                if(name!=null)
                 user_name.setText(name);
-                Glide.with(image.getContext())
-                        .load(profile_pic)
-                        .into(image);
+                if(profile_pic!=null) {
+                    Glide.with(image.getContext())
+                            .load(profile_pic)
+                            .into(image);
+                }
             }
 
             @Override

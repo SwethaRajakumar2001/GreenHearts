@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -30,9 +31,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
+    FirebaseAuth mAuth= FirebaseAuth.getInstance();
     private FirebaseDatabase mfirebasedatabse;
     private DatabaseReference messageRefernce;
     private FirebaseAuth.AuthStateListener listener;
+    private DatabaseReference userup;
     public static final int RC_SIGN_IN = 1;
     final int topostrequestcode = 4;
     List<AuthUI.IdpConfig> providers;
@@ -66,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         btnFeed= findViewById(R.id.btnFeed);
         btnQuestion=findViewById(R.id.btnQuestion);
         btnDummy=findViewById(R.id.btnDummy);
-
         btnQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
     }
 
     private void init() {
@@ -145,6 +146,12 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = mFirebaseAuth.getCurrentUser();
                 if(user!=null)
                 {
+                    String current_user = mAuth.getCurrentUser().getUid();
+                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                    userup = FirebaseDatabase.getInstance().getReference();
+                    HashMap<String,Object> map=new HashMap<>();
+                    map.put("user_name",firebaseUser.getDisplayName());
+                    userup.child("user").child(current_user).updateChildren(map);
                     Toast.makeText(MainActivity.this, "Your are signed in", Toast.LENGTH_SHORT).show();
 
                 }else
@@ -186,6 +193,12 @@ public class MainActivity extends AppCompatActivity {
         {
             if(resultCode==RESULT_OK)
             {
+                String current_user = mAuth.getCurrentUser().getUid();
+                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                userup = FirebaseDatabase.getInstance().getReference();
+                HashMap<String,Object> map=new HashMap<>();
+                map.put("user",firebaseUser.getDisplayName());
+                userup.child("user").child(current_user).updateChildren(map);
                 Toast.makeText(this, "Sign!!", Toast.LENGTH_SHORT).show();
             }else
             if(resultCode==RESULT_CANCELED)
