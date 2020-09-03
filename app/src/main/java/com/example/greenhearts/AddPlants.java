@@ -117,9 +117,6 @@ public class AddPlants extends AppCompatActivity {
                 if(snapshot.exists())
                 {
                     count = (int)snapshot.getChildrenCount();
-                }else
-                {
-                    count =-1;
                 }
             }
 

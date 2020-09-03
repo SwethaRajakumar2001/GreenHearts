@@ -11,21 +11,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
         android:id = "@+id/first">
         <ImageView
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:layout_marginTop="5dp"
             android:adjustViewBounds="true"
             android:layout_weight="1"
             android:id="@+id/profileimg"
-            android:layout_margin="10dp"
             android:src = "@drawable/ic_baseline_account_circle_24">
         </ImageView>
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_marginTop="5dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="2"
@@ -43,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:numStars="5"
-                android:rating="2"
+                android:id="@+id/rating"
                 android:layout_marginTop="10dp"
                 style="@style/Widget.AppCompat.RatingBar.Indicator"></RatingBar>
         </LinearLayout>
@@ -65,7 +63,7 @@
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/tree"
+            android:src="@drawable/tree_ic"
             ></ImageView>
     <TextView
         android:layout_width="match_parent"
@@ -81,7 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp">
         <ImageView
             android:layout_width="60dp"
