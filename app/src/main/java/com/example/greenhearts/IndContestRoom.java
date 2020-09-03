@@ -72,7 +72,7 @@ public class IndContestRoom extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     LeaderCardAdapter myAdapter;
-    LeaderCard card;
+    //LeaderCard card;
 
 
     FirebaseDatabase db;
@@ -94,7 +94,7 @@ public class IndContestRoom extends AppCompatActivity {
         user_ref=db.getReference().child("user").child(current_user);
 
         recyclerView=findViewById(R.id.list);
-        //recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(true);
         layoutManager=new LinearLayoutManager(IndContestRoom.this);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -180,15 +180,15 @@ public class IndContestRoom extends AppCompatActivity {
                 public void onDataChange(DataSnapshot snap) {
                     list.clear();
                     no_contestants=(int)snap.getChildrenCount();
-                    Log.d("error", "on data chaanges");
-                    Toast.makeText(IndContestRoom.this, "on data change", Toast.LENGTH_SHORT).show();
+                    //Log.d("error", "on data chaanges");
+                    //Toast.makeText(IndContestRoom.this, "on data change", Toast.LENGTH_SHORT).show();
                     for (DataSnapshot snapshot : snap.getChildren()) {
-                        final String user_id = snapshot.getKey().toString();
+                        String user_id = snapshot.getKey().toString();
                         Log.d("error", user_id);
                         int rank=snapshot.child("rank").getValue(Integer.class);
                         int score=snapshot.child("score").getValue(Integer.class);
 
-                        card=new LeaderCard(score,rank);
+                        final LeaderCard card=new LeaderCard(score,rank);
                         //card = snapshot.getValue(LeaderCard.class);
 
                         card.setUser_id(user_id);
@@ -197,13 +197,18 @@ public class IndContestRoom extends AppCompatActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot1) {
                                 Fewdetails details=snapshot1.getValue(Fewdetails.class);
+                                //Log.d("user", details.getUser_name());
                                 card.setUser_name(details.getUser_name());
                                 card.setNo_plant(details.getNo_plant());
                                 card.setProfile_pic(details.getProfile_pic());
-                                list.add(card);
+                                list.add(list.size(), card);
                                 if(list.size()==no_contestants) {
                                     Log.d("SIZE", Integer.toString(list.size()));
+                                    //Log.d("member", list.get(0).getUser_id());
+                                    //Log.d("member", list.get(1).getUser_id());
                                     Collections.sort(list);
+                                    //Log.d("member", list.get(0).getUser_name());
+                                    //Log.d("member", list.get(1).getUser_name());
                                     updateRank();
                                     myAdapter.notifyDataSetChanged();
                                 }
@@ -241,7 +246,7 @@ public class IndContestRoom extends AppCompatActivity {
         for(int j=1; j<list.size();j++) {
             if(list.get(j).getScore()==list.get(j-1).getScore())
                 list.get(j).setRank(list.get(j-1).getRank());
-            else list.get(j).setRank(list.get(j).getRank()+1);
+            else list.get(j).setRank(list.get(j-1).getRank()+1);
         }
 
     }
