@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -63,7 +66,7 @@ class Fewdetails {
 public class IndContestRoom extends AppCompatActivity {
 
     TextView tvScore, tvRank, tvCreatedby;
-    Button btnChat, btnLeave;
+    Button btnChat, btnLeave, btnCopy;
     String contest_id, current_user;
     String creator;
     int no_contestants;
@@ -76,8 +79,8 @@ public class IndContestRoom extends AppCompatActivity {
 
 
     FirebaseDatabase db;
-    DatabaseReference dbref, user_ref;
-    ValueEventListener listen;
+    DatabaseReference dbref, user_ref, scoreRef, rankRef;
+    ValueEventListener listen, scoreListen, rankListen;
 
 
 
@@ -107,6 +110,7 @@ public class IndContestRoom extends AppCompatActivity {
         tvScore=findViewById(R.id.tvUserScore);
         btnChat=findViewById(R.id.btnChat);
         btnLeave=findViewById(R.id.btnLeave);
+        btnCopy=findViewById(R.id.btnCopy);
 
         DatabaseReference ref2=db.getReference().child("contest").child(contest_id).child("creator_username");
         ref2.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -121,6 +125,15 @@ public class IndContestRoom extends AppCompatActivity {
             }
         });
 
+        btnCopy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("contest_id", contest_id);
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(IndContestRoom.this, "Copied to Clipboard", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         btnLeave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,29 +154,7 @@ public class IndContestRoom extends AppCompatActivity {
             }
         });
 
-        dbref.child(current_user).child("score").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int score=snapshot.getValue(Integer.class);
-                tvScore.setText(Integer.toString(score));
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(IndContestRoom.this, "score cancelled", Toast.LENGTH_SHORT).show();
-            }
-        });
 
-        dbref.child(current_user).child("rank").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int rank=snapshot.getValue(Integer.class);
-                tvRank.setText(Integer.toString(rank));
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(IndContestRoom.this, "rank cancelled", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         btnChat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,6 +164,60 @@ public class IndContestRoom extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+    }
+
+    public void updateRank() {
+
+        list.get(0).setRank(1);
+        for(int j=1; j<list.size();j++) {
+            if(list.get(j).getScore()==list.get(j-1).getScore())
+                list.get(j).setRank(list.get(j-1).getRank());
+            else list.get(j).setRank(list.get(j-1).getRank()+1);
+        }
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if(listen!=null) {
+            dbref.removeEventListener(listen);
+            listen=null;
+        }
+        if(scoreListen!=null) {
+            scoreRef.removeEventListener(scoreListen);
+            scoreListen=null;
+        }
+        if(rankListen!=null) {
+            rankRef.removeEventListener(rankListen);
+            rankListen=null;
+        }
+
+        /*for(int j=0; j<list.size(); j++) {
+            dbref.child(list.get(j).getUser_id()).child("rank").setValue(list.get(j).getRank());
+        }
+
+       /* DatabaseReference leaveConRef=db.getReference().child("contest").child(contest_id).child("participants");
+        leaveConRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!snapshot.hasChildren()) {
+                    DatabaseReference conRef=db.getReference().child("contest").child(contest_id);
+                    conRef.setValue(null);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });*/
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        
         if(listen==null) {
             //Toast.makeText(IndContestRoom.this, "hello listen null", Toast.LENGTH_SHORT).show();
             listen = new ValueEventListener() {
@@ -228,38 +273,43 @@ public class IndContestRoom extends AppCompatActivity {
             };
             dbref.addValueEventListener(listen);
         }
-    }
 
-    public void funcProfilePic(final String user_id) {
-        DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("user").child(user_id);
+        scoreRef=dbref.child(current_user).child("score");
+        if(scoreListen==null) {
+            scoreListen = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.getValue()!=null) {
+                        int score = snapshot.getValue(Integer.class);
+                        tvScore.setText(Integer.toString(score));
+                    }
+                }
 
-    }
-
-    public void funcPlant(String user_id) {
-        DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("user").child(user_id);
-
-    }
-
-    public void updateRank() {
-
-        list.get(0).setRank(1);
-        for(int j=1; j<list.size();j++) {
-            if(list.get(j).getScore()==list.get(j-1).getScore())
-                list.get(j).setRank(list.get(j-1).getRank());
-            else list.get(j).setRank(list.get(j-1).getRank()+1);
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(IndContestRoom.this, "score cancelled", Toast.LENGTH_SHORT).show();
+                }
+            };
+            scoreRef.addValueEventListener(scoreListen);
         }
 
-    }
+        rankRef=dbref.child(current_user).child("rank");
+        if(rankListen==null) {
+            rankListen = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.getValue()!=null) {
+                        int rank = snapshot.getValue(Integer.class);
+                        tvRank.setText(Integer.toString(rank));
+                    }
+                }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        if(listen!=null) {
-            dbref.removeEventListener(listen);
-            listen=null;
-        }
-        for(int j=0; j<list.size(); j++) {
-            dbref.child(list.get(j).getUser_id()).child("rank").setValue(list.get(j).getRank());
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(IndContestRoom.this, "rank cancelled", Toast.LENGTH_SHORT).show();
+                }
+            };
+            rankRef.addValueEventListener(rankListen);
         }
     }
 }

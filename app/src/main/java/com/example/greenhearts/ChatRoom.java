@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,6 +24,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -195,7 +198,6 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 nlikes = (int) snapshot.getChildrenCount();
-                liked=true;
                 //updating nlikes in db and arraylist
                 HashMap<String, Object> map = new HashMap<>();
                 map.put("nlikes", nlikes);
@@ -204,23 +206,27 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
                 REF.updateChildren(map);
                 chatList.get(index).setNlikes(nlikes);
                 myAdapter.notifyDataSetChanged();
-
-                //updating score for the user who got a like in db
-                REF=dbref.child(contest_id).child("participants").child(user_id).child("score");
-                REF.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot1) {
-                        score = snapshot1.getValue(Integer.class);
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
-                REF.setValue(score+1);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+        //updating score for the user who got a like in db
+        DatabaseReference TREF=dbref.child(contest_id).child("participants").child(user_id).child("score");
+        TREF.runTransaction(new Transaction.Handler() {
+            @NonNull
+            @Override
+            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                if(currentData.getValue()!=null) {
+                    int localscore = currentData.getValue(Integer.class);
+                    localscore++;
+                    currentData.setValue(localscore);
+                }
+                return Transaction.success(currentData);
+            }
+            @Override
+            public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
+                Log.d("Trans", "scoreTransaction:onComplete:" + error);
             }
         });
     }

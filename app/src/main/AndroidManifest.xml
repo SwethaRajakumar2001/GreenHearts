@@ -25,7 +25,8 @@
         <activity android:name=".ContestRoomsActivity" />
         <activity android:name=".PostActivity" />
         <activity android:name=".CommentActivity" />
-        <activity android:name=".ChatRoom" />
+        <activity android:name=".ChatRoom"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">

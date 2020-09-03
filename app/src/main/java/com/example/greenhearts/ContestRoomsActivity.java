@@ -60,8 +60,8 @@ public class ContestRoomsActivity extends AppCompatActivity implements RoomDetai
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(ContestRoomsActivity.this, CreateRoomActivity.class);
-                startActivity(i);
-                //startActivityForResult(i, reload);
+                //startActivity(i);
+                startActivityForResult(i, reload);
             }
         });
 
@@ -69,8 +69,8 @@ public class ContestRoomsActivity extends AppCompatActivity implements RoomDetai
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(ContestRoomsActivity.this, JoinRoomActivity.class);
-                startActivity(i);
-                //startActivityForResult(i,reload);
+                //startActivity(i);
+                startActivityForResult(i,reload);
             }
         });
     }

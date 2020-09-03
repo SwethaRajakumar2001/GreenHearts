@@ -17,21 +17,21 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
 
             <ImageView
                 android:id="@+id/ivPic"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/colorLight"
                 tools:srcCompat="@drawable/redleafpng" />
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="2"
                 android:orientation="vertical">
@@ -56,7 +56,7 @@
                     <TextView
                         android:id="@+id/tv1"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="Rank"

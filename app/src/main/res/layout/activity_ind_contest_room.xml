@@ -133,11 +133,27 @@
         android:id="@+id/tvCreatedBy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="2dp"
         android:gravity="center"
         android:text="Created by"
         android:textColor="@color/colorMediumGreen"
         android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btnCopy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="90dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="90dp"
+        android:background="@color/colorPrimaryDark"
+        android:paddingLeft="10dp"
+        android:paddingTop="0dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="0dp"
+        android:text="COPY CONTEST ID"
+        android:textColor="@color/colorLight" />
 </LinearLayout>
