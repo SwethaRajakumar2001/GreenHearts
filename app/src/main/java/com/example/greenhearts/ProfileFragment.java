@@ -90,14 +90,15 @@ TextView seetrees;
         cnodes.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Integer n = snapshot.child("no_plant").getValue(Integer.class);
-                if(n>3 && n<=20)
-                {
-                    int k = n/4;
-                    ratingBar.setRating(k);
-                }else
-                    if(n<=3)
-                {
+                if(snapshot.child("no_plant").getValue(Integer.class)!=null) {
+                    Integer n = snapshot.child("no_plant").getValue(Integer.class);
+                    if (n > 3 && n <= 20) {
+                        int k = n / 4;
+                        ratingBar.setRating(k);
+                    } else if (n <= 3) {
+                        ratingBar.setRating(0);
+                    }
+                }else{
                     ratingBar.setRating(0);
                 }
 
@@ -210,5 +211,37 @@ TextView seetrees;
                 }
             });
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cnodes.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.child("no_plant").getValue(Integer.class)!=null)
+                {
+                    Integer n = snapshot.child("no_plant").getValue(Integer.class);
+                    if(n>3 && n<=20)
+                    {
+                        int k = n/4;
+                        ratingBar.setRating(k);
+                    }else
+                    if(n<=3)
+                    {
+                        ratingBar.setRating(0);
+                    }
+                }
+                else{
+                    ratingBar.setRating(0);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
