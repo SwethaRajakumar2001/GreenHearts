@@ -30,9 +30,10 @@ public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPos
 
     private RecyclerView thetestfeedrecycler;
     final int backtofeed=6;
-    final ArrayList<PostStructure> posts= new ArrayList<PostStructure>();
-    private ArrayList<String> feedpostIDs= new ArrayList<String>();
+    private ArrayList<PostStructure> posts;
+    private ArrayList<String> feedpostIDs;
     private PostAdapter adapter;
+    private LinearLayoutManager mymanager;
     private ChildEventListener mchildEventListener;
     private DatabaseReference postref;
     private FloatingActionButton btnfeedaddpost;
@@ -45,6 +46,7 @@ public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPos
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+
         btnfeedaddpost= findViewById(R.id.btnfeedaddpost);
 
         btnfeedaddpost.setOnClickListener(new View.OnClickListener() {
@@ -54,14 +56,7 @@ public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPos
                 startActivityForResult(intent , backtofeed);
             }
         });
-        thetestfeedrecycler= (RecyclerView) findViewById(R.id.thetestfeedrecycler);
-        adapter= new PostAdapter(FeedActivity.this, posts ,feedpostIDs);
-        readPosts();
-        thetestfeedrecycler= findViewById(R.id.thetestfeedrecycler);
-        thetestfeedrecycler.setHasFixedSize(true);
-        thetestfeedrecycler.setLayoutManager(new LinearLayoutManager(FeedActivity.this));
-        thetestfeedrecycler.setAdapter(adapter);
-        Toast.makeText(FeedActivity.this, "Loading....", Toast.LENGTH_LONG).show();
+//here
 
     }
 
@@ -74,6 +69,30 @@ public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPos
         }
     }
 
+    /**
+     * Dispatch onResume() to fragments.  Note that for better inter-operation
+     * with older versions of the platform, at the point of this call the
+     * fragments attached to the activity are <em>not</em> resumed.
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        posts= new ArrayList<PostStructure>();
+        feedpostIDs= new ArrayList<String>();
+
+        thetestfeedrecycler= (RecyclerView) findViewById(R.id.thetestfeedrecycler);
+        adapter= new PostAdapter(FeedActivity.this, posts ,feedpostIDs);
+        readPosts();
+        thetestfeedrecycler= findViewById(R.id.thetestfeedrecycler);
+        thetestfeedrecycler.setHasFixedSize(true);
+        mymanager=new LinearLayoutManager(FeedActivity.this);
+        mymanager.setReverseLayout(true);
+        mymanager.setStackFromEnd(true);
+        thetestfeedrecycler.setLayoutManager(mymanager);
+        thetestfeedrecycler.setAdapter(adapter);
+        Toast.makeText(FeedActivity.this, "Loading....", Toast.LENGTH_LONG).show();
+    }
+
     private void readPosts() {
         postref= FirebaseDatabase.getInstance().getReference().child("post");
         if(mchildEventListener==null)
@@ -82,7 +101,6 @@ public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPos
             mchildEventListener=new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                    //Toast.makeText(getContext(), "here!", Toast.LENGTH_SHORT).show();
                     PostStructure apost= snapshot.getValue(PostStructure.class);
                     posts.add(adapter.getItemCount(),apost);
                     feedpostIDs.add(snapshot.getKey().toString());

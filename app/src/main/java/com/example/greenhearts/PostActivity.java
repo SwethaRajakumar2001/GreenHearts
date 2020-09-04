@@ -9,6 +9,7 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +52,7 @@ public class PostActivity extends AppCompatActivity {
     private String current_User_Id;
     private String current_username;
     private boolean isgettingimage = false;
+    private ProgressBar postprogressbar;
     DatabaseReference dbref;
     android.text.format.DateFormat df;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -61,6 +63,8 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
+        postprogressbar= findViewById(R.id.postprogressbar);
+        postprogressbar.setVisibility(View.GONE);
         tvchecker= findViewById(R.id.tvchecker);
         df = new android.text.format.DateFormat();
         dbref = FirebaseDatabase.getInstance().getReference();
@@ -149,6 +153,7 @@ public class PostActivity extends AppCompatActivity {
             //pic_ID = System.currentTimeMillis() + "." + getFileExtension(imageuri);
   ///////////////////
   //this right here is the magic
+            postprogressbar.setVisibility(View.VISIBLE);
             pic_ID= imageuri.getLastPathSegment();
             final StorageReference fileRef = FirebaseStorage.getInstance().getReference().child("uploads")
                     .child(pic_ID);
@@ -165,6 +170,7 @@ public class PostActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Uri> task) {
                     url= task.getResult().toString();
                     isgettingimage=false;
+                    postprogressbar.setVisibility(View.GONE);
 //TADAAAA!!! URL!!!
                 }
             });

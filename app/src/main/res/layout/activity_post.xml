@@ -6,56 +6,76 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/postgreenbg"
-    tools:context=".PostActivity"
-    tools:deviceIds="wear">
+    tools:context=".PostActivity">
 
-    <EditText
-        android:id="@+id/etposttext"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/comment_bg"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="type your post here..."
-        android:inputType="textMultiLine"
-        android:padding="10dp"
-        android:textColor="@color/colorPrimaryDark"
-        android:textColorHint="@color/colorPrimary"
-        android:textSize="20sp" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvchecker"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/postprogressbar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/ivpostpic"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:src="@drawable/photobutton" />
+            <EditText
+                android:id="@+id/etposttext"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/comment_bg"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="type your post here..."
+                android:inputType="textMultiLine"
+                android:padding="10dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimary"
+                android:textSize="20sp" />
 
-        <ImageView
-            android:id="@+id/ivpostsend"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:src="@drawable/sendbutton" />
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/ivpostleafpic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:src="@drawable/leaf" />
+                <ImageView
+                    android:id="@+id/ivpostpic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:src="@drawable/photobutton" />
+
+                <ImageView
+                    android:id="@+id/ivpostsend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:src="@drawable/sendbutton" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivpostleafpic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/leaf" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 </LinearLayout>
