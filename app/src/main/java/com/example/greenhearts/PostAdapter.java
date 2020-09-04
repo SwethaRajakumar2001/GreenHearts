@@ -58,6 +58,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvpostusername= itemView.findViewById(R.id.tvpostusername);
             tvpostnumlikes= itemView.findViewById(R.id.tvpostnumlikes);
             tvnumcomments= itemView.findViewById(R.id.tvnumcomments);
+            progbar= itemView.findViewById(R.id.eachpostprogbar);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -76,6 +77,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
+        holder.progbar.bringToFront();
+        holder.progbar.setVisibility(View.VISIBLE);
         holder.itemView.setTag(feedposts.get(position));
         holder.ivpostpic.setVisibility(View.GONE);
         holder.tvpost.setVisibility(View.GONE);
@@ -95,6 +98,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.tvpostusername.setText(feedposts.get(position).getUsername());
         holder.tvpostnumlikes.setText(Integer.toString(feedposts.get(position).getNlikes()));
         holder.tvnumcomments.setText(Integer.toString(feedposts.get(position).getNcomment()));
+        holder.progbar.setVisibility(View.GONE);
 
     }
 

@@ -14,6 +14,17 @@
         app:cardElevation="4dp"
         app:cardUseCompatPadding="false">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/eachpostprogbar"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -105,6 +116,7 @@
 
             </LinearLayout>
         </LinearLayout>
+        </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 

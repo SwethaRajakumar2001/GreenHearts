@@ -40,7 +40,6 @@ import java.util.HashMap;
 
 public class PostActivity extends AppCompatActivity {
 
-    TextView tvchecker;
     EditText etposttext;
     ImageView ivpostpic;
     ImageView ivpostsend;
@@ -65,13 +64,18 @@ public class PostActivity extends AppCompatActivity {
 
         postprogressbar= findViewById(R.id.postprogressbar);
         postprogressbar.setVisibility(View.GONE);
-        tvchecker= findViewById(R.id.tvchecker);
         df = new android.text.format.DateFormat();
         dbref = FirebaseDatabase.getInstance().getReference();
         current_User_Id = mAuth.getCurrentUser().getUid();
         current_username = mAuth.getCurrentUser().getDisplayName();
         etposttext = findViewById(R.id.etposttext);
         postleafpic = findViewById(R.id.ivpostleafpic);
+        postleafpic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(PostActivity.this, "SaiShrSwePran!", Toast.LENGTH_SHORT).show();
+            }
+        });
         ivpostpic = findViewById(R.id.ivpostpic);
         ivpostpic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,6 +158,7 @@ public class PostActivity extends AppCompatActivity {
   ///////////////////
   //this right here is the magic
             postprogressbar.setVisibility(View.VISIBLE);
+            postprogressbar.bringToFront();
             pic_ID= imageuri.getLastPathSegment();
             final StorageReference fileRef = FirebaseStorage.getInstance().getReference().child("uploads")
                     .child(pic_ID);

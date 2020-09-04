@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/postgreenbg"
+    android:orientation="vertical"
     tools:context=".PostActivity">
 
     <RelativeLayout
@@ -13,12 +13,10 @@
         android:layout_height="wrap_content">
 
         <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/postprogressbar"
             style="?android:attr/progressBarStyleLarge"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,6 +71,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
+                android:clickable="true"
                 android:src="@drawable/leaf" />
 
         </LinearLayout>
