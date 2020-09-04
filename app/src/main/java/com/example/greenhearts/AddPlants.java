@@ -1,5 +1,6 @@
 package com.example.greenhearts;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -185,9 +186,9 @@ public class AddPlants extends AppCompatActivity {
 
     private void upload()
     {
-//        final ProgressDialog progressDialog = new ProgressDialog(AddPlants.this);
-//        progressDialog.setTitle("Uploading.....");
-//        progressDialog.show();
+       final ProgressDialog progressDialog = new ProgressDialog(AddPlants.this);
+        progressDialog.setTitle("Uploading.....");
+       progressDialog.show();
 
         if(filepath!=null)
         {
@@ -200,11 +201,15 @@ public class AddPlants extends AppCompatActivity {
                 public Object then(@NonNull Task task) throws Exception {
                     if(!task.isSuccessful())
                         throw task.getException();
+                  //  Toast.makeText(AddPlants.this,"Loading....",Toast.LENGTH_SHORT).show();
                     return fileRef.getDownloadUrl();
                 }
             }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) {
+
+                    progressDialog.dismiss();
+                           Toast.makeText(AddPlants.this,"Image Uploaded",Toast.LENGTH_SHORT).show();
                     url= task.getResult().toString();
                 }
             });
