@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     final int topostrequestcode = 4;
     List<AuthUI.IdpConfig> providers;
     ImageButton btnProfile, btnContest, btnFeed, btnQuestion;
-    Button btnDummy;
 
     @Override
     protected void onStart() {
@@ -69,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
         btnProfile=findViewById(R.id.btnProfile);
         btnFeed= findViewById(R.id.btnFeed);
         btnQuestion=findViewById(R.id.btnQuestion);
-        btnDummy=findViewById(R.id.btnDummy);
         btnQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,12 +121,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i= new Intent(MainActivity.this, com.example.greenhearts.FeedActivity.class);
                 startActivity(i);
-
-            }
-        });
-        btnDummy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
             }
         });
