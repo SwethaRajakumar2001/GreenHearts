@@ -37,6 +37,9 @@ public class QuestionnaireActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questionnaire);
 
+        final int plants=getIntent().getIntExtra("plants", 0);
+        System.out.println(plants+"     gfbhnxzgjckhv,lj...................................................");
+
         btnQSubmit=findViewById(R.id.btnQSubmit);
         rg1=findViewById(R.id.rg1);
         rg2=findViewById(R.id.rg2);
@@ -86,7 +89,7 @@ public class QuestionnaireActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             for(int i=0;i<contest_ids.size();i++){
                                 prev= Integer.parseInt(snapshot.child(contest_ids.get(i)).child("participants").child(user_id).child("score").getValue().toString());
-                                ref.child("contest").child(contest_ids.get(i)).child("participants").child(user_id).child("score").setValue(prev+score);
+                                ref.child("contest").child(contest_ids.get(i)).child("participants").child(user_id).child("score").setValue(prev+score*plants);
                             }
                         }
 

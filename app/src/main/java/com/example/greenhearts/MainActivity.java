@@ -74,10 +74,15 @@ public class MainActivity extends AppCompatActivity {
                 Calendar c=Calendar.getInstance();
                 SimpleDateFormat simple=new SimpleDateFormat("dd-MM-yyyy");
                 final String date = simple.format(c.getTime());
+
                 mfirebasedatabse.getReference().child("user").child(mFirebaseAuth.getCurrentUser().getUid().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(!snapshot.hasChild("contests")){
+                        int plants=Integer.parseInt(snapshot.child("no_plant").getValue().toString());
+                        if(!(snapshot.hasChild("no_plant")) || plants==0){
+                            Toast.makeText(MainActivity.this, "Add a Plant first!", Toast.LENGTH_SHORT).show();
+                        }
+                        else if(!snapshot.hasChild("contests")){
                             Toast.makeText(MainActivity.this, "Join or Create a Contest first!", Toast.LENGTH_SHORT).show();
                         }
                         else if(snapshot.hasChild("last_response")) {
@@ -86,11 +91,13 @@ public class MainActivity extends AppCompatActivity {
                             }
                             else{
                                 Intent i= new Intent(MainActivity.this, com.example.greenhearts.QuestionnaireActivity.class);
+                                i.putExtra("plants", plants);
                                 startActivity(i);
                             }
                         }
                         else{
                             Intent i= new Intent(MainActivity.this, com.example.greenhearts.QuestionnaireActivity.class);
+                            i.putExtra("plants", plants);
                             startActivity(i);
                         }
                     }
