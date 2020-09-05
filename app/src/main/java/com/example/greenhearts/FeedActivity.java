@@ -29,7 +29,6 @@ import java.util.ArrayList;
 public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPostClicked {
 
     private RecyclerView thetestfeedrecycler;
-    final int backtofeed=6;
     private ArrayList<PostStructure> posts;
     private ArrayList<String> feedpostIDs;
     private PostAdapter adapter;
@@ -53,27 +52,19 @@ public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPos
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(view.getContext() ,com.example.greenhearts.PostActivity.class);
-                startActivityForResult(intent , backtofeed);
+                startActivity(intent);
             }
         });
-//here
+
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==backtofeed)
-        {
-            adapter.notifyDataSetChanged();
-        }
+
     }
 
-    /**
-     * Dispatch onResume() to fragments.  Note that for better inter-operation
-     * with older versions of the platform, at the point of this call the
-     * fragments attached to the activity are <em>not</em> resumed.
-     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -145,6 +136,6 @@ public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPos
     public void PostClicked(int i) {
         Intent intent= new Intent(this, com.example.greenhearts.CommentActivity.class );
         intent.putExtra("PostID", feedpostIDs.get(i));
-        startActivityForResult(intent, backtofeed);
+        startActivity(intent);
     }
 }
