@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/profile"
     android:background="@drawable/postgreenbg"
     tools:context=".ProfileFragment">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/third"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:id = "@+id/first">
         <ImageView
@@ -19,6 +19,8 @@
             android:layout_height="100dp"
             android:adjustViewBounds="true"
             android:layout_weight="1"
+            android:layout_marginTop="15dp"
+            android:background="@color/colorLight"
             android:id="@+id/profileimg"
             android:src = "@drawable/ic_baseline_account_circle_24">
         </ImageView>
@@ -26,6 +28,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_marginTop="15dp"
             android:layout_weight="2"
             android:layout_margin="10dp"
             >
@@ -36,6 +39,7 @@
                 android:text="UserName"
                 android:textStyle="bold"
                 android:id="@+id/user_name"
+                android:textColor="@color/colorDark"
                 android:textSize="20sp"></TextView>>
             <RatingBar
                 android:layout_width="wrap_content"
@@ -49,16 +53,15 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
+    app:layout_constraintTop_toBottomOf="@id/first"
     android:orientation="vertical"
-    android:layout_below="@id/first"
     android:id="@+id/third"
     android:layout_margin="20dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp">
         <ImageView
             android:layout_width="60dp"
@@ -103,7 +106,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:id="@+id/fourth"
         android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/third"
         android:layout_marginLeft="30dp">
         <ImageView
             android:layout_width="60dp"
@@ -125,6 +130,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/fourth"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="30dp">
         <ImageView
@@ -142,4 +148,4 @@
             android:textSize="20sp"
             android:textStyle="italic"></TextView>
     </LinearLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

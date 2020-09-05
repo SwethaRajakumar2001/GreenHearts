@@ -138,7 +138,6 @@ public class CommentActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 postref.child("nlikes").setValue(snapshot.getChildrenCount());
 
-                Toast.makeText(CommentActivity.this, "you clicked like", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
@@ -163,7 +162,6 @@ public class CommentActivity extends AppCompatActivity {
             }
         });
         adapter.notifyDataSetChanged();
-        Toast.makeText(CommentActivity.this, "here!", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -174,7 +172,6 @@ public class CommentActivity extends AppCompatActivity {
             mchildEventListener=new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                    //Toast.makeText(getContext(), "here!", Toast.LENGTH_SHORT).show();
                     CommentStructure apost= snapshot.getValue(CommentStructure.class);
                     postcomments.add(adapter.getItemCount(),apost);
                     adapter.notifyDataSetChanged();

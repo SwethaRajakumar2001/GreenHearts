@@ -154,8 +154,6 @@ public class PostActivity extends AppCompatActivity {
 
     private void UploadImage() {
         if (imageuri != null) {
-            //pic_ID = System.currentTimeMillis() + "." + getFileExtension(imageuri);
-  ///////////////////
   //this right here is the magic
             postprogressbar.setVisibility(View.VISIBLE);
             postprogressbar.bringToFront();
@@ -182,14 +180,5 @@ public class PostActivity extends AppCompatActivity {
 
         }
     }
-/*
-        private String getFileExtension (Uri uri){
-            ContentResolver cresolve = getContentResolver();
-            MimeTypeMap mmap = MimeTypeMap.getSingleton();
-            return mmap.getExtensionFromMimeType(cresolve.getType(uri));
-
-        }
-
- */
     }
 

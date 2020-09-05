@@ -11,7 +11,7 @@
         android:id="@+id/comments"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/commbg"
+        android:background="@drawable/commbgland"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,19 +20,19 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:orientation="horizontal"
+        android:layout_height="60dp"
         android:background="@color/colorLightGreen"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <EditText
             android:id="@+id/etcommenttext"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            android:layout_weight="1"
+            android:layout_weight="7"
             android:background="@color/colorLight"
             android:ems="10"
             android:gravity="start"
@@ -40,33 +40,26 @@
             android:inputType="textMultiLine"
             android:padding="5dp" />
 
-        <LinearLayout
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
+        <ImageView
+            android:id="@+id/ivcommentpost"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:clickable="true"
+            android:src="@drawable/sendbutton" />
 
-            <ImageView
-                android:id="@+id/ivcommentpost"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:src="@drawable/sendbutton" />
-
-            <ImageView
-                android:id="@+id/ivcommentlike"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                app:srcCompat="@drawable/greenheart" />
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/ivcommentlike"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            app:srcCompat="@drawable/greenheart" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
