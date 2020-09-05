@@ -208,8 +208,10 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
         final String push_id=chatList.get(index).getPush_id();
         final String user_id=chatList.get(index).getUser_id();
         String current_user=FirebaseAuth.getInstance().getCurrentUser().getUid();
-        if(user_id.equals(current_user))
+        if(user_id.equals(current_user)) {
+            Toast.makeText(ChatRoom.this, "Can't like this", Toast.LENGTH_SHORT).show();
             return;
+        }
         DatabaseReference ref=dbref.child(contest_id).child("message").child(push_id).child("like").child(current_user);
         ref.setValue(0);
 

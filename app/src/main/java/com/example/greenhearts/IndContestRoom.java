@@ -210,7 +210,6 @@ public class IndContestRoom extends AppCompatActivity {
         for(int j=0; j<list.size(); j++) {
             dbref.child(list.get(j).getUser_id()).child("rank").setValue(list.get(j).getRank());
         }
-
     }
 
     @Override
@@ -263,7 +262,7 @@ public class IndContestRoom extends AppCompatActivity {
                                 card.setUser_name(details.getUser_name());
                                 card.setNo_plant(details.getNo_plant());
                                 card.setProfile_pic(details.getProfile_pic());
-                                list.add(list.size(), card);
+                                list.add(card);
                                 if(list.size()==no_contestants) {
                                     Log.d("SIZE", Integer.toString(list.size()));
                                     //Log.d("member", list.get(0).getUser_id());
