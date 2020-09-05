@@ -10,26 +10,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
             android:layout_marginTop="10dp"
             app:srcCompat="@drawable/gheart" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <ImageButton
@@ -47,6 +46,23 @@
                 android:layout_weight="1"
                 android:background="@color/colorLight"
                 app:srcCompat="@mipmap/question" />
+
+            <ImageButton
+                android:id="@+id/btnContest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorLight"
+                app:srcCompat="@mipmap/trophy" />
+
+            <ImageButton
+                android:id="@+id/btnFeed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorLight"
+                app:srcCompat="@mipmap/feed" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -76,36 +92,6 @@
                 android:textColor="@color/colorDark"
                 android:textSize="24sp"
                 android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/btnContest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/colorLight"
-                app:srcCompat="@mipmap/trophy" />
-
-            <ImageButton
-                android:id="@+id/btnFeed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/colorLight"
-                app:srcCompat="@mipmap/feed" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tvContest"
@@ -129,6 +115,7 @@
                 android:textSize="24sp"
                 android:textStyle="bold" />
         </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
