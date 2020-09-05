@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -62,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_the_second);
         mfirebasedatabse = FirebaseDatabase.getInstance();
-
         init();
         btnContest=findViewById(R.id.btnContest);
         btnProfile=findViewById(R.id.btnProfile);
