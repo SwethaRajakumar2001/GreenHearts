@@ -62,7 +62,12 @@ public class CommentActivity extends AppCompatActivity {
         adapter= new CommentAdapter(CommentActivity.this, postcomments);
         commentsrecycler.setHasFixedSize(true);
         commentsrecycler.setAdapter(adapter);
-        commentsrecycler.setLayoutManager(new LinearLayoutManager(CommentActivity.this));
+ //
+        LinearLayoutManager manager= new LinearLayoutManager(CommentActivity.this);
+        //manager.setStackFromEnd(true);
+        //manager.setReverseLayout(true);
+
+        commentsrecycler.setLayoutManager(manager);
         postref= FirebaseDatabase.getInstance().getReference().child("post").child(Post_ID);
         postref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -93,6 +98,35 @@ public class CommentActivity extends AppCompatActivity {
                     sendcomment(etcommenttext.getText().toString());
                     etcommenttext.setText("");
                     Toast.makeText(CommentActivity.this, "Comment sent", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        commentsrecycler.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View view, int i, int i1, int i2, int i3, int i4, int i5, int i6, int i7) {
+                if(i7> i3)
+                {
+                    final int y=i7-i3;
+                    commentsrecycler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            commentsrecycler.smoothScrollBy(0,y);
+                        }
+                    }, 100);
+                }
+
+                if(i7 < i3)
+                {
+                    final int y=i7-i3;
+                    commentsrecycler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            commentsrecycler.smoothScrollBy(0,y);
+                        }
+                    }, 100);
                 }
             }
         });
@@ -208,5 +242,15 @@ public class CommentActivity extends AppCompatActivity {
             commentref.removeEventListener(mchildEventListener);
             mchildEventListener = null;
         }
+    }
+
+    /**
+     * Dispatch onResume() to fragments.  Note that for better inter-operation
+     * with older versions of the platform, at the point of this call the
+     * fragments attached to the activity are <em>not</em> resumed.
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }
