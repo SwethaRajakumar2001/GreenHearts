@@ -27,6 +27,7 @@ public class RoomDetailsAdapter extends RecyclerView.Adapter<RoomDetailsAdapter.
         activity=(OnRoomClicked) context;
     }
 
+
     public interface  OnRoomClicked{
         public void RoomClicked(int index);
     }
