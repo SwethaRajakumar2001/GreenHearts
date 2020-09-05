@@ -11,29 +11,36 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Mypost" />
+        <activity android:name=".Mypost"
+            android:label="Mypost"/>
         <activity android:name=".QuestionnaireActivity"
             android:label="Questionnaire"/>
 
         <activity android:name=".IndContestRoom"/>
         <activity android:name=".FeedActivity"
-            android:label="Feed"/>
-        <activity android:name=".AddPlants" />
-        <activity android:name=".Myplants" />
+            android:label="GreenHearts"/>
+        <activity android:name=".AddPlants"
+            android:label="AddPlants"/>
+        <activity android:name=".Myplants"
+            android:label="MyTrees"/>
         <activity android:name=".ProfileFragment"
             android:label="Profile"/>
-        <activity android:name=".CreateRoomActivity" />
-        <activity android:name=".JoinRoomActivity" />
+        <activity android:name=".CreateRoomActivity"
+            android:label="CreateContest"/>
+        <activity android:name=".JoinRoomActivity"
+            android:label="JoinContest"/>
         <activity android:name=".ContestRoomsActivity"
             android:label="Contests"/>
-        <activity android:name=".PostActivity" />
-        <activity android:name=".CommentActivity" />
+        <activity android:name=".PostActivity"
+            android:label="MakePost"/>
+        <activity android:name=".CommentActivity"
+            android:label="Comments"/>
         <activity android:name=".ChatRoom"
             android:windowSoftInputMode="adjustPan"
             />
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
