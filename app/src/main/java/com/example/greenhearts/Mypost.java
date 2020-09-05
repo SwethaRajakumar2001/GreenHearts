@@ -2,7 +2,6 @@ package com.example.greenhearts;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -63,7 +62,7 @@ String currenet_user;
                     //Toast.makeText(getContext(), "here!", Toast.LENGTH_SHORT).show();
                     PostStructure apost= snapshot.getValue(PostStructure.class);
                         if (currenet_user.equals(apost.getUser_id())) {
-                            posts.add(madapter.getItemCount(), apost);
+                            posts.add(0, apost);
                             feedid.add(snapshot.getKey().toString());
                             madapter.notifyDataSetChanged();
                             count++;
