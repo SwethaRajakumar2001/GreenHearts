@@ -16,8 +16,7 @@
         android:gravity="center"
         android:text="LEADERBOARD"
         android:textColor="@color/colorDark"
-        android:textColorHighlight="@color/colorAccent"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -62,7 +61,7 @@
                 android:gravity="center"
                 android:text="Your Score"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -97,7 +96,7 @@
                 android:gravity="center"
                 android:text="Your Rank"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -126,10 +125,9 @@
         android:padding="16dp"
         android:text=" Go to Chat "
         android:textColor="@color/colorLight"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btnLeave"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvCreatedBy"
+        app:layout_constraintEnd_toStartOf="@id/btnLeave"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/board" />
 
@@ -140,25 +138,25 @@
         android:layout_below="@+id/btnChat"
         android:layout_marginTop="5dp"
         android:background="@drawable/rounded_button"
+        android:padding="16dp"
         android:text=" Leave Contest "
         android:textColor="@color/colorLight"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/tvCreatedBy"
         app:layout_constraintEnd_toStartOf="@id/btnCopy"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnChat" />
+        app:layout_constraintStart_toEndOf="@id/btnChat"
+        app:layout_constraintTop_toBottomOf="@+id/board" />
 
     <TextView
         android:id="@+id/tvCreatedBy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnLeave"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp"
         android:gravity="center"
         android:text="Created by"
         android:textColor="@color/colorAccent"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -168,10 +166,10 @@
         android:id="@+id/btnCopy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvCreatedBy"
         android:layout_gravity="center"
         android:layout_marginBottom="5dp"
         android:background="@drawable/rounded_button"
+        android:padding="16dp"
         android:text=" COPY CONTEST ID "
         android:textColor="@color/colorLight"
         android:textSize="12sp"
@@ -179,6 +177,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.566"
         app:layout_constraintStart_toEndOf="@+id/btnLeave"
-        app:layout_constraintTop_toBottomOf="@+id/btnChat" />
+        app:layout_constraintTop_toBottomOf="@+id/board" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.greenhearts;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +71,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
     public void onBindViewHolder(@NonNull ChatMessageAdapter.ViewHolder viewHolder, int i) {
         viewHolder.itemView.setTag(messages.get(i));
         viewHolder.tvAuthor.setText(messages.get(i).getUsername());
+        viewHolder.tvAuthor.setTextColor(Color.parseColor("#DCC7FD97"));
         viewHolder.tvTime.setText(messages.get(i).getTime_stamp());
         viewHolder.tvNlikes.setText("Likes: " + messages.get(i).getNlikes());
         viewHolder.tvMessage.setVisibility(View.GONE);
