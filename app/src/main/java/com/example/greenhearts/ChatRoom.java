@@ -48,8 +48,7 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
     private static final int CODE_IMAGE=1;
     String finalUrl=null;
     String contest_id;
-    int nlikes,score;
-    boolean liked=false;
+    int nlikes;
 
     ArrayList<ChatMessage> chatList;
     RecyclerView recyclerView;
