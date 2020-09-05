@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                     map.put("user_name",firebaseUser.getDisplayName());
                    // map.put("no_plant",count);
                     userup.child("user").child(current_user).updateChildren(map);
-                    Toast.makeText(MainActivity.this, "Your are signed in", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "Your are signed in", Toast.LENGTH_SHORT).show();
 
                 }else
                 {
@@ -201,11 +201,11 @@ public class MainActivity extends AppCompatActivity {
                 map.put("user_name",firebaseUser.getDisplayName());
                 //map.put("no_plant",count);
                 userup.child("user").child(current_user).updateChildren(map);
-                Toast.makeText(this, "Sign!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Signed In!!", Toast.LENGTH_SHORT).show();
             }else
             if(resultCode==RESULT_CANCELED)
             {
-                Toast.makeText(this, "Sign cancel!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "SignIn cancel!!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }
