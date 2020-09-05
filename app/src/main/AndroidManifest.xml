@@ -12,20 +12,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Mypost" />
-        <activity android:name=".QuestionnaireActivity" />
+        <activity android:name=".QuestionnaireActivity"
+            android:label="Questionnaire"/>
 
         <activity android:name=".IndContestRoom"/>
-        <activity android:name=".FeedActivity" />
+        <activity android:name=".FeedActivity"
+            android:label="Feed"/>
         <activity android:name=".AddPlants" />
         <activity android:name=".Myplants" />
-        <activity android:name=".ProfileFragment" />
+        <activity android:name=".ProfileFragment"
+            android:label="Profile"/>
         <activity android:name=".CreateRoomActivity" />
         <activity android:name=".JoinRoomActivity" />
-        <activity android:name=".ContestRoomsActivity" />
+        <activity android:name=".ContestRoomsActivity"
+            android:label="Contests"/>
         <activity android:name=".PostActivity" />
         <activity android:name=".CommentActivity" />
         <activity android:name=".ChatRoom"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
