@@ -125,9 +125,4 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnDummy"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="For Pran" />
 </LinearLayout>

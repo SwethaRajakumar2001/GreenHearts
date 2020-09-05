@@ -42,7 +42,7 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
     EditText etMessage;
 
     FirebaseDatabase db;
-    DatabaseReference dbref,mref;
+    DatabaseReference dbref,mref,conNameRef;
     ChildEventListener listen;
 
     private static final int CODE_IMAGE=1;
@@ -54,7 +54,7 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
     ArrayList<ChatMessage> chatList;
     RecyclerView recyclerView;
     ChatMessageAdapter myAdapter;
-    RecyclerView.LayoutManager myLayoutManager;
+    LinearLayoutManager myLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,10 +66,23 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
         db=FirebaseDatabase.getInstance();
         dbref=db.getReference().child("contest");
         mref=dbref.child(contest_id).child("message");
+        conNameRef=db.getReference().child("contest").child(contest_id).child("contest_name");
+
+        conNameRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.getValue()!=null)
+                    setTitle(snapshot.getValue(String.class)+" Chat");
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
         recyclerView=findViewById(R.id.messageList);
         recyclerView.setHasFixedSize(true);
-        myLayoutManager=new LinearLayoutManager(this);
+        myLayoutManager=new LinearLayoutManager(ChatRoom.this, LinearLayoutManager.VERTICAL, false);
+        myLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(myLayoutManager);
 
         chatList=new ArrayList<>();
@@ -115,6 +128,11 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
                 }
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         if(listen==null) {
             listen = new ChildEventListener() {
                 @Override
@@ -124,6 +142,7 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
                     chatMessage.setPush_id(push_id);
                     chatList.add(chatMessage);
                     myAdapter.notifyDataSetChanged();
+                    recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());
                 }
 
                 @Override
@@ -190,6 +209,8 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
         final String push_id=chatList.get(index).getPush_id();
         final String user_id=chatList.get(index).getUser_id();
         String current_user=FirebaseAuth.getInstance().getCurrentUser().getUid();
+        if(user_id.equals(current_user))
+            return;
         DatabaseReference ref=dbref.child(contest_id).child("message").child(push_id).child("like").child(current_user);
         ref.setValue(0);
 
@@ -198,35 +219,38 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 nlikes = (int) snapshot.getChildrenCount();
-                //updating nlikes in db and arraylist
-                HashMap<String, Object> map = new HashMap<>();
-                map.put("nlikes", nlikes);
-                DatabaseReference REF;
-                REF=dbref.child(contest_id).child("message").child(push_id);
-                REF.updateChildren(map);
-                chatList.get(index).setNlikes(nlikes);
-                myAdapter.notifyDataSetChanged();
+                if(nlikes!=chatList.get(index).getNlikes()) {
+                    //updating nlikes in db and arraylist
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("nlikes", nlikes);
+                    DatabaseReference REF;
+                    REF = dbref.child(contest_id).child("message").child(push_id);
+                    REF.updateChildren(map);
+                    chatList.get(index).setNlikes(nlikes);
+                    myAdapter.notifyDataSetChanged();
+
+                    //updating score for the user who got a like in db
+                    DatabaseReference TREF=dbref.child(contest_id).child("participants").child(user_id).child("score");
+                    TREF.runTransaction(new Transaction.Handler() {
+                        @NonNull
+                        @Override
+                        public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                            if(currentData.getValue()!=null) {
+                                int localscore = currentData.getValue(Integer.class);
+                                localscore++;
+                                currentData.setValue(localscore);
+                            }
+                            return Transaction.success(currentData);
+                        }
+                        @Override
+                        public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
+                            Log.d("Trans", "scoreTransaction:onComplete:" + error);
+                        }
+                    });
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-        //updating score for the user who got a like in db
-        DatabaseReference TREF=dbref.child(contest_id).child("participants").child(user_id).child("score");
-        TREF.runTransaction(new Transaction.Handler() {
-            @NonNull
-            @Override
-            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
-                if(currentData.getValue()!=null) {
-                    int localscore = currentData.getValue(Integer.class);
-                    localscore++;
-                    currentData.setValue(localscore);
-                }
-                return Transaction.success(currentData);
-            }
-            @Override
-            public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
-                Log.d("Trans", "scoreTransaction:onComplete:" + error);
             }
         });
     }

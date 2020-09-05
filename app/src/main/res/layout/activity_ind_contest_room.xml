@@ -1,40 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".IndContestRoom">
 
     <TextView
         android:id="@+id/tvLeaderboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:background="@color/colorLightGreen"
         android:gravity="center"
         android:text="LEADERBOARD"
         android:textColor="@color/colorDark"
         android:textColorHighlight="@color/colorAccent"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp" />
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/board"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLeaderboard" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/board"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="30dp"
-        android:orientation="horizontal">
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="7dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/btnChat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/list">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -108,52 +119,62 @@
 
     <Button
         android:id="@+id/btnChat"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="75dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="75dp"
+        android:layout_marginTop="5dp"
         android:background="@color/colorPrimaryDark"
-        android:text="Go to Chat"
+        android:text=" Go to Chat "
         android:textColor="@color/colorLight"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btnLeave"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/board" />
 
     <Button
         android:id="@+id/btnLeave"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="7dp"
+        android:layout_below="@+id/btnChat"
+        android:layout_marginTop="5dp"
         android:background="@color/colorPrimaryDark"
-        android:text="Leave Contest"
-        android:textColor="@color/colorLight" />
+        android:text=" Leave Contest "
+        android:textColor="@color/colorLight"
+        app:layout_constraintBottom_toTopOf="@+id/tvCreatedBy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnChat" />
 
     <TextView
         android:id="@+id/tvCreatedBy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="2dp"
+        android:layout_below="@+id/btnLeave"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:gravity="center"
         android:text="Created by"
         android:textColor="@color/colorMediumGreen"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnCopy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLeave" />
 
     <Button
         android:id="@+id/btnCopy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tvCreatedBy"
         android:layout_gravity="center"
-        android:layout_marginLeft="90dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="90dp"
+        android:layout_marginBottom="5dp"
         android:background="@color/colorPrimaryDark"
-        android:paddingLeft="10dp"
-        android:paddingTop="0dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="0dp"
-        android:text="COPY CONTEST ID"
-        android:textColor="@color/colorLight" />
-</LinearLayout>
+        android:text=" COPY CONTEST ID "
+        android:textColor="@color/colorLight"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCreatedBy" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

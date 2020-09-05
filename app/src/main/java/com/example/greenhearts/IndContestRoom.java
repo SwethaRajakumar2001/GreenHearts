@@ -68,7 +68,7 @@ public class IndContestRoom extends AppCompatActivity {
     TextView tvScore, tvRank, tvCreatedby;
     Button btnChat, btnLeave, btnCopy;
     String contest_id, current_user;
-    String creator;
+    String creator, contest_name;
     int no_contestants;
 
     ArrayList<LeaderCard> list;
@@ -79,7 +79,7 @@ public class IndContestRoom extends AppCompatActivity {
 
 
     FirebaseDatabase db;
-    DatabaseReference dbref, user_ref, scoreRef, rankRef;
+    DatabaseReference dbref, user_ref, scoreRef, rankRef, conNameRef;
     ValueEventListener listen, scoreListen, rankListen;
 
 
@@ -95,6 +95,18 @@ public class IndContestRoom extends AppCompatActivity {
         db=FirebaseDatabase.getInstance();
         dbref=db.getReference().child("contest").child(contest_id).child("participants");
         user_ref=db.getReference().child("user").child(current_user);
+        conNameRef=db.getReference().child("contest").child(contest_id).child("contest_name");
+
+        conNameRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.getValue()!=null)
+                    setTitle(snapshot.getValue(String.class));
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
         recyclerView=findViewById(R.id.list);
         recyclerView.setHasFixedSize(true);
@@ -195,11 +207,16 @@ public class IndContestRoom extends AppCompatActivity {
             rankListen=null;
         }
 
-        /*for(int j=0; j<list.size(); j++) {
+        for(int j=0; j<list.size(); j++) {
             dbref.child(list.get(j).getUser_id()).child("rank").setValue(list.get(j).getRank());
         }
 
-       /* DatabaseReference leaveConRef=db.getReference().child("contest").child(contest_id).child("participants");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        DatabaseReference leaveConRef=db.getReference().child("contest").child(contest_id).child("participants");
         leaveConRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -211,7 +228,7 @@ public class IndContestRoom extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
-        });*/
+        });
     }
 
     @Override

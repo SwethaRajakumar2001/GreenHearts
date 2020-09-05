@@ -60,8 +60,7 @@ public class ContestRoomsActivity extends AppCompatActivity implements RoomDetai
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(ContestRoomsActivity.this, CreateRoomActivity.class);
-                //startActivity(i);
-                startActivityForResult(i, reload);
+                startActivity(i);
             }
         });
 
@@ -69,16 +68,17 @@ public class ContestRoomsActivity extends AppCompatActivity implements RoomDetai
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(ContestRoomsActivity.this, JoinRoomActivity.class);
-                //startActivity(i);
-                startActivityForResult(i,reload);
+                startActivity(i);
             }
         });
     }
 
+
     private void readDetails() {
 
         if(listener==null){
-
+            details.clear();
+            contest_ids.clear();
             listener=new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -113,13 +113,7 @@ public class ContestRoomsActivity extends AppCompatActivity implements RoomDetai
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==reload){
-            a.notifyDataSetChanged();
-        }
-    }
+
 
     @Override
     public void onPause() {
@@ -129,7 +123,11 @@ public class ContestRoomsActivity extends AppCompatActivity implements RoomDetai
             listener=null;
         }
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        readDetails();
+    }
 
     @Override
     public void RoomClicked(int index) {
