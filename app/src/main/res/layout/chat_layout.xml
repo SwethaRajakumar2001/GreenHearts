@@ -57,7 +57,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginBottom="5dp"
                 android:text="likes"
-                android:textColor="@color/colorLight"
+                android:textColor="@color/colorBluishGray"
                 android:textSize="16sp" />
 
             <TextView
@@ -67,7 +67,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginBottom="5dp"
                 android:text="time stamp"
-                android:textColor="@color/colorLight"
+                android:textColor="@color/colorBluishGray"
                 android:textStyle="italic" />
 
         </LinearLayout>

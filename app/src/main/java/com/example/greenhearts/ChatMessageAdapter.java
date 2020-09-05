@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,11 +21,13 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
 
     private ArrayList<ChatMessage> messages;
     ItemClicked activity;
+    String current_user_id;
 
     public interface ItemClicked {
         void onItemClicked(int index);
     }
     public ChatMessageAdapter(Context context, ArrayList<ChatMessage> list) {
+        current_user_id= FirebaseAuth.getInstance().getCurrentUser().getUid();
         messages=list;
         activity=(ItemClicked) context;
     }
@@ -70,8 +73,14 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
     @Override
     public void onBindViewHolder(@NonNull ChatMessageAdapter.ViewHolder viewHolder, int i) {
         viewHolder.itemView.setTag(messages.get(i));
-        viewHolder.tvAuthor.setText(messages.get(i).getUsername());
-        viewHolder.tvAuthor.setTextColor(Color.parseColor("#DCC7FD97"));
+        if(messages.get(i).getUser_id()==current_user_id) {
+            viewHolder.tvAuthor.setText("You");
+            viewHolder.tvMessage.setTextColor(Color.parseColor("#FFEB3B"));
+        }
+        else {
+            viewHolder.tvMessage.setTextColor(Color.parseColor("#F8BBD0"));
+            viewHolder.tvAuthor.setText(messages.get(i).getUsername());
+        }
         viewHolder.tvTime.setText(messages.get(i).getTime_stamp());
         viewHolder.tvNlikes.setText("Likes: " + messages.get(i).getNlikes());
         viewHolder.tvMessage.setVisibility(View.GONE);

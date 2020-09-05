@@ -10,4 +10,6 @@
     <color name="colorLightGray">#BDBDBD</color>
     <color name="colorBluishGray">#CFD8DC</color>
     <color name="colorDarkBrown">#5D4037</color>
+    <color name="colorYellow">#FFEB3B</color>
+    <color name="colorPink">#F8BBD0</color>
 </resources>
