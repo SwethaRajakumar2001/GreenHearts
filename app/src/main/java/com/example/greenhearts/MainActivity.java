@@ -61,6 +61,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_the_second);
+
+        getSupportActionBar().setTitle("Home");
+
+
         mfirebasedatabse = FirebaseDatabase.getInstance();
 
         init();
