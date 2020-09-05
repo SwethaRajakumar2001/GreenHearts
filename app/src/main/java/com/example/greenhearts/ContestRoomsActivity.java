@@ -47,7 +47,7 @@ public class ContestRoomsActivity extends AppCompatActivity implements RoomDetai
         btn_Join=findViewById(R.id.btn_Join);
 
         a=new RoomDetailsAdapter(ContestRoomsActivity.this, details, contest_ids);
-        ref= FirebaseDatabase.getInstance().getReference().child("user").child(user_id).child("contests");
+
 
         rv=(RecyclerView)findViewById(R.id.rvContestRooms);
         rv.setHasFixedSize(true);
@@ -77,6 +77,7 @@ public class ContestRoomsActivity extends AppCompatActivity implements RoomDetai
     private void readDetails() {
 
         if(listener==null){
+            ref= FirebaseDatabase.getInstance().getReference().child("user").child(user_id).child("contests");
             details.clear();
             contest_ids.clear();
             listener=new ChildEventListener() {
