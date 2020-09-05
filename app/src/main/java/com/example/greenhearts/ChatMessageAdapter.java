@@ -73,14 +73,13 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
     @Override
     public void onBindViewHolder(@NonNull ChatMessageAdapter.ViewHolder viewHolder, int i) {
         viewHolder.itemView.setTag(messages.get(i));
-        if(messages.get(i).getUser_id()==current_user_id) {
-            viewHolder.tvAuthor.setText("You");
+        if(messages.get(i).getUser_id().equals(current_user_id)) {
             viewHolder.tvMessage.setTextColor(Color.parseColor("#FFEB3B"));
         }
         else {
             viewHolder.tvMessage.setTextColor(Color.parseColor("#F8BBD0"));
-            viewHolder.tvAuthor.setText(messages.get(i).getUsername());
         }
+        viewHolder.tvAuthor.setText(messages.get(i).getUsername());
         viewHolder.tvTime.setText(messages.get(i).getTime_stamp());
         viewHolder.tvNlikes.setText("Likes: " + messages.get(i).getNlikes());
         viewHolder.tvMessage.setVisibility(View.GONE);

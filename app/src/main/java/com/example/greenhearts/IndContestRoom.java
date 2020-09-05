@@ -69,7 +69,7 @@ public class IndContestRoom extends AppCompatActivity {
     Button btnChat, btnLeave, btnCopy;
     String contest_id, current_user;
     String creator, contest_name;
-    int no_contestants;
+    int no_contestants, c;
 
     ArrayList<LeaderCard> list;
     RecyclerView recyclerView;
@@ -115,6 +115,7 @@ public class IndContestRoom extends AppCompatActivity {
 
         list=new ArrayList<LeaderCard>();
         myAdapter=new LeaderCardAdapter(IndContestRoom.this, list);
+        myAdapter.setHasStableIds(true);
         recyclerView.setAdapter(myAdapter);
 
         tvCreatedby=findViewById(R.id.tvCreatedBy);
@@ -156,7 +157,7 @@ public class IndContestRoom extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 Toast.makeText(IndContestRoom.this, "You are outta here", Toast.LENGTH_SHORT).show();
-                                dbref.child(current_user).setValue(null);
+                                dbref.child(current_user).removeValue();
                                 user_ref.child("contests").child(contest_id).setValue(null);
                                 IndContestRoom.this.finish();
                             }
@@ -182,10 +183,14 @@ public class IndContestRoom extends AppCompatActivity {
     public void updateRank() {
 
         list.get(0).setRank(1);
+        if(list.get(0).getUser_id().equals(current_user))
+            tvRank.setText("1");
         for(int j=1; j<list.size();j++) {
             if(list.get(j).getScore()==list.get(j-1).getScore())
                 list.get(j).setRank(list.get(j-1).getRank());
             else list.get(j).setRank(list.get(j-1).getRank()+1);
+            if(list.get(j).getUser_id().equals(current_user))
+                tvRank.setText(Integer.toString(list.get(j).getRank()));
         }
 
     }
@@ -202,14 +207,14 @@ public class IndContestRoom extends AppCompatActivity {
             scoreRef.removeEventListener(scoreListen);
             scoreListen=null;
         }
-        if(rankListen!=null) {
+      /*  if(rankListen!=null) {
             rankRef.removeEventListener(rankListen);
             rankListen=null;
-        }
-
+        }*/
+        /*
         for(int j=0; j<list.size(); j++) {
             dbref.child(list.get(j).getUser_id()).child("rank").setValue(list.get(j).getRank());
-        }
+        }*/
     }
 
     @Override
@@ -230,6 +235,13 @@ public class IndContestRoom extends AppCompatActivity {
         });
     }
 
+    public boolean exists(String user_id) {
+        for(int i=0;i<list.size();i++) {
+            if (list.get(i).getUser_id().equals(user_id))
+                return true;
+        }
+        return false;
+    }
     @Override
     protected void onResume() {
         super.onResume();
@@ -240,16 +252,23 @@ public class IndContestRoom extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot snap) {
                     list.clear();
+                    c = 0;
                     no_contestants=(int)snap.getChildrenCount();
                     //Log.d("error", "on data chaanges");
                     //Toast.makeText(IndContestRoom.this, "on data change", Toast.LENGTH_SHORT).show();
                     for (DataSnapshot snapshot : snap.getChildren()) {
                         String user_id = snapshot.getKey().toString();
-                        Log.d("error", user_id);
-                        int rank=snapshot.child("rank").getValue(Integer.class);
-                        int score=snapshot.child("score").getValue(Integer.class);
 
-                        final LeaderCard card=new LeaderCard(score,rank);
+                        Log.d("size", Integer.toString(list.size()));
+                        Log.d("error", user_id);
+
+                        int score=0;
+                        /*if(snapshot.child("rank").getValue()!=null)
+                            rank=snapshot.child("rank").getValue(Integer.class);*/
+                        if(snapshot.child("score").getValue()!=null)
+                            score=snapshot.child("score").getValue(Integer.class);
+
+                        final LeaderCard card=new LeaderCard(score);
                         //card = snapshot.getValue(LeaderCard.class);
 
                         card.setUser_id(user_id);
@@ -262,8 +281,12 @@ public class IndContestRoom extends AppCompatActivity {
                                 card.setUser_name(details.getUser_name());
                                 card.setNo_plant(details.getNo_plant());
                                 card.setProfile_pic(details.getProfile_pic());
-                                list.add(card);
-                                if(list.size()==no_contestants) {
+                                if(!exists(card.getUser_id())) {
+                                    list.add(card);
+                                    c=c+1;
+                                }
+                                Log.d("c:", Integer.toString(c));
+                                if(c==no_contestants) {
                                     Log.d("SIZE", Integer.toString(list.size()));
                                     //Log.d("member", list.get(0).getUser_id());
                                     //Log.d("member", list.get(1).getUser_id());
@@ -271,7 +294,8 @@ public class IndContestRoom extends AppCompatActivity {
                                     //Log.d("member", list.get(0).getUser_name());
                                     //Log.d("member", list.get(1).getUser_name());
                                     updateRank();
-                                    myAdapter.notifyDataSetChanged();
+                                    myAdapter=new LeaderCardAdapter(IndContestRoom.this, list);
+                                    recyclerView.setAdapter(myAdapter);
                                 }
                             }
                             @Override
@@ -309,7 +333,7 @@ public class IndContestRoom extends AppCompatActivity {
             scoreRef.addValueEventListener(scoreListen);
         }
 
-        rankRef=dbref.child(current_user).child("rank");
+       /* rankRef=dbref.child(current_user).child("rank");
         if(rankListen==null) {
             rankListen = new ValueEventListener() {
                 @Override
@@ -326,7 +350,7 @@ public class IndContestRoom extends AppCompatActivity {
                 }
             };
             rankRef.addValueEventListener(rankListen);
-        }
+        }*/
     }
 }
 
