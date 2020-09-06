@@ -47,7 +47,7 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
 
     private static final int CODE_IMAGE=1;
     String finalUrl=null;
-    String contest_id;
+    String contest_id,current_user_id;
     int nlikes;
 
     ArrayList<ChatMessage> chatList;
@@ -61,6 +61,7 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
         setContentView(R.layout.activity_chat_room);
 
         contest_id=getIntent().getStringExtra("contest_id");
+        current_user_id=FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         db=FirebaseDatabase.getInstance();
         dbref=db.getReference().child("contest");
@@ -139,6 +140,8 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
                     ChatMessage chatMessage = snapshot.getValue(ChatMessage.class);
                     String push_id = snapshot.getKey();
                     chatMessage.setPush_id(push_id);
+                    if(chatMessage.getUser_id().equals(current_user_id))
+                        chatMessage.setUsername("You");
                     chatList.add(chatMessage);
                     myAdapter.notifyDataSetChanged();
                     recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());
@@ -180,6 +183,7 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode==CODE_IMAGE && resultCode==RESULT_OK) {
+            Toast.makeText(ChatRoom.this, "Loading...", Toast.LENGTH_SHORT).show();
             Uri localUri=data.getData();
             if (localUri != null) {
                 String storeUri= localUri.getLastPathSegment();
@@ -197,6 +201,7 @@ public class ChatRoom extends AppCompatActivity implements ChatMessageAdapter.It
                     @Override
                     public void onComplete(@NonNull Task<Uri> task) {
                         finalUrl= task.getResult().toString();
+                        Toast.makeText(ChatRoom.this, "Loaded Photo Click Send", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

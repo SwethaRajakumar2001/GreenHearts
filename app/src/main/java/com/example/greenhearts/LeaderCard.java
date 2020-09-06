@@ -8,9 +8,8 @@ public class LeaderCard implements Comparable<LeaderCard>{
     private int no_plant;
     private String profile_pic;
 
-    public LeaderCard(int score, int rank) {
+    public LeaderCard(int score) {
         this.score = score;
-        this.rank = rank;
         profile_pic=null;
     }
 

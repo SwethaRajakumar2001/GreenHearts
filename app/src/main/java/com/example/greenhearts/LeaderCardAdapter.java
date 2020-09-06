@@ -41,8 +41,9 @@ public class LeaderCardAdapter extends RecyclerView.Adapter<LeaderCardAdapter.Vi
     @Override
     public LeaderCardAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewgroup, int i) {
         View v= LayoutInflater.from(viewgroup.getContext()).inflate(R.layout.leader_list_layout, viewgroup, false);
-
-        return new ViewHolder(v);
+        ViewHolder viewHolder=new ViewHolder(v);
+        viewHolder.setIsRecyclable(false);
+        return viewHolder;
     }
 
     @Override
@@ -59,6 +60,7 @@ public class LeaderCardAdapter extends RecyclerView.Adapter<LeaderCardAdapter.Vi
                     .load(leaderList.get(i).getProfile_pic())
                     .into(viewHolder.ivPic);
         }
+        else viewHolder.ivPic.setImageResource(R.drawable.redleafpng);
     }
 
     @Override
