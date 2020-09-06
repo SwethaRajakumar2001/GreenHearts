@@ -50,60 +50,60 @@
                 style="@style/Widget.AppCompat.RatingBar.Indicator"></RatingBar>
         </LinearLayout>
     </LinearLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_constraintTop_toBottomOf="@id/first"
-    android:orientation="vertical"
-    android:id="@+id/third"
-    android:layout_margin="20dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/seetrees"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="10dp">
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/tree_ic"
-            ></ImageView>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/seetreetext"
-        android:text="My trees"
-        android:layout_margin="10dp"
-        android:textColor="@color/colorDark"
-        android:textSize="20sp"
-        android:textStyle="italic"></TextView>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:id="@+id/addtrees"
-        android:layout_marginLeft="10dp">
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/pickimg"
-            ></ImageView>
-        <TextView
+        app:layout_constraintTop_toBottomOf="@id/first"
+        android:orientation="vertical"
+        android:id="@+id/third"
+        android:layout_margin="20dp">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/addtreestxt"
-            android:text="Add Trees"
-            android:textColor="@color/colorDark"
-            android:layout_margin="10dp"
-            android:textSize="20sp"
-            android:textStyle="italic"></TextView>
+            android:orientation="horizontal"
+            android:id="@+id/seetrees"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp">
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/tree_ic"
+                ></ImageView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/seetreetext"
+                android:text="My trees"
+                android:layout_margin="10dp"
+                android:textColor="@color/colorDark"
+                android:textSize="20sp"
+                android:textStyle="italic"></TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:id="@+id/addtrees"
+            android:layout_marginLeft="10dp">
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/pickimg"
+                ></ImageView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/addtreestxt"
+                android:text="Add Trees"
+                android:textColor="@color/colorDark"
+                android:layout_margin="10dp"
+                android:textSize="20sp"
+                android:textStyle="italic"></TextView>
+        </LinearLayout>
+
+
     </LinearLayout>
-
-
-</LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
