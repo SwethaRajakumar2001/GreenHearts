@@ -1,6 +1,7 @@
 package com.example.greenhearts;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
@@ -38,7 +41,6 @@ public class QuestionnaireActivity extends AppCompatActivity {
         setContentView(R.layout.activity_questionnaire);
 
         final int plants=getIntent().getIntExtra("plants", 0);
-        System.out.println(plants+"     gfbhnxzgjckhv,lj...................................................");
 
         btnQSubmit=findViewById(R.id.btnQSubmit);
         rg1=findViewById(R.id.rg1);
@@ -70,6 +72,7 @@ public class QuestionnaireActivity extends AppCompatActivity {
                     if(selected3==R.id.rbYes3) score++;
 
 
+
                     ref.child("user").child(user_id).child("contests").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -84,13 +87,27 @@ public class QuestionnaireActivity extends AppCompatActivity {
                         }
                     });
 
+                    ref.child("contest").runTransaction(new Transaction.Handler() {
+                        @NonNull
+                        @Override
+                        public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                            for(int i=0;i<contest_ids.size();i++){
+                                prev= Integer.parseInt(currentData.child(contest_ids.get(i)).child("participants").child(user_id).child("score").getValue().toString());
+                               currentData.child(contest_ids.get(i)).child("participants").child(user_id).child("score").setValue(prev+score*plants);
+                            }
+                            return Transaction.success(currentData);
+                        }
+
+                        @Override
+                        public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
+
+                        }
+                    });
+
                     ref.child("contest").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for(int i=0;i<contest_ids.size();i++){
-                                prev= Integer.parseInt(snapshot.child(contest_ids.get(i)).child("participants").child(user_id).child("score").getValue().toString());
-                                ref.child("contest").child(contest_ids.get(i)).child("participants").child(user_id).child("score").setValue(prev+score*plants);
-                            }
+
                         }
 
                         @Override
