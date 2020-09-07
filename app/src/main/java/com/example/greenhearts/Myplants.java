@@ -1,10 +1,10 @@
 package com.example.greenhearts;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Myplants extends AppCompatActivity {
@@ -26,11 +27,10 @@ public class Myplants extends AppCompatActivity {
     private PlantAdapter madapter;
     private String current_User_Id;
     private ChildEventListener mChildEventListener;
-    private ProgressBar mProgressBar;
     private ListView gallery;
     ArrayList<Plants> plantlist;
     ArrayList<String> listkey;
-    private int selectedpos=0;
+    public int selectedpos=0;
     private Boolean itemSelected = false;
     Plants p;
 
@@ -39,7 +39,6 @@ public class Myplants extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myplants);
         gallery = (ListView)findViewById(R.id.gallery);
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         plantshow = FirebaseDatabase.getInstance().getReference().child("plant");
         current_User_Id = mAuth.getUid();
         dbrf = FirebaseDatabase.getInstance().getReference().child("user").child(current_User_Id);
@@ -51,14 +50,14 @@ public class Myplants extends AppCompatActivity {
         gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                selectedpos = i;
-                itemSelected = true;
+                final  int item = i;
+                selectedpos = item;
+               // Toast.makeText(Myplants.this,selectedpos, Toast.LENGTH_LONG).show();
+               // itemSelected = true;
             }
         });
 
         current_User_Id = mAuth.getCurrentUser().getUid();
-        mProgressBar.setVisibility(ProgressBar.INVISIBLE);
         if(mChildEventListener==null) {
             mChildEventListener = new ChildEventListener() {
                 @Override
@@ -119,23 +118,84 @@ public class Myplants extends AppCompatActivity {
     }
     public void Removetree(View view)
     {
-        gallery.setItemChecked(selectedpos,false);
-       // plantlist.remove(selectedpos);
-        //madapter.notifyDataSetChanged();
-       plantshow.child(listkey.get(selectedpos)).removeValue();
-       dbrf.child("plant").child(listkey.get(selectedpos)).removeValue();
-       dbrf.addListenerForSingleValueEvent(new ValueEventListener() {
-           @Override
-           public void onDataChange(@NonNull DataSnapshot snapshot) {
-               Integer n = snapshot.child("no_plant").getValue(Integer.class);
-               n = n-1;
-               dbrf.child("no_plant").setValue(n);
-           }
 
-           @Override
-           public void onCancelled(@NonNull DatabaseError error) {
+//        gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                final int selectp = i;
+//                new AlertDialog.Builder(Myplants.this)
+//                        .setIcon(android.R.drawable.ic_delete)
+//                        .setTitle("Are you sure? ")
+//                        .setMessage("Do you want to delete?")
+//                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                plantlist.remove(selectp);
+//                                listkey.remove(selectp);
+//                                plantshow.child(listkey.get(selectp)).removeValue();
+//                                dbrf.child("plant").child(listkey.get(selectp)).removeValue();
+//                                dbrf.addListenerForSingleValueEvent(new ValueEventListener() {
+//                                    @Override
+//                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                        Integer n = snapshot.child("no_plant").getValue(Integer.class);
+//                                        n = n-1;
+//                                        dbrf.child("no_plant").setValue(n);
+//                                    }
+//
+//                                    @Override
+//                                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                                    }
+//                                });
+//                                madapter.notifyDataSetChanged();
+//                            }
+//                        })
+//                        .setNegativeButton("No",null)
+//                        .show();
+//
+//            }
+//        });
+       // gallery.setItemChecked(selectedpos,true);
+                new AlertDialog.Builder(Myplants.this)
+                        .setIcon(android.R.drawable.ic_delete)
+                        .setTitle("Are you sure? ")
+                        .setMessage("Do you want to delete?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                plantshow.child(listkey.get(selectedpos)).removeValue();
+                                dbrf.child("plant").child(listkey.get(selectedpos)).removeValue();
+                                dbrf.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        Integer n = snapshot.child("no_plant").getValue(Integer.class);
+                                        n = n-1;
+                                        dbrf.child("no_plant").setValue(n);
+                                    }
 
-           }
-       });
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton("No",null)
+                        .show();
+//       plantshow.child(listkey.get(selectedpos)).removeValue();
+//       dbrf.child("plant").child(listkey.get(selectedpos)).removeValue();
+//       dbrf.addListenerForSingleValueEvent(new ValueEventListener() {
+//           @Override
+//           public void onDataChange(@NonNull DataSnapshot snapshot) {
+//               Integer n = snapshot.child("no_plant").getValue(Integer.class);
+//               n = n-1;
+//               dbrf.child("no_plant").setValue(n);
+//           }
+//
+//           @Override
+//           public void onCancelled(@NonNull DatabaseError error) {
+//
+//           }
+//       });
     }
 }

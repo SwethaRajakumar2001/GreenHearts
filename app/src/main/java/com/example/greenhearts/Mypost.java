@@ -104,8 +104,9 @@ String currenet_user;
     }
     @Override
     public void PostClicked(int i) {
+        int k = feedid.size();
         Intent intent= new Intent(this, com.example.greenhearts.CommentActivity.class );
-        intent.putExtra("PostID", feedid.get(i));
+        intent.putExtra("PostID", feedid.get(k-i-1));
         startActivityForResult(intent, backtofeed);
     }
 }

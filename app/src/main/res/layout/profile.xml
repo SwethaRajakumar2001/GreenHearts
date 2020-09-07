@@ -73,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/seetreetext"
-                android:text="My trees"
+                android:text="My Trees"
                 android:layout_margin="10dp"
                 android:textColor="@color/colorDark"
                 android:textSize="20sp"

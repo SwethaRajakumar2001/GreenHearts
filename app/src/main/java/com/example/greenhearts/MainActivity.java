@@ -189,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    HashMap<String,Object> map=new HashMap<>();
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -199,8 +200,28 @@ public class MainActivity extends AppCompatActivity {
                 String current_user = mAuth.getCurrentUser().getUid();
                 FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                 userup = FirebaseDatabase.getInstance().getReference();
-                HashMap<String,Object> map=new HashMap<>();
+
                 map.put("user_name",firebaseUser.getDisplayName());
+//                userup.child("user").child(current_user).addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        if(snapshot.hasChild("no_plant"))
+//                        {
+//                            Integer n = snapshot.child("no_plant").getValue(Integer.class);
+//                            map.put("no_plant",n);
+//                        }else
+//                        {
+//                            map.put("no_plant",0);
+//                        }
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
+
                 //map.put("no_plant",count);
                 userup.child("user").child(current_user).updateChildren(map);
                 Toast.makeText(this, "Signed In!!", Toast.LENGTH_SHORT).show();
