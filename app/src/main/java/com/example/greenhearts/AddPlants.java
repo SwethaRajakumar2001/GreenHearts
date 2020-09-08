@@ -141,7 +141,8 @@ public class AddPlants extends AppCompatActivity {
                     }
                 else
                 {
-
+                    if(count==-1)
+                        count = 0;
                     count++;
                     HashMap<String, Object> map= new HashMap<>();
                     Toast.makeText(AddPlants.this,ename.getText().toString(),Toast.LENGTH_LONG).show();

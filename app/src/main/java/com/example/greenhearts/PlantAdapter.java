@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class PlantAdapter extends ArrayAdapter<Plants> {
+    int selectpos=0;
 
     public PlantAdapter(@NonNull Context context, int resource, List<Plants> objects) {
         super(context, resource,objects);
@@ -30,10 +31,11 @@ public class PlantAdapter extends ArrayAdapter<Plants> {
         ImageView photoImageView = (ImageView) convertView.findViewById(R.id.treeimg);
         TextView nameTextView = (TextView) convertView.findViewById(R.id.treenam);
         TextView dateTextView = (TextView) convertView.findViewById(R.id.treedate);
-        //Button bu = (Button)convertView.findViewById(R.id.removetree);
+//        Button bu = (Button)convertView.findViewById(R.id.removetree);
         Plants plant = getItem(position);
         boolean isphoto = plant.getPhotoUrl()!=null;
         boolean name = plant.getName()!=null;
+        selectpos = position;
         if(isphoto && name)
         {
 
@@ -43,6 +45,7 @@ public class PlantAdapter extends ArrayAdapter<Plants> {
             nameTextView.setText(plant.getName());
             dateTextView.setText(plant.getText());
         }
+
         return convertView;
     }
 }

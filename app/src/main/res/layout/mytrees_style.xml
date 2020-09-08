@@ -18,13 +18,13 @@
     <ImageView
         android:id="@+id/treeimg"
         android:layout_width="0dp"
-        android:layout_height="150dp"
+        android:layout_height="130dp"
         android:src="@drawable/tree"
         android:layout_weight="2"
         android:layout_margin="10dp"/>
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="150dp"
+        android:layout_height="130dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:layout_weight="2"
@@ -33,30 +33,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="5dp"
         android:text="TreeName"
-        android:textSize="18sp"
+        android:textSize="25sp"
+        android:layout_marginBottom="10dp"
         android:id="@+id/treenam"
+        android:textColor="@color/colorDark"
         android:textStyle="bold"
         />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
+            android:textColor="@color/colorDark"
             android:text="Points"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:id="@+id/treedate"
             android:textStyle="bold"
             />
-        <Button
-            android:onClick="Removetree"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:focusable="false"
-            android:text="Remove Tree"
-            android:shadowColor="@color/colorDark"
-            android:background="@android:color/holo_green_light"></Button>
+
+            android:src="@drawable/leaf"
+            ></ImageView>
     </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

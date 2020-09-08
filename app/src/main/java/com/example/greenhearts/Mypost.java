@@ -42,6 +42,7 @@ String currenet_user;
         myfeed.setHasFixedSize(true);
        myfeed.setLayoutManager(new LinearLayoutManager(Mypost.this));
         myfeed.setAdapter(madapter);
+      
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

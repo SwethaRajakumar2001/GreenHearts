@@ -47,15 +47,6 @@ public class Myplants extends AppCompatActivity {
         madapter = new PlantAdapter(Myplants.this,R.layout.mytrees_style,plantlist);
         gallery.setAdapter(madapter);
        // Toast.makeText(Myplants.this,gallery.getAdapter().getCount(),Toast.LENGTH_LONG).show();
-        gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                final  int item = i;
-                selectedpos = item;
-               // Toast.makeText(Myplants.this,selectedpos, Toast.LENGTH_LONG).show();
-               // itemSelected = true;
-            }
-        });
 
         current_User_Id = mAuth.getCurrentUser().getUid();
         if(mChildEventListener==null) {
@@ -103,7 +94,39 @@ public class Myplants extends AppCompatActivity {
             };
             plantshow.addChildEventListener(mChildEventListener);
         }
+        gallery.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final int which_item =i;
+                new AlertDialog.Builder(Myplants.this)
+                        .setIcon(android.R.drawable.ic_delete)
+                        .setTitle("Are you sure? ")
+                        .setMessage("Do you want to delete?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                plantshow.child(listkey.get(which_item)).removeValue();
+                                dbrf.child("plant").child(listkey.get(which_item)).removeValue();
+                                dbrf.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        Integer n = snapshot.child("no_plant").getValue(Integer.class);
+                                        n = n-1;
+                                        dbrf.child("no_plant").setValue(n);
+                                    }
 
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton("No",null)
+                        .show();
+                return true;
+            }
+        });
     }
 
     @Override
@@ -118,44 +141,8 @@ public class Myplants extends AppCompatActivity {
     }
     public void Removetree(View view)
     {
-
-//        gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                final int selectp = i;
-//                new AlertDialog.Builder(Myplants.this)
-//                        .setIcon(android.R.drawable.ic_delete)
-//                        .setTitle("Are you sure? ")
-//                        .setMessage("Do you want to delete?")
-//                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                plantlist.remove(selectp);
-//                                listkey.remove(selectp);
-//                                plantshow.child(listkey.get(selectp)).removeValue();
-//                                dbrf.child("plant").child(listkey.get(selectp)).removeValue();
-//                                dbrf.addListenerForSingleValueEvent(new ValueEventListener() {
-//                                    @Override
-//                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                        Integer n = snapshot.child("no_plant").getValue(Integer.class);
-//                                        n = n-1;
-//                                        dbrf.child("no_plant").setValue(n);
-//                                    }
-//
-//                                    @Override
-//                                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                                    }
-//                                });
-//                                madapter.notifyDataSetChanged();
-//                            }
-//                        })
-//                        .setNegativeButton("No",null)
-//                        .show();
-//
-//            }
-//        });
-       // gallery.setItemChecked(selectedpos,true);
+        selectedpos = madapter.selectpos;
+        gallery.setItemChecked(selectedpos,true);
                 new AlertDialog.Builder(Myplants.this)
                         .setIcon(android.R.drawable.ic_delete)
                         .setTitle("Are you sure? ")
@@ -182,20 +169,5 @@ public class Myplants extends AppCompatActivity {
                         })
                         .setNegativeButton("No",null)
                         .show();
-//       plantshow.child(listkey.get(selectedpos)).removeValue();
-//       dbrf.child("plant").child(listkey.get(selectedpos)).removeValue();
-//       dbrf.addListenerForSingleValueEvent(new ValueEventListener() {
-//           @Override
-//           public void onDataChange(@NonNull DataSnapshot snapshot) {
-//               Integer n = snapshot.child("no_plant").getValue(Integer.class);
-//               n = n-1;
-//               dbrf.child("no_plant").setValue(n);
-//           }
-//
-//           @Override
-//           public void onCancelled(@NonNull DatabaseError error) {
-//
-//           }
-//       });
     }
 }
