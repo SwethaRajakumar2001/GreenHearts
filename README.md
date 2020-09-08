@@ -14,7 +14,10 @@ First clone this repo to the system. The easiest way to run this app is through 
 - Click ok
 After gradle build can run app on any mobile device with required sdk version.
 ## Features
-- 
+- Allow User to post image and text in ```General Feed```.
+- User can Comment and like posts.
+- User can create contest room and invite friends.
+- Seperate ``Chat Room`` for each contest.
 ## Contributing
 Fork this repo then clone it into your system.
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
