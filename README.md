@@ -15,14 +15,14 @@ First clone this repo to the system. The easiest way to run this app is through 
 After gradle build can run app on any mobile device with required sdk version.
 ## Features
 - User Authentication using Firebase.
-- ```General Feed``` for users to post image and text.
-- User can Comment and like posts.
-- User can create or join contest room and invite friends.
+- ```General Feed``` for users to post images or text.
+- Comment or like posts in general feed.
+- Create or join contest rooms along with friends.
 - Seperate ``Chat Room`` for each contest.
 - Own ```Plant Gallery``` for each user, where they can add or remove plants.
 - Daily ```Questionnaire``` for participants.
 - Score, based on the number of plants and daily Questionnaire.
-- ```LeaderBoard``` for each contest displaying score of each user.
+- ```LeaderBoard``` for each contest, displaying score of each user.
 - ``My Post`` to keep track of own posts.
 - ```Set reminder``` for different gardening activities.
 
