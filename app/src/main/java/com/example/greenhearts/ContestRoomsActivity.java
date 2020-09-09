@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,9 +27,9 @@ public class ContestRoomsActivity extends AppCompatActivity implements RoomDetai
     Button btn_Create,btn_Join;
     RecyclerView rv;
     RoomDetailsAdapter a;
+    ProgressBar pbContests;
     ArrayList<RoomDetails> details;
     ArrayList<String> contest_ids;
-    final int reload=1;
     ChildEventListener listener;
 
     DatabaseReference ref;
@@ -42,7 +43,7 @@ public class ContestRoomsActivity extends AppCompatActivity implements RoomDetai
         details=new ArrayList<RoomDetails>();
         contest_ids=new ArrayList<String>();
         user_id= FirebaseAuth.getInstance().getCurrentUser().getUid();
-
+        pbContests=findViewById(R.id.pbContests);
         btn_Create=findViewById(R.id.btn_Create);
         btn_Join=findViewById(R.id.btn_Join);
 
@@ -54,7 +55,9 @@ public class ContestRoomsActivity extends AppCompatActivity implements RoomDetai
         rv.setLayoutManager(new LinearLayoutManager(ContestRoomsActivity.this));
         rv.setAdapter(a);
 
+        pbContests.setVisibility(View.VISIBLE);
         readDetails();
+        pbContests.setVisibility(View.GONE);
 
         btn_Create.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,7 +130,9 @@ public class ContestRoomsActivity extends AppCompatActivity implements RoomDetai
     @Override
     protected void onResume() {
         super.onResume();
+        pbContests.setVisibility(View.VISIBLE);
         readDetails();
+        pbContests.setVisibility(View.GONE);
     }
 
     @Override

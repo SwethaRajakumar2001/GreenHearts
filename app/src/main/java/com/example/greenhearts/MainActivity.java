@@ -80,8 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 mfirebasedatabse.getReference().child("user").child(mFirebaseAuth.getCurrentUser().getUid().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        int plants=Integer.parseInt(snapshot.child("no_plant").getValue().toString());
-                        if(!(snapshot.hasChild("no_plant")) || plants==0){
+                        if(!(snapshot.hasChild("no_plant")) || Integer.parseInt(snapshot.child("no_plant").getValue().toString())==0){
                             Toast.makeText(MainActivity.this, "Add a Plant first!", Toast.LENGTH_SHORT).show();
                         }
                         else if(!snapshot.hasChild("contests")){
@@ -93,13 +92,13 @@ public class MainActivity extends AppCompatActivity {
                             }
                             else{
                                 Intent i= new Intent(MainActivity.this, com.example.greenhearts.QuestionnaireActivity.class);
-                                i.putExtra("plants", plants);
+                                i.putExtra("plants", Integer.parseInt(snapshot.child("no_plant").getValue().toString()));
                                 startActivity(i);
                             }
                         }
                         else{
                             Intent i= new Intent(MainActivity.this, com.example.greenhearts.QuestionnaireActivity.class);
-                            i.putExtra("plants", plants);
+                            i.putExtra("plants", Integer.parseInt(snapshot.child("no_plant").getValue().toString()));
                             startActivity(i);
                         }
                     }

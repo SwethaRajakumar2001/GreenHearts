@@ -57,6 +57,12 @@ tools:context=".ContestRoomsActivity"
 
         </LinearLayout>
 
+        <ProgressBar
+            android:id="@+id/pbContests"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvContestRooms"
             android:layout_width="match_parent"
