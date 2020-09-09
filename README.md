@@ -13,8 +13,11 @@ First clone this repo to the system. The easiest way to run this app is through 
 - Import Project
 - Click on build gradle in project directory.
 - Click ok
+
 After gradle build can run app on any mobile device with required sdk version.
+
 **Alternative**
+
 Download app-debug.apk in your android device.
 - Allow Installation from Unknown Sources in your device.
 - Click OK
