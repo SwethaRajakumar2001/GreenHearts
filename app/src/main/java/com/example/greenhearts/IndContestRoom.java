@@ -156,7 +156,7 @@ public class IndContestRoom extends AppCompatActivity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(IndContestRoom.this, "You are outta here", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(IndContestRoom.this, "Press back to refresh!", Toast.LENGTH_SHORT).show();
                                 dbref.child(current_user).removeValue();
                                 user_ref.child("contests").child(contest_id).setValue(null);
                                 IndContestRoom.this.finish();
@@ -233,6 +233,7 @@ public class IndContestRoom extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+        //Application.leftcontest=true;
     }
 
     public boolean exists(String user_id) {

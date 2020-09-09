@@ -2,6 +2,7 @@ package com.example.greenhearts;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -24,10 +25,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ContestRoomsActivity extends AppCompatActivity implements RoomDetailsAdapter.OnRoomClicked {
 
+
     Button btn_Create,btn_Join;
     RecyclerView rv;
     RoomDetailsAdapter a;
-    ProgressBar pbContests;
+    //ProgressBar pbContests;
     ArrayList<RoomDetails> details;
     ArrayList<String> contest_ids;
     ChildEventListener listener;
@@ -43,7 +45,7 @@ public class ContestRoomsActivity extends AppCompatActivity implements RoomDetai
         details=new ArrayList<RoomDetails>();
         contest_ids=new ArrayList<String>();
         user_id= FirebaseAuth.getInstance().getCurrentUser().getUid();
-        pbContests=findViewById(R.id.pbContests);
+        //pbContests=findViewById(R.id.pbContests);
         btn_Create=findViewById(R.id.btn_Create);
         btn_Join=findViewById(R.id.btn_Join);
 
@@ -55,9 +57,9 @@ public class ContestRoomsActivity extends AppCompatActivity implements RoomDetai
         rv.setLayoutManager(new LinearLayoutManager(ContestRoomsActivity.this));
         rv.setAdapter(a);
 
-        pbContests.setVisibility(View.VISIBLE);
+        //pbContests.setVisibility(View.VISIBLE);
         readDetails();
-        pbContests.setVisibility(View.GONE);
+        //pbContests.setVisibility(View.GONE);
 
         btn_Create.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +93,7 @@ public class ContestRoomsActivity extends AppCompatActivity implements RoomDetai
                     details.add(a.getItemCount(), room);
                     contest_ids.add(snapshot.getKey().toString());
                     a.notifyDataSetChanged();
+
                 }
 
                 @Override
@@ -130,9 +133,7 @@ public class ContestRoomsActivity extends AppCompatActivity implements RoomDetai
     @Override
     protected void onResume() {
         super.onResume();
-        pbContests.setVisibility(View.VISIBLE);
         readDetails();
-        pbContests.setVisibility(View.GONE);
     }
 
     @Override
