@@ -21,6 +21,7 @@ After gradle build can run app on any mobile device with required sdk version.
 Download app-debug.apk in your android device.
 - Allow Installation from Unknown Sources in your device.
 - Click OK
+
 The app will be installed in the device.
 ## Features
 - User Authentication through email or Google.
